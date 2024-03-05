@@ -4,19 +4,18 @@
 
 ### 首页
 
-![首页](https://github.com/maoxiaoke/maoxiaoke.github.io/blob/master/styles/images/blog/blog.png?raw=true)
+![首页](https://github.com/lowols/lowols.github.io)
 
 + 首页: 博客首页
 + 博文分类: 按照categories对文章进行分类
 + 标签分类: 按照tags对文章进行分类
 + 外域链接: 存放一些想要其他网站的链接
 + DEMO: 存放个人项目
-+ 打赏我: 提供donation
 + 关于我: 个人CV
 
 ### 文章页
 
-![文章页](https://github.com/maoxiaoke/maoxiaoke.github.io/blob/master/styles/images/blog/page.png?raw=true)
+![文章页](https://github.com/lowols/lowols.github.io/blob/master/styles/images/blog/page.png?raw=true)
 
 ---
 
@@ -24,7 +23,7 @@
 
 ### 提供全文搜索
 
-博客使用[`Simple-Jekyll-Search`](https://github.com/christian-fei/Simple-Jekyll-Search)提供全文搜索功能。
+博客使用[`Simple-Jekyll-Search`](https://github.com/lowols/lowols.github.io/Simple-Jekyll-Search)提供全文搜索功能。
 
 相关介绍和操作可参考: [加入搜索功能](http://xiaokedada.com/2017/05/09/Jekyll-second/#加入搜索功能)
 
@@ -167,34 +166,5 @@ Copyright © 2017 M/J. All rights reserved.
 - [+] 添加社会化评论多说
 - [+] 大量优化
 - [+] 添加favicon.ico
-
----
-
-## 打赏
-
-<p align="center">所以，如果你喜欢这个博客，有些许收获。就请支持我。</p>
-
-### 赞助方式1： 支付宝付款
-
-您可以选择手机支付宝扫一扫
-
-<img src="https://github.com/maoxiaoke/maoxiaoke.github.io/blob/master/styles/images/zhifubao.jpg?raw=true" alt="支付宝二维码付款给小可嗒嗒" />
-
-### 赞助方式2： 微信扫一扫
-
-您可以选择手机微信扫一扫
-
-![微信二维码付款给小可嗒嗒](https://github.com/maoxiaoke/maoxiaoke.github.io/blob/master/styles/images/wechat.jpg?raw=true)
-
-### 赞助名单
-
-+ 2017-02-21 09:52:10 收到微信用户xxx的`￥1.00`
-+ 2017-02-21 15:59:00 收到支付宝用户241***@qq.com的`￥6.66`
-+ 2017-02-21 19:53:37 收到微信用户xxx的`￥6.66`
-+ 2017-02-21 22:33:33 收到微信用户xxx`￥6.66`
-+ 2017-02-22 08:36:00 收到支付宝用户116***@qq.com的`￥1.66`
-+ 2017-07-24 22:05:00 收到支付宝用户118***10的`￥6.66`
-
-手动笔芯
 
 ---

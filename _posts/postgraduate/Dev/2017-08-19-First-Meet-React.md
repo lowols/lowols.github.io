@@ -500,7 +500,7 @@ reder() {
 ![todo-list]({{ '/styles/images/react/todolist.png' | prepend: site.baseurl }})
 
 材料：
-+ 脚手架工具 访问[React+Webpack+ES6+JSX 脚手架工具]({{ '/2017/08/20/React-Second' | prepend: site.baseurl }}) 或者 [`github` 主页](https://github.com/maoxiaoke/react-webpack-es6-jsx)
++ 脚手架工具 访问[React+Webpack+ES6+JSX 脚手架工具]({{ '/2017/08/20/React-Second' | prepend: site.baseurl }}) 或者 [`github` 主页](https://github.com/lowols/react-webpack-es6-jsx)
 + Sass
 + Bootstap
 
@@ -815,4 +815,4 @@ export default class TodoForm extends React.Component {
 
 在这里:
 
-[todoList](https://github.com/maoxiaoke/React-es6-demo/tree/master/todoList)
+[todoList](https://github.com/lowols/React-es6-demo/tree/master/todoList)

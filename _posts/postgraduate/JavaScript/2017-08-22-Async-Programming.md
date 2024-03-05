@@ -438,12 +438,12 @@ foo() // "done!"
 先写一个 Promise 的例子，使用 Github 的 API。
 
 ```js
-fetch('https://api.github.com/users/maoxiaoke') //获取用户 maoxiaoke 的 github 信息
+fetch('https://api.github.com/users/lowols') //获取用户 lowols 的 github 信息
 .then(response => response.json())
 .then(githubUser => {
     let img = document.createElement('img')
     img.src = githubUser.avatar_url
-    img.className = 'maoxiaoke'
+    img.className = 'lowols'
     document.body.appendChild(img)
     setTimeout(() => document.body.removeChild(img), 3000)
 })
@@ -453,7 +453,7 @@ fetch('https://api.github.com/users/maoxiaoke') //获取用户 maoxiaoke 的 git
 
 ```js
 async function showAvatar() {
-    let response = await fetch('https://api.github.com/users/maoxiaoke') 
+    let response = await fetch('https://api.github.com/users/lowols') 
     let githubUser = await response.json()
 
     let img = document.createElement('img');
@@ -473,7 +473,7 @@ showAvatar()
 ```js
 async function showAvatar() {
     try {
-        let response = await fetch('...') //获取用户 maoxiaoke 的 github 信息
+        let response = await fetch('...') //获取用户 lowols 的 github 信息
         let githubUser = await response.json()
 
         let img = document.createElement('img');
@@ -495,7 +495,7 @@ showAvatar()
 
 ```js
 async function showAvatar() {
-    let response = await fetch('...') //获取用户 maoxiaoke 的 github 信息
+    let response = await fetch('...') //获取用户 lowols 的 github 信息
     let githubUser = await response.json()
 
     let img = document.createElement('img');

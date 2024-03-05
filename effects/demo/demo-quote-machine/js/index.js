@@ -1,5 +1,5 @@
 /**
- * Created by maoxiaoke on 2017/3/20.
+ * Created by lowols on 2017/3/20.
  */
 ///wrap all the code in a IIFE to prevent the global scope pollution;
 ;(function(){
@@ -78,7 +78,7 @@
             var tweet = {
                 url: "https://twitter.com/intent/tweet?",
                 via: "via=xiaokedada&",
-                hashtags: "hashtags=quotemachine,timi,maoxiaoke&",
+                hashtags: "hashtags=quotemachine,timi,lowols&",
                 related: "related=@CreativeMarket&",
                 text: "text=" + $('.quote-body').html().replace(/<br>|\s/g, '+')
             };

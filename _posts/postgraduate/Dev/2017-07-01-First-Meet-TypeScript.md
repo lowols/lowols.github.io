@@ -183,7 +183,7 @@ TypeScript使用`type`关键字声明类型别名。
 
 ```ts
 type name = string;
-let a: name = 'maoxiaoke';
+let a: name = 'lowols';
 ```
 
 ### 函数
