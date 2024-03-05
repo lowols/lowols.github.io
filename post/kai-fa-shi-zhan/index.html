@@ -1,0 +1,224 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>开发实战 | Gridea</title>
+<link rel="shortcut icon" href="https://https://lowols.github.io/favicon.ico?v=1709628873434">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://https://lowols.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="开发实战 | Gridea - Atom Feed" href="https://https://lowols.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="微服务
+服务治理
+
+
+服务间调用报错，调用方应该定义自己的错误信息抛出去，这样可以让当前接口返回的错误种类可控（如果需要，可以将被调方返回的错误信息附加在自己定义的错误后面）
+ // 调用失败，返回自己定义的错误
+ BWJsonResult..." />
+    <meta name="keywords" content="编程" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://https://lowols.github.io">
+  <img class="avatar" src="https://https://lowols.github.io/images/avatar.png?v=1709628873434" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              开发实战
+            </h2>
+            <div class="post-info">
+              <span>
+                2024-03-05
+              </span>
+              <span>
+                2 min read
+              </span>
+              
+                <a href="https://https://lowols.github.io/tag/dArPJNAFT/" class="post-tag">
+                  # 编程
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content" v-pre>
+                <h2 id="微服务">微服务</h2>
+<h3 id="服务治理">服务治理</h3>
+<ol>
+<li>
+<p>服务间调用报错，调用方应该定义自己的错误信息抛出去，这样可以让当前接口返回的错误种类可控（如果需要，可以将被调方返回的错误信息附加在自己定义的错误后面）</p>
+<pre><code class="language-java"> // 调用失败，返回自己定义的错误
+ BWJsonResult&lt;BussiDto&gt; jsonResult = serviceFeign.queryList(queryStr);
+        if (!jsonResult.isSuccess() || CollectionUtils.isEmpty(jsonResult.getData())) {
+            throw new BusinessException(OutputApiErrorEnum.QUERY_LIST_ERROR);
+        }
+
+ // 调用失败，返回自定义错误时，附带上被调用方的错误
+  BWJsonResult&lt;BussiDto&gt; jsonResult = serviceFeign.queryList(queryStr);
+  if (!bwJsonResult.isSuccess() || CollectionUtils.isEmpty(bwJsonResult.getData())) {
+            String detailMsg = com.baiwang.cloud.common.util.StringUtil.isEmpty(jsonResult .getErrorMsg()) ? &quot;&quot; : bwJsonResult.getErrorMsg();
+            String errMsg = OutputApiErrorEnum.QUERY_RED_CONFRIM_INIT_ERROR.getMessage() + &quot;详细原因：&quot; + detailMsg;
+            throw new BusinessException(OutputApiErrorEnum.QUERY_RED_CONFRIM_INIT_ERROR.getCodeAsString(), errMsg);
+        }
+</code></pre>
+<p>试想，如果调用的所有其他服务接口的错误信息，拿到后直接返回，错误种类数量就会爆炸，错误定位也会更困难。</p>
+</li>
+</ol>
+<figure data-type="image" tabindex="1"><img src="%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98/abc.jpg" alt="" loading="lazy"></figure>
+<h3 id="日志记录">日志记录</h3>
+<ol>
+<li>
+<p>微服务调用，第三方调用，入反参，必须写，以免如果有网络波动，双方扯皮</p>
+</li>
+<li>
+<p>记录有助于排查问题的日志</p>
+</li>
+<li>
+<p>不要记录大字段，如图片，二维码，text等字段，浪费磁盘，对排查问题无帮助，还会增加排查难度。</p>
+</li>
+</ol>
+<h3 id="发版回滚技巧">发版回滚技巧</h3>
+<p>如果有重要功能更新，影响比较大。可以通过配置，控制切换新旧逻辑。如果新功能有问题，可以通过修改配置，快速回滚功能。省去重新打包过程。</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1">微服务</a>
+<ul>
+<li><a href="#%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86">服务治理</a></li>
+<li><a href="#%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95">日志记录</a></li>
+<li><a href="#%E5%8F%91%E7%89%88%E5%9B%9E%E6%BB%9A%E6%8A%80%E5%B7%A7">发版回滚技巧</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://https://lowols.github.io/post/hello-gridea/">
+              <h3 class="post-title">
+                Hello Gridea
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://https://lowols.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
