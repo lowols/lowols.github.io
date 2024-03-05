@@ -57,7 +57,7 @@ var myBot = new BotUI('hello-world');
           return myBot.message.add ({
           delay: 1000,
           loading: true,
-          content: `Go ahead, try [my website](http://xiaokedada.com) or <a href="mailto:lowols@outlook.com">Email me.</a> </br>
+          content: `Go ahead, try [my website](http://baidu.com) or <a href="mailto:lowols@163.com">Email me.</a> </br>
                     Here is my [Github address](https://github.com/lowols).`
         });
         break;/*
@@ -116,7 +116,7 @@ var myBot = new BotUI('hello-world');
                return myBot.message.add ({
                delay: 1000,
                loading: true,
-               content: `Go ahead, try [my website](http://xiaokedada.com) or <a href="mailto:lowols@outlook.com">Email me.</a> </br>
+               content: `Go ahead, try [my website](http://baidu.com) or <a href="mailto:lowols@163.com">Email me.</a> </br>
                          Here is my [Github address](https://github.com/lowols).`
              });
              break;/*

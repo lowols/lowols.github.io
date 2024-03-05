@@ -68,18 +68,18 @@ function f() { console.log (b); } //Reference error
 在使用 var 的时代中，我们可以写出下面的代码：
 
 ```js
-var xiaoke = 2;
-var xiaoke = 3;
-console.log(xiaoke);// 3
+var walon = 2;
+var walon = 3;
+console.log(walon);// 3
 ```
 
 在严格模式下，这段代码是不报错的。但是 let/const 不允许这种行为发生。也就是下面的代码都会报错。
 
 ```js
 'use strict';
-let xiaoke = 1;
-var xiaoke = 2;
-console.log(xiaoke); //SyntaxError
+let walon = 1;
+var walon = 2;
+console.log(walon); //SyntaxError
 
 let love = 1;
 let love = 2;
@@ -111,11 +111,11 @@ const person = {
     name: 'yuer'
 };
 
-person.name = 'xiaoke'; // 对
+person.name = 'walon'; // 对
 
 /*
 person = {
-    name: ‘xiaoke' // SyntaxError
+    name: ‘walon' // SyntaxError
 }*/
 ```
 
@@ -241,14 +241,14 @@ ES6 对这一操作进行了改进。
 #### 默认参数值
 
 ```js
-function foo(url, timeout = 2000, method = function () {return 'xiaoke'}){
+function foo(url, timeout = 2000, method = function () {return 'walon'}){
     console.log(url, timeout,method());
 }
-foo();                                      //(1) undefined 2000 'xiaoke'
-foo('http://xiaokedada.com');               //(2) http://xiaokedada.com 2000 xiaoke
-foo('http://xiaokedada.com', 400);          //(3) http://xiaokedada.com 400 xiaoke
-foo('http://xiaokedada.com', undefined,function bar(){return 'yuer'});  //(4) http://xiaokedada.com 2000 yuer
-foo('http://xiaokedada.com', null,function bar(){return 'yuer'});       //(5) http://xiaokedada.com null yuer
+foo();                                      //(1) undefined 2000 'walon'
+foo('http://baidu.com');               //(2) http://baidu.com 2000 walon
+foo('http://baidu.com', 400);          //(3) http://baidu.com 400 walon
+foo('http://baidu.com', undefined,function bar(){return 'yuer'});  //(4) http://baidu.com 2000 yuer
+foo('http://baidu.com', null,function bar(){return 'yuer'});       //(5) http://baidu.com null yuer
 ```
 
 总结一下：
@@ -387,7 +387,7 @@ name 属性主要是由于匿名表达式地大量使用，调试难度增加，
 ```js
 function foo(){}
 var bar = function(){};
-var yuer = function xiaoke(){};
+var yuer = function walon(){};
 
 var person = {
     get firstName(){
@@ -398,7 +398,7 @@ var person = {
 
 console.log(foo.name);  // "foo"
 console.log(bar.name);  // "bar"
-console.log(yuer.name); // "xiaoke"
+console.log(yuer.name); // "walon"
 console.log(person.sayName.name);   // "sayName"
 console.log(bar.bind().name);   // "bound bar"
 console.log((new Function()).name); // "anonymous"
@@ -568,7 +568,7 @@ function createPerson(name, age) {
 
 ```js
 var person = {
-    name: 'xiaoke',
+    name: 'walon',
     sayName: function() {
         // do something
     }
@@ -576,7 +576,7 @@ var person = {
 
 // 简写
 var person = {
-    name: 'xiaoke',
+    name: 'walon',
     sayName() {
         // do something
     }
@@ -630,7 +630,7 @@ let supplier = {
     sex: 'male',
     name: 'yuer',
     lover: {
-        name: 'xiaoke',
+        name: 'walon',
         age: 22
     },
     favorite: ['junk food', 'meat']
@@ -744,7 +744,7 @@ let lover = {
     name: 'yuer',
     age: 18
 },
-    name = 'xiaoke',
+    name = 'walon',
     age = 20
 ({name, age} = lover)  //需要括号，这很好理解。
 
@@ -856,7 +856,7 @@ function setCookie(name, value, { secure, path, domain, expires} = {}) {
 const setCookieDefaults = {
     secure: false,
     path: "/",
-    domain: "xiaokedada.com",
+    domain: "walon.com",
     expires: new Date(Data.now() + 360000000)
 }
 function setCookie (name, value,{
@@ -939,7 +939,7 @@ Map 集合存储的是键值对集合。方法和属性：
 初始化。
 
 ```js
-let map = new map([['name', 'xiaoke'], ['title', 'love yuer']]) // 二维数组
+let map = new map([['name', 'walon'], ['title', 'love yuer']]) // 二维数组
 ```
 
 Map 集合和传统对象的区别：

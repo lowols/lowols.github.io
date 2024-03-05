@@ -115,8 +115,8 @@ class Tab extends React.Component {
     render(){
         return (
             <div style={{textAlign: 'center'}}>
-              <p>yuer <span style={{color:'red'}}>❤</span> xiaoke</p>
-              <p>xiaoke <span style={{color:'red'}}>❤</span> yuer</p>
+              <p>yuer <span style={{color:'red'}}>❤</span> walon</p>
+              <p>walon <span style={{color:'red'}}>❤</span> yuer</p>
             </div>
         )
     }
@@ -307,8 +307,8 @@ class Tab extends React.Component {
         const {counter} = this.state;
         return (
             <div style={{textAlign: 'center'}}>
-              <p>yuer <span style={{color:'red'}}>❤</span> xiaoke</p>
-              <p>xiaoke <span style={{color:'red'}}>❤</span> yuer</p>
+              <p>yuer <span style={{color:'red'}}>❤</span> walon</p>
+              <p>walon <span style={{color:'red'}}>❤</span> yuer</p>
               <p>a timer of love</p>
               <p>{counter}</p>
             </div>

@@ -32,12 +32,12 @@ hyphens: auto;
 
 ### 难题二： 插入换行
 
-比如我们写简历的时候，我们当然希望`姓名：`和自己的名字`Xiaoke Mao`放在一行了。但我们一般都是这样构建的。
+比如我们写简历的时候，我们当然希望`姓名：`和自己的名字`walon Mao`放在一行了。但我们一般都是这样构建的。
 
 ```html
 <dl>
   <dt>Name:</dt>
-  <dd>xiaoke Mao</dd>
+  <dd>walon Mao</dd>
   <dt>Email:</dt>
   <dd>lowols@outlook.com</dd>
   <dd>thebigyellowbee@qq.com</dd>

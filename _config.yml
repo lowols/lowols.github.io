@@ -2,8 +2,8 @@
 name: 小可嗒嗒的博客
 email: lowols@outlook.com
 author: M/J
-url: http://xiaokedada.com
-resume_site: http://xiaokedada.com/me/
+url: http://baidu.com
+resume_site: http://baidu.com/me/
 github: https://github.com/lowols/
 baseurl: ""  #根目录
 description: 假如生活欺骗了你，不要悲伤，不要哭泣。
@@ -24,4 +24,4 @@ FB:
   comments :
     provider : disqus
     disqus :
-        short_name : xiaokedada
+        short_name : walon

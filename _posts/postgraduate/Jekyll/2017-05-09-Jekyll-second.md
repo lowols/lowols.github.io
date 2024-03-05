@@ -100,9 +100,9 @@ tags:
 首先，注册一个新的[OAuth Application](https://github.com/settings/applications/new)。
 
 + Application name : Whatever you like
-+ Homepage URL : 主页地址，比如我的是[http://xiaokedada.com](http://xiaokedada.com)
++ Homepage URL : 主页地址，比如我的是[http://baidu.com](http://baidu.com)
 + Application description : Whatever you like
-+ Authorization callback URL : 这个很重要，比如我的就是[http://xiaokedada.com](http://xiaokedada.com)
++ Authorization callback URL : 这个很重要，比如我的就是[http://baidu.com](http://baidu.com)
 
 然后，就会生成client-id和client-secret，后边需要提供该值。
 

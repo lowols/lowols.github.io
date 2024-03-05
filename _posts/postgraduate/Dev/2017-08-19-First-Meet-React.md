@@ -164,7 +164,7 @@ const em2 = <em style={{fontSize:'2em', lineHeight:'1.6'}} />
 
 ```js
 var attr = {
-    href: 'http://xiaokedada.com',
+    href: 'http://baidu.com',
     target: '_blank'
 }
 const element = <a {...attr}>Hello</a>
@@ -202,7 +202,7 @@ ReactDOM.render(
 
 ```js
 <div id="app">
-    <p>xiaoke love yuer</p>
+    <p>walon love yuer</p>
 </div>
 <script type="text/babel">
     var e = ReactDOM.render(
@@ -228,7 +228,7 @@ ReactDOM.render() **是渲染 React 元素的方法**。上面就是我们渲染
       function tick (){
         const element = (
           <div>
-            <h1>xiaoke love yuer</h1>
+            <h1>walon love yuer</h1>
             <p>It is now {new Date().toLocaleTimeString()}.</p>
           </div>
         );
@@ -255,7 +255,7 @@ ReactDOM.render() **是渲染 React 元素的方法**。上面就是我们渲染
 
 ```js
 function Hello (props) {
-    return <h1>xiaoke love {props.name}</h1>
+    return <h1>walon love {props.name}</h1>
 }
 ```
 
@@ -264,7 +264,7 @@ ES6 语法:
 ```js
 class Hello extends React.Component {
     render() {
-        return <h1>xiaoke love {this.props.name}</h1>
+        return <h1>walon love {this.props.name}</h1>
     }
 }
 ```
@@ -276,7 +276,7 @@ class Hello extends React.Component {
 ```js
 class Hello extends React.Component {
     render() {
-        return <h1>xiaoke love {this.props.name}</h1>
+        return <h1>walon love {this.props.name}</h1>
     }
 }
 const element = <Hello name="yuer" />;
@@ -314,7 +314,7 @@ ReactDOM.render(
       render(){
         return (
         <div>
-        <h1>xiaoke love yuer</h1>
+        <h1>walon love yuer</h1>
         <p>It is now {this.state.date.toLocaleTimeString()}</p>
         </div>
         )
@@ -539,8 +539,8 @@ export default class TodoList extends React.Component {
         super(props);
         this.state = {
             items:[
-                'yuer love xiaoke',
-                'xiaoke love yuer'
+                'yuer love walon',
+                'walon love yuer'
             ]
         };
         this.addItem = this.addItem.bind(this);
@@ -733,7 +733,7 @@ export default class ItemsList extends React.Component {
 }
 ```
 
-根据我们前面所解释的，`this.props.items` 初始状态是 `['yuer love xiaoke', 'xiaoke love yuer']`。也就是说，我们对这两个数组元素进行遍历，很简单，正常的 `map()` 函数是这样的:
+根据我们前面所解释的，`this.props.items` 初始状态是 `['yuer love walon', 'walon love yuer']`。也就是说，我们对这两个数组元素进行遍历，很简单，正常的 `map()` 函数是这样的:
 
 ```js
 let listItems = this.props.items.map((item) =>{//...});

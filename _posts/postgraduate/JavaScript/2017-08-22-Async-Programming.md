@@ -16,7 +16,7 @@ tag: JavaScript
 
 ```js
 //ajax() 是某个包中任意的 Ajax 函数
-ajax ('http://xiaokedada.com',function callbackFunction(data){
+ajax ('http://baidu.com',function callbackFunction(data){
     //应答代码
 });
 ```
@@ -149,7 +149,7 @@ function success(data) {
 function failure(err) {
     //handler error
 }
-ajax('http://xiaokedada.com', success, failure);
+ajax('http://baidu.com', success, failure);
 ```
 
 API 设计的时候通过分离回调，例如上面的例子，一个用于成功的通知，一个用于错误的通知。
@@ -367,7 +367,7 @@ promise.catch(function (str) {
 有两个辅助函数 Promise.all([...]) 和 Promise.race([...])。对 Promise.all([...]) 来说，只要传入的所有 promises 都完成，返回 promise 才能完成。如果有任何 promise 被拒绝，返回的 promise 就会被拒绝。
 
 ```js
-var p1 = Promise.resolve('xiaoke'); // 完成
+var p1 = Promise.resolve('walon'); // 完成
 var p2 = Promise.resolve('yuer'); // 完成
 var p3 = Promise.reject('Oops'); // 拒绝
 
@@ -379,7 +379,7 @@ Promise.all([p1,p2]).then(function (msgs) {
 }); // p1, p2 都完成，返回的 promise 为完成
 /*
 Oops
-[ 'xiaoke', 'yuer' ]
+[ 'walon', 'yuer' ]
 */
 ```
 

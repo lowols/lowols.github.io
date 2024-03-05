@@ -83,7 +83,7 @@ new Map([iterable])
 var dic = new Map();
 dic.set('timi','lowols@outlook.com');
 dic.set('maoxioake','thebigyellowbee@qq.com');
-dic.set('yuer','yuer@xiaoke.com');
+dic.set('yuer','yuer@walon.com');
 ```
 
 控制台输出：
@@ -118,7 +118,7 @@ console.log(dic['timi']);
 |:---:|:----:|:----:|:----:|
 | timi | lose lose | 116+105+109+105=435 | [435] lowols@outlook.com 
 | lowols | lose lose | 958 | [453] thebigyellowbee@qq.com
-| yuer | lose lose | 121+117+101+114=453 | [958] yuer@xiaoke.com
+| yuer | lose lose | 121+117+101+114=453 | [958] yuer@walon.com
 
 在散列值对应的[435]、[453]、[958]位置上，有对应的值。在其他的散列值位置上，是空值。所以说，**散列表是普通数组的推广**，这样你就可以像使用数组下标一样(这种说法可能有纰漏)使用字典了。
 
@@ -133,8 +133,8 @@ console.log(dic['timi']);
 所以，这里还会造成一个问题: 就是多个key值映射到同一个散列值上。比如，我们添加两个元素。
 
 ```js
-dic.set('qznl','qznl@xiaoke.com');
-dic.set('CheNg','CheNg@xiaoke.com');
+dic.set('qznl','qznl@walon.com');
+dic.set('CheNg','CheNg@walon.com');
 ```
 
 那么，key值为`yuer`、`qznl`、`CheNg`三个元素的散列值都是一样的，为`453`。好尴尬呀，怎么解决呢。一种为**链接法**(chaining)，另一种称为**开放寻址法**(open addressing)。

@@ -77,7 +77,7 @@
         composeTweet =  function composeTweet(text) {
             var tweet = {
                 url: "https://twitter.com/intent/tweet?",
-                via: "via=xiaokedada&",
+                via: "via=walon&",
                 hashtags: "hashtags=quotemachine,timi,lowols&",
                 related: "related=@CreativeMarket&",
                 text: "text=" + $('.quote-body').html().replace(/<br>|\s/g, '+')

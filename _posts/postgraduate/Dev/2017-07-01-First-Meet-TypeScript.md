@@ -171,7 +171,7 @@ Union types用来声明那些可以存储多种类型值的变量。比如，有
 
 ```ts
 let value: string | number;
-value = 'xiaokedada.com'; // ok
+value = 'walon.com'; // ok
 value = '10'; // ok
 ```
 
@@ -223,7 +223,7 @@ function bulidName (firstName: string, lastName: string = "Mao"){
     return firstName + " " + lastName;
 }
 //参数不放在参数列表后面
-function bulidName (firstName = "xiaoke", lastName: string){
+function bulidName (firstName = "walon", lastName: string){
     return firstName + " " + lastName;
 }
 ```
