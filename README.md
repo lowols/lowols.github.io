@@ -1,207 +1,200 @@
-<div align="center">
-  <br>
+# 关于这个Jekyll模板主题 ⚽⚽⚽
 
-  <a href="https://github.com/jeffreytse/jekyll-theme-yat">
-    <img alt="jekyll-theme-yat →~ jekyll" src="https://user-images.githubusercontent.com/9413601/106478481-346fdf00-64e4-11eb-9385-1ab5329c3234.png" width="600">
-  </a>
+## 预览
 
-  <h1>JEKYLL YAT THEME</h1>
+### 首页
 
-</div>
+![首页](https://github.com/maoxiaoke/maoxiaoke.github.io/blob/master/styles/images/blog/blog.png?raw=true)
 
-<h4 align="center">
-  <a href="https://jekyllrb.com/" target="_blank"><code>Jekyll</code></a> theme for elegant writers.
-</h4>
++ 首页: 博客首页
++ 博文分类: 按照categories对文章进行分类
++ 标签分类: 按照tags对文章进行分类
++ 外域链接: 存放一些想要其他网站的链接
++ DEMO: 存放个人项目
++ 打赏我: 提供donation
++ 关于我: 个人CV
 
-<p align="center">
-  <a href="https://jeffreytse.github.io/jekyll-theme-yat">
-    <img src="https://github.com/jeffreytse/jekyll-theme-yat/workflows/Github%20Pages/badge.svg"
-      alt="Github Pages" />
-  </a>
+### 文章页
 
-  <a href="https://badge.fury.io/rb/jekyll-theme-yat">
-    <img src="https://badge.fury.io/rb/jekyll-theme-yat.svg"
-      alt="Gem Version" />
-  </a>
+![文章页](https://github.com/maoxiaoke/maoxiaoke.github.io/blob/master/styles/images/blog/page.png?raw=true)
 
-  <a href="https://opensource.org/licenses/MIT">
-    <img src="https://img.shields.io/badge/License-MIT-brightgreen.svg"
-      alt="License: MIT" />
-  </a>
+---
 
-  <a href="https://liberapay.com/jeffreytse">
-    <img src="https://img.shields.io/liberapay/goal/jeffreytse.svg?logo=liberapay"
-      alt="Donate (Liberapay)" />
-  </a>
+## 功能简介
 
-  <a href="https://patreon.com/jeffreytse">
-    <img src="https://img.shields.io/badge/support-patreon-F96854.svg?style=flat-square"
-      alt="Donate (Patreon)" />
-  </a>
+### 提供全文搜索
 
-  <a href="https://ko-fi.com/jeffreytse">
-  <img height="20" src="https://www.ko-fi.com/img/githubbutton_sm.svg"
-  alt="Donate (Ko-fi)" />
-  </a>
-</p>
+博客使用[`Simple-Jekyll-Search`](https://github.com/christian-fei/Simple-Jekyll-Search)提供全文搜索功能。
 
-<div align="center">
-  <sub>Built with ❤︎ by
-  <a href="https://jeffreytse.net">jeffreytse</a> and
-  <a href="https://github.com/jeffreytse/jekyll-theme-yat/graphs/contributors">contributors </a>
-  </sub>
-</div>
+相关介绍和操作可参考: [加入搜索功能](http://xiaokedada.com/2017/05/09/Jekyll-second/#加入搜索功能)
 
-<br>
+### 提供百度统计功能
 
-Hey, nice to meet you, you found this [Jekyll][jekyll] theme. Here the
-_YAT (Yet Another Theme)_ is a modern responsive theme. It's quite
-clear, clean and neat for writers and posts. **If you are an elegant
-writer and focus on content, don't miss it.**
+博客使用[百度统计](https://tongji.baidu.com/web/welcome/login)提供统计功能。具体操作方法在官网有详细介绍。
 
-<p align="center">
-Like this elegant theme? You can give it a star or sponsor me!<br>
-I will respect your crucial support and say THANK YOU!
-</p>
+相关介绍和操作可参考: [添加网站统计](http://xiaokedada.com/2017/05/09/Jekyll-second/#添加网站统计)
 
-<p align="center">
+### 提供不蒜子pv/uv计数器
 
-  <img src="https://user-images.githubusercontent.com/9413601/91842897-6a840b00-ec87-11ea-95ca-52abcc1ac063.png" alt="demo-screenshot" width="100%"/>
+[不蒜子](http://busuanzi.ibruce.info/)可以提供pv/uv的计数。好处在于可以在界面上显示访问量。
 
-</p>
+相关介绍和操作可参考: [网页的pv/uv计数器](http://xiaokedada.com/2017/05/09/Jekyll-second/#网页的pvuv计数器)
 
-<h4 align="center">BANNER</h4>
+### 添加社会化评论功能
 
-<p align="center">
+<del>博客采用第三方评论平台[网易云跟帖](https://gentie.163.com/info.html)</del>。
 
-  <img src="https://user-images.githubusercontent.com/9413601/123897812-ae729a00-d996-11eb-96b8-b76ba926f555.gif" alt="demo-screenshot" width="100%"/>
+博客采用第三方评论平台[Gitment](https://github.com/imsun/gitment)
 
-</p>
+相关介绍和操作可参考: [社会化评论](http://xiaokedada.com/2017/05/09/Jekyll-second/#社会化网页评论)
 
-## Features
+### 使用canvas实现首页动态效果
 
-- Support beautiful **Night Mode**.
-- Modern responsive web design.
-- Full layouts `home`, `post`, `tags`, `archive` and `about`.
-- Uses font awesome 5 for icons.
-- Beautiful page banner with image and video.
-- Beautiful Syntax Highlight using [highlight.js][highlight-js].
-- Beautiful image gallery previewer using [PhotoSwipe 5][photoswipe-5].
-- RSS support using [Jekyll Feed][jekyll-feed] gem.
-- Optimized for search engines using [Jekyll Seo Tag][jekyll-seo-tag] gem.
-- Sitemap support using [Jekyll Sitemap][jekyll-sitemap] gem.
-- Complex and flexible table support using [Jekyll Spaceship][jekyll-spaceship] gem.
-- MathJAX and LaTeX optional support using [Jekyll Spaceship][jekyll-spaceship] gem.
-- Media (Youtube, Spotify, etc.) support using [Jekyll Spaceship][jekyll-spaceship] gem.
-- Diagram (PlantUML, Mermaid) support using [Jekyll Spaceship][jekyll-spaceship] gem.
-- Google Translation support.
-- New post tag support.
-- Pin post tag support.
+### 使用日历控件显示当前日期
 
-Also, visit the [Live Demo][yat-live-demo] site for the theme.
+[在线演示](http://xiaokedada.com/effects/demo/demo-calender/index.html)
 
-## Installation
+### 使用tagCloud控件实现云标签效果
 
-There are three ways to install:
+[在线演示](http://xiaokedada.com/effects/demo/demo-tagscloud/index.html)
 
-- As a [gem-based theme](https://jekyllrb.com/docs/themes/#understanding-gem-based-themes).
-- As a [remote theme](https://blog.github.com/2017-11-29-use-any-theme-with-github-pages/) (GitHub Pages compatible).
-- Forking/directly copying all of the theme files into your project.
+---
 
-### Gem-based Theme Method
+## 博客使用方法
 
-Add this line to your Jekyll site's `Gemfile`:
+初识Jekyll博客，有必要了解[Jekyll](https://jekyllrb.com/)有关知识。
 
-```ruby
-gem "jekyll-theme-yat"
+相关的内容我写了两篇文章可供参考
+
++ [基于Jekyll静态框架的Github站点设计](http://xiaokedada.com/2017/02/22/Jekyll-Cpanel/)
++ [Jekyll搭建博客--人类补完计划](http://xiaokedada.com/2017/05/09/Jekyll-second/)
+
+### 部署和安装
+
+请参考[Jekyll相关](http://xiaokedada.com/2017/02/22/Jekyll-Cpanel/#jekyll相关)。
+
+### 下载本博客源码
+
+欢迎fork, clone and star。
+
+### 修改_config.yml文件
+
+包括相关的一些设置参数，包括banner/motto/description等。
+
+> 直接修改便会生效。
+
+### 写文章
+
+文章放在`_post`文件夹下，可创建自命名文件夹。支持markdown编写，提供`post`(知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议)/`original`(原创文章)两种方式。
+
+文件命名示例如下:
+
+```
+2017-03-23-More-of-prototype.md
 ```
 
-And add this line to your Jekyll site's `_config.yml`:
+文章首部字段为:
 
-```yaml
-theme: jekyll-theme-yat
+```markdown
+---
+layout: post
+title: "再谈原型和继承"
+date: 2017-03-23 09:00:00 +0800
+categories: 研究生涯
+tag: JavaScript
+---
+* content
+{:toc}
 ```
 
-And then execute:
+多tag可参考文章:[加入多个标签](http://xiaokedada.com/2017/05/09/Jekyll-second/#如何加入多个标签)
+
+> 备注一: Jekyll使用时间对文章进行排序，所以无论如何建立文件夹和文件夹命名都行，你开心就好
+
+> 备注二: 未完成的草稿文章可以放在`_draft`文件夹中
+
+### 运行
+
+使用下面命令可直接运行:
 
 ```bash
-$ bundle
+$ jekyll s
 ```
 
-Or install it yourself as:
+会开启jekyll服务器，监听在`http://127.0.0.1:4000/`，使用浏览器访问呢。
+
+不想查看效果，可直接bulid。
 
 ```bash
-$ gem install jekyll-theme-yat
+$ jekyll build
 ```
 
-### Remote Theme Method with GitHub Pages
+> 备注: 草稿区的内容不会显示，如果想要对草稿去内容进行查看，可参考[开启草稿](http://xiaokedada.com/2017/05/09/Jekyll-second/#jekyll的一些使用技巧)
 
-Remote themes are similar to Gem-based themes, but do not require `Gemfile` changes or whitelisting making them ideal for sites hosted with GitHub Pages.
+### 发布
 
-To install:
+发布请保留主题来源。
 
-Add this line to your Jekyll site's `Gemfile`:
-
-```ruby
-gem "github-pages", group: :jekyll_plugins
+```text
+Copyright © 2017 M/J. All rights reserved.
 ```
 
-And add this line to your Jekyll site's `_config.yml`:
+---
 
-```yaml
-# theme: owner/name --> Don't forget to remove/comment the gem-based theme option
-remote_theme: "jeffreytse/jekyll-theme-yat"
-```
+## Update Log
 
-And then execute:
+### 2017.07.16
 
-```bash
-$ bundle
-```
+- [-] 删除网易云跟帖
+- [+] 将网易云跟帖更改为gitment
+- [+] 添加一个新模块: TalkToMe
 
-### Forking/Cloning the project
+### 2017.06.17
 
-You need to update the option of github workflow file `.github/workflows/build-jekyll.yml`, especially to ensure the value of `jekyll_baseurl` is correct.
+- [^] 改变文章字体
+- [+] 增加不蒜子
+- [^] 将多说更改为网易云跟帖
+- [+] 添加搜索功能
+- [^] 代码高亮改为rouge
 
-### GitHub Pages without limitation
 
-GitHub Pages runs in `safe` mode and only allows [a set of whitelisted plugins/themes](https://pages.github.com/versions/). **In other words, the third-party gems will not work normally**.
+### 2017.04.20
 
-To use the third-party gem in GitHub Pages without limitation:
+- [+] First commit
+- [+] 添加首页Canvas效果
+- [+] 添加日历控件
+- [+] 添加云标签控件
+- [+] 添加社会化评论多说
+- [+] 大量优化
+- [+] 添加favicon.ico
 
-Here is a GitHub Action named [jekyll-deploy-action](https://github.com/jeffreytse/jekyll-deploy-action) for Jekyll site deployment conveniently. 👍
+---
 
-## Usage
+## 打赏
 
-Add or update your available layouts, includes, sass and/or assets.
+<p align="center">所以，如果你喜欢这个博客，有些许收获。就请支持我。</p>
 
-## Development
+### 赞助方式1： 支付宝付款
 
-To set up your environment to develop this theme, run `bundle install`.
+您可以选择手机支付宝扫一扫
 
-Your theme is setup just like a normal Jekyll site! To test your theme, run `bundle exec jekyll serve` and open your browser at `http://localhost:4000`. This starts a Jekyll server using your theme. Add pages, documents, data, etc. like normal to test your theme's contents. As you make modifications to your theme and to your content, your site will regenerate and you should see the changes in the browser after a refresh, just like normal.
+<img src="https://github.com/maoxiaoke/maoxiaoke.github.io/blob/master/styles/images/zhifubao.jpg?raw=true" alt="支付宝二维码付款给小可嗒嗒" />
 
-When your theme is released, only the files in `_data`, `_layouts`, `_includes`, `_sass` and `assets` tracked with Git will be bundled.
-To add a custom directory to your theme-gem, please edit the regexp in `jekyll-theme-yat.gemspec` accordingly.
+### 赞助方式2： 微信扫一扫
 
-## Contributing
+您可以选择手机微信扫一扫
 
-Issues and Pull Requests are greatly appreciated. If you've never contributed to an open source project before I'm more than happy to walk you through how to create a pull request.
+![微信二维码付款给小可嗒嗒](https://github.com/maoxiaoke/maoxiaoke.github.io/blob/master/styles/images/wechat.jpg?raw=true)
 
-You can start by [opening an issue](https://github.com/jeffreytse/jekyll-theme-yat/issues/new) describing the problem that you're looking to resolve and we'll go from there.
+### 赞助名单
 
-## License
++ 2017-02-21 09:52:10 收到微信用户xxx的`￥1.00`
++ 2017-02-21 15:59:00 收到支付宝用户241***@qq.com的`￥6.66`
++ 2017-02-21 19:53:37 收到微信用户xxx的`￥6.66`
++ 2017-02-21 22:33:33 收到微信用户xxx`￥6.66`
++ 2017-02-22 08:36:00 收到支付宝用户116***@qq.com的`￥1.66`
++ 2017-07-24 22:05:00 收到支付宝用户118***10的`￥6.66`
 
-This theme is licensed under the [MIT license](https://opensource.org/licenses/mit-license.php) © JeffreyTse.
+手动笔芯
 
-<!-- External links -->
-
-[jekyll]: https://jekyllrb.com/
-[yat-git-repo]: https://github.com/jeffreytse/jekyll-theme-yat/
-[yat-live-demo]: https://jeffreytse.github.io/jekyll-theme-yat/
-[jekyll-spaceship]: https://github.com/jeffreytse/jekyll-spaceship
-[jekyll-seo-tag]: https://github.com/jekyll/jekyll-seo-tag
-[jekyll-sitemap]: https://github.com/jekyll/jekyll-sitemap
-[jekyll-feed]: https://github.com/jekyll/jekyll-feed
-[highlight-js]: https://github.com/highlightjs/highlight.js
-[photoswipe-5]: https://photoswipe.com/
+---
