@@ -114,7 +114,7 @@ discriminator是学习判别一张图的每个$NxN$的patch是否是真的，比
 以上，就是这篇pix2pix的阅读所得。  
 欢迎大家指摘讨论～～    
 
-微信公众号：璇珠杂俎(也可搜索oukohou)，提供本站优质非技术博文～～
+微信公众号：walon(也可搜索oukohou)，提供本站优质非技术博文～～
 ![wechat_official_account](https://www.oukohou.wang/assets/imgs/wechat_official_account.png)  
 
 

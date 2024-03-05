@@ -252,6 +252,6 @@ pip install torch-1.0.1.post2-cp35-cp35m-linux_x86_64.whl
 
 
 <br>
-微信公众号：璇珠杂俎(也可搜索oukohou)，提供本站优质非技术博文～～
+微信公众号：walon(也可搜索oukohou)，提供本站优质非技术博文～～
 ![wechat_official_account](https://www.oukohou.wang/assets/imgs/wechat_official_account.png)  
 

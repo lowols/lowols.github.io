@@ -79,5 +79,5 @@ if you have a network adaptor, you will need to re-install the driver.
 
 
 <br>
-微信公众号：璇珠杂俎(也可搜索oukohou)，提供本站优质非技术博文～～
+微信公众号：walon(也可搜索oukohou)，提供本站优质非技术博文～～
 ![wechat_official_account](https://www.oukohou.wang/assets/imgs/wechat_official_account.png)  
