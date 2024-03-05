@@ -4,7 +4,7 @@
 
 ### 首页
 
-![首页](https://github.com/lowols/lowols.github.io)
+![首页](http://github.com/lowols/lowols.github.io)
 
 + 首页: 博客首页
 + 博文分类: 按照categories对文章进行分类
@@ -15,7 +15,7 @@
 
 ### 文章页
 
-![文章页](https://github.com/lowols/lowols.github.io/blob/master/styles/images/blog/page.png?raw=true)
+![文章页](http://github.com/lowols/lowols.github.io/blob/master/styles/images/blog/page.png?raw=true)
 
 ---
 
@@ -23,13 +23,13 @@
 
 ### 提供全文搜索
 
-博客使用[`Simple-Jekyll-Search`](https://github.com/lowols/lowols.github.io/Simple-Jekyll-Search)提供全文搜索功能。
+博客使用[`Simple-Jekyll-Search`](http://github.com/lowols/lowols.github.io/Simple-Jekyll-Search)提供全文搜索功能。
 
 相关介绍和操作可参考: [加入搜索功能](http://baidu.com/2017/05/09/Jekyll-second/#加入搜索功能)
 
 ### 提供百度统计功能
 
-博客使用[百度统计](https://tongji.baidu.com/web/welcome/login)提供统计功能。具体操作方法在官网有详细介绍。
+博客使用[百度统计](http://tongji.baidu.com/web/welcome/login)提供统计功能。具体操作方法在官网有详细介绍。
 
 相关介绍和操作可参考: [添加网站统计](http://baidu.com/2017/05/09/Jekyll-second/#添加网站统计)
 
@@ -41,9 +41,9 @@
 
 ### 添加社会化评论功能
 
-<del>博客采用第三方评论平台[网易云跟帖](https://gentie.163.com/info.html)</del>。
+<del>博客采用第三方评论平台[网易云跟帖](http://gentie.163.com/info.html)</del>。
 
-博客采用第三方评论平台[Gitment](https://github.com/imsun/gitment)
+博客采用第三方评论平台[Gitment](http://github.com/imsun/gitment)
 
 相关介绍和操作可参考: [社会化评论](http://baidu.com/2017/05/09/Jekyll-second/#社会化网页评论)
 
@@ -61,7 +61,7 @@
 
 ## 博客使用方法
 
-初识Jekyll博客，有必要了解[Jekyll](https://jekyllrb.com/)有关知识。
+初识Jekyll博客，有必要了解[Jekyll](http://jekyllrb.com/)有关知识。
 
 相关的内容我写了两篇文章可供参考
 

@@ -438,7 +438,7 @@ foo() // "done!"
 先写一个 Promise 的例子，使用 Github 的 API。
 
 ```js
-fetch('https://api.github.com/users/lowols') //获取用户 lowols 的 github 信息
+fetch('http://api.github.com/users/lowols') //获取用户 lowols 的 github 信息
 .then(response => response.json())
 .then(githubUser => {
     let img = document.createElement('img')
@@ -453,7 +453,7 @@ fetch('https://api.github.com/users/lowols') //获取用户 lowols 的 github �
 
 ```js
 async function showAvatar() {
-    let response = await fetch('https://api.github.com/users/lowols') 
+    let response = await fetch('http://api.github.com/users/lowols') 
     let githubUser = await response.json()
 
     let img = document.createElement('img');

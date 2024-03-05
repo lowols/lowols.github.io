@@ -10,7 +10,7 @@ tag: JSON
 
 > 本文部分内容来自 《Introduction to JavaScript Object Notation》，<http://www.json.org/>。
 
-JSON (**J**ava**S**cript **O**bject **N**otation)，是一种轻量级的数据交换格式<sup>[来源](http://www.json.org/)</sup>。**源于** JavaScript 的一个子集。但是它**独立于**编程语言。JSON 之父是 [Douglas Crockford](https://en.wikipedia.org/wiki/Douglas_Crockford)。
+JSON (**J**ava**S**cript **O**bject **N**otation)，是一种轻量级的数据交换格式<sup>[来源](http://www.json.org/)</sup>。**源于** JavaScript 的一个子集。但是它**独立于**编程语言。JSON 之父是 [Douglas Crockford](http://en.wikipedia.org/wiki/Douglas_Crockford)。
 
 <!-- more -->
 
@@ -23,7 +23,7 @@ JSON 标准语法基于两种结构:
 
 ### 与 JavaScript 对象的区别
 
-值得注意的是，虽然 JSON 源于 JavaScript 的子集，但是基于目前的发展，有些 JavaScript 对象不是 JSON，有些 JSON 并不是 JavaScript 对象<sup>[来源](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON)</sup>。
+值得注意的是，虽然 JSON 源于 JavaScript 的子集，但是基于目前的发展，有些 JavaScript 对象不是 JSON，有些 JSON 并不是 JavaScript 对象<sup>[来源](http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON)</sup>。
 
 + JSON 属性名称使用双引号，而 JavaScript 对象的属性可以不使用、使用单引号或者双引号。
 + JavaScript 对象中常包含方法(函数)，JSON 不会涉及对象字面量中的函数。
@@ -32,7 +32,7 @@ JSON 标准语法基于两种结构:
 
 下面提供几个 JSON 在线验证的网站：
 
-+ [JSON Formatter & Validator](https://jsonformatter.curiousconcept.com/)
++ [JSON Formatter & Validator](http://jsonformatter.curiousconcept.com/)
 + [JSON Editor Online](http://jsoneditoronline.org/)
 
 ### JSON 的媒体类型

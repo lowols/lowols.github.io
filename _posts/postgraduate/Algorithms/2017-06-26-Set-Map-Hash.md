@@ -22,9 +22,9 @@ tags:
 
 ### 数学概念中的集合
 
-首先我们来理解*数学概念中*的[集合概念](https://en.wikipedia.org/wiki/Set_(mathematics))。集合是什么呢，集合就是一堆东西<sup>1</sup>。
+首先我们来理解*数学概念中*的[集合概念](http://en.wikipedia.org/wiki/Set_(mathematics))。集合是什么呢，集合就是一堆东西<sup>1</sup>。
 
-> <sup>1</sup>这是来源于[朴素集合论](https://en.wikipedia.org/wiki/Naive_set_theory)的说法
+> <sup>1</sup>这是来源于[朴素集合论](http://en.wikipedia.org/wiki/Naive_set_theory)的说法
 
 但是这一堆东西的集合有自己的特性：
 

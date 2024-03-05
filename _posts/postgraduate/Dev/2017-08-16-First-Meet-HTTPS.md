@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "HTTPS加密通信"
+title: "http加密通信"
 date: 2017-08-16 09:00:00 +0800 
 categories: 研究生涯
 tag: Performance
@@ -8,7 +8,7 @@ tag: Performance
 * content
 {:toc}
 
-在《图解 HTTP》书中，我们了解到为什么需要使用到安全的 HTTPS 通信。
+在《图解 HTTP》书中，我们了解到为什么需要使用到安全的 http 通信。
 
 + 通信使用明文会被窃听。所以进行加密处理防止被窃听，通过 SSL(Secure Socket Layer，安全套接层) 或 TLS(Transport Layer Security，安全层传输协议)组合使用，加密 HTTP 通信内容。
 + 通信方的身份可能遭遇伪装，HTTP 协议中的请求和响应不会对通信方进行确认。这个由 SSL 提供的数字证书来解决。
@@ -18,7 +18,7 @@ tag: Performance
 
 ## SSL 
 
-SSL 是独立于 HTTP 的协议，HTTPS 实际上就是在应用层(HTTP)和传输层(TCP)之间加了一层 SSL/TSL。
+SSL 是独立于 HTTP 的协议，http 实际上就是在应用层(HTTP)和传输层(TCP)之间加了一层 SSL/TSL。
 
 所以 HTTP 的做法就是，通过 SSL 建立安全的通信线路，然后在这条线路上进行 HTTP 通信。
 
@@ -32,9 +32,9 @@ SSL 采用一种叫做公开密钥加密的处理方式。
 
 公开密钥加密采用一对非对称的密钥。分别叫做 private key 和 public key。方式是，发送密文的一方使用*对方*的 public key 进行加密处理，对方收到加密的信息后，再使用自己的 private key 进行解密。
 
-### HTTPS 采用混合加密方式
+### http 采用混合加密方式
 
-HTTPS 采用上述两种结合的加密方式。
+http 采用上述两种结合的加密方式。
 
 1. 使用 public key 加密方式安全地交换再稍后的共享密钥加密中要使用的密钥。
 2. 确保交换的密钥是安全的前提下，使用共享密钥方式进行通信。
@@ -47,7 +47,7 @@ HTTPS 采用上述两种结合的加密方式。
 
 ---
 
-## HTTPS 的工作流程
+## http 的工作流程
 
 整个过程分为一下几个步骤:
 
@@ -85,5 +85,5 @@ HTTPS 采用上述两种结合的加密方式。
 
 参考：
 
-+ [HTTPS运行原理](http://www.jianshu.com/p/1429b12a5519)
++ [http运行原理](http://www.jianshu.com/p/1429b12a5519)
 + 《图解 HTTP》

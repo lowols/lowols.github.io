@@ -15,7 +15,7 @@ tag: Webpack
 
 代码`Github`地址：
 
-+ [https://github.com/lowols/You-know-what-is-webpack](https://github.com/lowols/You-know-what-is-webpack)
++ [http://github.com/lowols/You-know-what-is-webpack](http://github.com/lowols/You-know-what-is-webpack)
 
 当然了，`webpack`也可以对`CSS`文件进行打包，将其作为模块引入到`JavaScript`代码中，然后利用`Loader`输出。本篇文章主要针对的就是对`CSS`的操作。
 
@@ -115,7 +115,7 @@ $ npm run build && npm run start
 
 这时，在`8080`端口，我们看到了文字下面的红色背景。
 
-> 更多有关`css-loader`设置的问题，请参考[https://doc.webpack-china.org/loaders/css-loader/](https://doc.webpack-china.org/loaders/css-loader/)，尤其是有关`css`作用域和`css module`的内容，因为默认情况下，`CSS`将所有的类名暴露到全局的选择器作用域中。`css module`就是启用局部作用域`CSS`。
+> 更多有关`css-loader`设置的问题，请参考[http://doc.webpack-china.org/loaders/css-loader/](http://doc.webpack-china.org/loaders/css-loader/)，尤其是有关`css`作用域和`css module`的内容，因为默认情况下，`CSS`将所有的类名暴露到全局的选择器作用域中。`css module`就是启用局部作用域`CSS`。
 
 ---
 

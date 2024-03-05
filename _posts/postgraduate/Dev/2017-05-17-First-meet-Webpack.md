@@ -15,7 +15,7 @@ tag: Webpack
 
 代码`Github`地址：
 
-+ [https://github.com/lowols/You-know-what-is-webpack](https://github.com/lowols/You-know-what-is-webpack)
++ [http://github.com/lowols/You-know-what-is-webpack](http://github.com/lowols/You-know-what-is-webpack)
 
 想不到`webpack`比我想象中要难一点。
 
@@ -31,7 +31,7 @@ tag: Webpack
 
 我觉得最先应该对基本概念有个了解(就算这些名词你半知半解或者完全不知道，我觉得也是有必要的)。
 
-> 以下基本概念都摘自官方文档：[https://doc.webpack-china.org/concepts/](https://doc.webpack-china.org/concepts/)
+> 以下基本概念都摘自官方文档：[http://doc.webpack-china.org/concepts/](http://doc.webpack-china.org/concepts/)
 
 ### 入口 -- entry
 

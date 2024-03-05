@@ -43,7 +43,7 @@ Elements 面板检查和实时编辑页面的 HTML 与 CSS。
 
 Source 面板用来调试 JavaScript 代码。
 
-除了在文件中自行加入断点，还有一种是利用**右侧**的 XHR/fetch、DOM Breakpoints、Event Listener Breakpoints 等设置。在这个面板中，还可调出 console drawer 面板对代码进行调试。参考这里[在 Chrome DevTools 中调试 JavaScript 入门](https://developers.google.com/web/tools/chrome-devtools/javascript/?hl=zh-cn)
+除了在文件中自行加入断点，还有一种是利用**右侧**的 XHR/fetch、DOM Breakpoints、Event Listener Breakpoints 等设置。在这个面板中，还可调出 console drawer 面板对代码进行调试。参考这里[在 Chrome DevTools 中调试 JavaScript 入门](http://developers.google.com/web/tools/chrome-devtools/javascript/?hl=zh-cn)
 
 ---
 
@@ -54,5 +54,5 @@ Performance 面板记录和分析应用在运行时的所有活动
 - 火焰图有三条垂直的虚线，蓝线代表 DOMContentLoaded 事件；绿线代表首次绘制的时间；红线代表 load 事件
 
 
-参考这里[如何使用 Timeline 工具](https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/timeline-tool?hl=zh-cn)
+参考这里[如何使用 Timeline 工具](http://developers.google.com/web/tools/chrome-devtools/evaluate-performance/timeline-tool?hl=zh-cn)
 

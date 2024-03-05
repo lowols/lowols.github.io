@@ -8,7 +8,7 @@ tag: React
 * content
 {:toc}
 
-> A JAVASCRIPT LIBRARY FOR BUILDING USER INTERFACES. [来源](https://facebook.github.io/react/)
+> A JAVASCRIPT LIBRARY FOR BUILDING USER INTERFACES. [来源](http://facebook.github.io/react/)
 
 React 就是定义用户界面的 UI 库。
 
@@ -32,7 +32,7 @@ React 就是定义用户界面的 UI 库。
 
 综上，React 有什么特点呢?
 
-+ 利用响应式 ([Reactive programming](https://en.wikipedia.org/wiki/Reactive_programming)) 思维来解决 UI 渲染的问题，代码偏向于声明式 (declarative)。
++ 利用响应式 ([Reactive programming](http://en.wikipedia.org/wiki/Reactive_programming)) 思维来解决 UI 渲染的问题，代码偏向于声明式 (declarative)。
 + 使用可管理的小型组件构造出一个强大的应用。
 + 不需要花费时间寻找 DOM 节点，而是去维护应用的状态。
 
@@ -40,7 +40,7 @@ React 就是定义用户界面的 UI 库。
 
 ## Hello World
 
-首先需要获取一份 React 库的[源代码](https://github.com/facebook/react/releases)，或者直接使用网络 CDN，在 `<head>` 标签内引入。在我们的 Hello World 例子中，我们只引入 `react`、`react-dom` 和 `babel`。babel 用于转译 `JSX` 语法。第二步，在使用 JSX 的 `<script>` 标签中标明 `type="text/babel"`，用以确认 babel 转码。
+首先需要获取一份 React 库的[源代码](http://github.com/facebook/react/releases)，或者直接使用网络 CDN，在 `<head>` 标签内引入。在我们的 Hello World 例子中，我们只引入 `react`、`react-dom` 和 `babel`。babel 用于转译 `JSX` 语法。第二步，在使用 JSX 的 `<script>` 标签中标明 `type="text/babel"`，用以确认 babel 转码。
 
 ```html
 <!DOCTYPE html>
@@ -49,9 +49,9 @@ React 就是定义用户界面的 UI 库。
     <meta charset="UTF-8" />
     <title>Hello World</title>
   </head>
-  <script src="https://unpkg.com/react@latest/dist/react.js"></script>
-  <script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
-  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  <script src="http://unpkg.com/react@latest/dist/react.js"></script>
+  <script src="http://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+  <script src="http://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
   <body>
     <div id="app"></div>
     <script type="text/babel">
@@ -64,7 +64,7 @@ React 就是定义用户界面的 UI 库。
 </html>
 ```
 
-此外，你还可以通过 React 官方提供的 [`create-react-app`](https://github.com/facebookincubator/create-react-app) 进行项目构建，它其实就是一个脚手架工具。
+此外，你还可以通过 React 官方提供的 [`create-react-app`](http://github.com/facebookincubator/create-react-app) 进行项目构建，它其实就是一个脚手架工具。
 
 ---
 
@@ -72,7 +72,7 @@ React 就是定义用户界面的 UI 库。
 
 上面的例子中，我们使用了 JSX 语法，这是一项完全独立于 React 的技术。我们需要通过 Babel 进行转译，Babel 可以转译最新的 JavaScript 语言特性，也支持转译 JSX。
 
-> 有两个网站可以参考，一个是将 JSX 转译成 JavaScript 的网站: [babel](https://babeljs.io/repl)；另一个将 HTML 转为 JSX 语法: [HTML-to-JSX](http://magic.reactjs.net/htmltojsx.htm)
+> 有两个网站可以参考，一个是将 JSX 转译成 JavaScript 的网站: [babel](http://babeljs.io/repl)；另一个将 HTML 转为 JSX 语法: [HTML-to-JSX](http://magic.reactjs.net/htmltojsx.htm)
 
 **JSX 的基本语法规则，遇到 `<` 就以 HTML 规则解析，遇到 花括号，就使用 JavaScript 语法解析。**
 
@@ -247,7 +247,7 @@ ReactDOM.render() **是渲染 React 元素的方法**。上面就是我们渲染
 
 ## 组件 -- Components
 
-> Components let you split the UI into independent, reusable pieces, and think about each piece in isolation<sup>[来源](https://reactjs.org/docs/react-component.html)</sup>.
+> Components let you split the UI into independent, reusable pieces, and think about each piece in isolation<sup>[来源](http://reactjs.org/docs/react-component.html)</sup>.
 
 组件是什么，其实就是用来 *可重用* 的视图。从 React 的角度来讲，组件类似于 JavaScript 的 函数。接收 `props` 参数，返回一个 React 元素。
 
@@ -500,7 +500,7 @@ reder() {
 ![todo-list]({{ '/styles/images/react/todolist.png' | prepend: site.baseurl }})
 
 材料：
-+ 脚手架工具 访问[React+Webpack+ES6+JSX 脚手架工具]({{ '/2017/08/20/React-Second' | prepend: site.baseurl }}) 或者 [`github` 主页](https://github.com/lowols/react-webpack-es6-jsx)
++ 脚手架工具 访问[React+Webpack+ES6+JSX 脚手架工具]({{ '/2017/08/20/React-Second' | prepend: site.baseurl }}) 或者 [`github` 主页](http://github.com/lowols/react-webpack-es6-jsx)
 + Sass
 + Bootstap
 
@@ -802,7 +802,7 @@ export default class TodoForm extends React.Component {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
     <title>todo-list</title>
 </head>
 <body>
@@ -815,4 +815,4 @@ export default class TodoForm extends React.Component {
 
 在这里:
 
-[todoList](https://github.com/lowols/React-es6-demo/tree/master/todoList)
+[todoList](http://github.com/lowols/React-es6-demo/tree/master/todoList)

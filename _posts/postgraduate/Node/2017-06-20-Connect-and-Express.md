@@ -10,7 +10,7 @@ tag: Node
 
 > Connect is an extensible HTTP server framework for node using "plugins" known as middleware.
 
-这是引自Connect[官方仓库](https://github.com/senchalabs/connect)的一段文字，可以看到：Connect是一个服务器端框架。在Connnect中，中间件是一个函数，它拦截`HTTP`服务器提供的请求和响应对象，执行特定的逻辑，然后结束响应或者把她传递给下一个中间件组件。
+这是引自Connect[官方仓库](http://github.com/senchalabs/connect)的一段文字，可以看到：Connect是一个服务器端框架。在Connnect中，中间件是一个函数，它拦截`HTTP`服务器提供的请求和响应对象，执行特定的逻辑，然后结束响应或者把她传递给下一个中间件组件。
 <br/>
 [Express](http://expressjs.com/)也是一个Web框架，官方是这样介绍的：
 
@@ -123,22 +123,22 @@ app.use (setup({some:'options'}))
 
 在新的版本中，以前是Connect内置的中间件都被移除了。Express 4.x也移除了自带的中间件(所以说，Express 4.x已不再依赖Connect了)，除了`express.static`函数，并对其中一些命名进行了更新。以下的中间件被Connect和Express同时官方支持，且已是第三方模块。
 
-+ [body-parser](https://www.npmjs.com/package/body-parser) -- 解析请求体
-+ [compression](https://www.npmjs.com/package/compression) -- Node.js压缩中间件
-+ [connect-timeout](https://www.npmjs.com/package/connect-timeout) -- 在Connect/Express应用框架中将请求超时
-+ [cookie-parser](https://www.npmjs.com/package/cookie-parser) -- 解析cookie
-+ [csurf](https://www.npmjs.com/package/csurf) -- Node.js CSRF保护中间件
-+ [errorhandler](https://www.npmjs.com/package/errorhandler) -- 仅在开发期间的差错控制中间件
-+ [express-session](https://www.npmjs.com/package/express-session)
-+ [method-override](https://www.npmjs.com/package/method-override) -- 当你的客户端不支持HTTP谓词的时候你可以使用它
-+ [morgan](https://www.npmjs.com/package/morgan) -- 请求日志中间件
-+ [response-time](https://www.npmjs.com/package/response-time)
-+ [serve-favicon](https://www.npmjs.com/package/serve-favicon) -- 提供favicon的中间件
-+ [serve-index](https://www.npmjs.com/package/serve-index) -- 提供包含给定路径的页面
-+ [server-static](https://www.npmjs.com/package/serve-static)
-+ [vhost](https://www.npmjs.com/package/vhost)
++ [body-parser](http://www.npmjs.com/package/body-parser) -- 解析请求体
++ [compression](http://www.npmjs.com/package/compression) -- Node.js压缩中间件
++ [connect-timeout](http://www.npmjs.com/package/connect-timeout) -- 在Connect/Express应用框架中将请求超时
++ [cookie-parser](http://www.npmjs.com/package/cookie-parser) -- 解析cookie
++ [csurf](http://www.npmjs.com/package/csurf) -- Node.js CSRF保护中间件
++ [errorhandler](http://www.npmjs.com/package/errorhandler) -- 仅在开发期间的差错控制中间件
++ [express-session](http://www.npmjs.com/package/express-session)
++ [method-override](http://www.npmjs.com/package/method-override) -- 当你的客户端不支持HTTP谓词的时候你可以使用它
++ [morgan](http://www.npmjs.com/package/morgan) -- 请求日志中间件
++ [response-time](http://www.npmjs.com/package/response-time)
++ [serve-favicon](http://www.npmjs.com/package/serve-favicon) -- 提供favicon的中间件
++ [serve-index](http://www.npmjs.com/package/serve-index) -- 提供包含给定路径的页面
++ [server-static](http://www.npmjs.com/package/serve-static)
++ [vhost](http://www.npmjs.com/package/vhost)
 
-> 可以参考: [https://github.com/senchalabs/connect#middleware](https://github.com/senchalabs/connect#middleware)
+> 可以参考: [http://github.com/senchalabs/connect#middleware](http://github.com/senchalabs/connect#middleware)
 
 ---
 
@@ -208,7 +208,7 @@ $ npm install express-generator -g
 
 > Express还支持`jade`、`ejs`等多种模板引擎。其中，默认为`jade`。因为版权之争，`jade`更名为`Pug`，我的猜测是，Express的默认模板引擎也会更改为`Pug`。
 
-命令中我们使用[`pug`](https://pugjs.org/api/getting-started.html)作为我们的模板引擎，创建`myblog`项目。结构如下:
+命令中我们使用[`pug`](http://pugjs.org/api/getting-started.html)作为我们的模板引擎，创建`myblog`项目。结构如下:
 
 ```js
 │  app.js
@@ -266,9 +266,9 @@ app.set('view engine', 'pug');  //使用Pug作为模板引擎
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));  //设置favicon.ico图标，如果有的话，取消这句的注释
-app.use(logger('dev'));                 //日志显示，可替换的参数有combined、common、dev、short、tiny。具体参见: https://www.npmjs.com/package/morgan
-app.use(bodyParser.json());             //只解析json并只查看Content-Type满足type的请求。具体参见: https://www.npmjs.com/package/body-parser#bodyparserjsonoptions
-app.use(bodyParser.urlencoded({ extended: false }));    //只解析URL-encoded bodies。具体参见: https://www.npmjs.com/package/body-parser#bodyparserurlencodedoptions
+app.use(logger('dev'));                 //日志显示，可替换的参数有combined、common、dev、short、tiny。具体参见: http://www.npmjs.com/package/morgan
+app.use(bodyParser.json());             //只解析json并只查看Content-Type满足type的请求。具体参见: http://www.npmjs.com/package/body-parser#bodyparserjsonoptions
+app.use(bodyParser.urlencoded({ extended: false }));    //只解析URL-encoded bodies。具体参见: http://www.npmjs.com/package/body-parser#bodyparserurlencodedoptions
 app.use(cookieParser());    //cookie解析
 app.use(express.static(path.join(__dirname, 'public')));    //Express唯一的内建的中间件，用来提供静态文件，都放在public文件中，具体参看Express API
 
@@ -430,4 +430,4 @@ npm install express-generator
 
 > callback twice was my issue.
 
-参见[`stackflow`](https://stackoverflow.com/questions/7042340/error-cant-set-headers-after-they-are-sent-to-the-client)
+参见[`stackflow`](http://stackoverflow.com/questions/7042340/error-cant-set-headers-after-they-are-sent-to-the-client)

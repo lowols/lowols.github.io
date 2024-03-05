@@ -15,7 +15,7 @@ tag: Webpack
 
 代码`Github`地址：
 
-+ [https://github.com/lowols/You-know-what-is-webpack](https://github.com/lowols/You-know-what-is-webpack)
++ [http://github.com/lowols/You-know-what-is-webpack](http://github.com/lowols/You-know-what-is-webpack)
 
 
 这里呢，打算将所有和`html`有关的操作都集合到这篇文章中来，用来熟悉`webpack`对`html`的操作。
@@ -26,11 +26,11 @@ tag: Webpack
 
 我们在这里就开始接触插件的内容了。插件是`webpack`支柱功能，也就是说用来扩展`webpack`功能的，`webpack`会提供一些官方插件，也有一些第三方插件。
 
-> 官方的插件页面在这里: [https://webpack.js.org/plugins/](https://webpack.js.org/plugins/)
+> 官方的插件页面在这里: [http://webpack.js.org/plugins/](http://webpack.js.org/plugins/)
 
 `HtmlWebpackPlugin`是一个可以创建简单的`html5`文件的插件，这意味这，我们可以不用手动直接创建`html`文档了。
 
-这个插件的`Github`地址在这里： [https://github.com/jantimon/html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin)
+这个插件的`Github`地址在这里： [http://github.com/jantimon/html-webpack-plugin](http://github.com/jantimon/html-webpack-plugin)
 
 首先，我们在项目根目录下建立一个`app`文件夹，新建一个`index.js`作为`webpack`的入口文件。文件内容如下：
 
@@ -85,7 +85,7 @@ module.exports = {
 
 主要的修改内容是，我们要引入我们的`html-webpack-plugin`，然后对我们的插件进行配置。
 
-> `html-webpack-plugin`插件的所有的配置选项，可以在这里找到：[https://github.com/jantimon/html-webpack-plugin#configuration](https://github.com/jantimon/html-webpack-plugin#configuration)
+> `html-webpack-plugin`插件的所有的配置选项，可以在这里找到：[http://github.com/jantimon/html-webpack-plugin#configuration](http://github.com/jantimon/html-webpack-plugin#configuration)
 
 值得一提的是`template`参数，指的是利用自己的模板来生成特定的`html5`文件。这里的模板可以是`html`、`pug`、`ejs`等等。但是我们使用模板时，一定要安装对应的`Loader`，否则`webpack`无法正常解析。
 
@@ -231,7 +231,7 @@ $ npm run start
 
 如果你的`8080`端口被占用了或者你想要进行其他得配置，没有关系。你可以在`webpack.config.js`文件中，增加一个新属性`devServer`，并修改配置。
 
-> 详细得配置参数在这里：[https://doc.webpack-china.org/configuration/dev-server/#devserver-watchoptions-](https://doc.webpack-china.org/configuration/dev-server/#devserver-watchoptions-)
+> 详细得配置参数在这里：[http://doc.webpack-china.org/configuration/dev-server/#devserver-watchoptions-](http://doc.webpack-china.org/configuration/dev-server/#devserver-watchoptions-)
 
 ```js
 //webpack.config.js

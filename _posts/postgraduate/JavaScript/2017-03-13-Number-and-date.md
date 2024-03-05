@@ -183,7 +183,7 @@ Object.is(b,0); //false
 
 ## Math object
 
-对于内置的`Math`数字常数项和函数也有一些属性和方法。[具体参见](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math)。
+对于内置的`Math`数字常数项和函数也有一些属性和方法。[具体参见](http://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math)。
 
 ---
 

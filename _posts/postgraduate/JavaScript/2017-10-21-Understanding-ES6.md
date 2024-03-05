@@ -61,7 +61,7 @@ const b = 2;
 function f() { console.log (b); } //Reference error
 ```
 
-> 更多的参考：[What is the temporal dead zone?](https://stackoverflow.com/questions/33198849/what-is-the-temporal-dead-zone) [TEMPORAL DEAD ZONE (TDZ) DEMYSTIFIED](http://jsrocks.org/2015/01/temporal-dead-zone-tdz-demystified) [ES6 In Depth: let and const](https://hacks.mozilla.org/2015/07/es6-in-depth-let-and-const/) [ES6 Let, Const and the “Temporal Dead Zone” (TDZ) in Depth](https://ponyfoo.com/articles/es6-let-const-and-temporal-dead-zone-in-depth)
+> 更多的参考：[What is the temporal dead zone?](http://stackoverflow.com/questions/33198849/what-is-the-temporal-dead-zone) [TEMPORAL DEAD ZONE (TDZ) DEMYSTIFIED](http://jsrocks.org/2015/01/temporal-dead-zone-tdz-demystified) [ES6 In Depth: let and const](http://hacks.mozilla.org/2015/07/es6-in-depth-let-and-const/) [ES6 Let, Const and the “Temporal Dead Zone” (TDZ) in Depth](http://ponyfoo.com/articles/es6-let-const-and-temporal-dead-zone-in-depth)
 
 ### 不允许重复声明
 

@@ -11,7 +11,7 @@ tag: Github
 
 开源是一种精神。
 
-从今年三月份开始，就参与到一个开源的翻译项目中。项目名称是：[JavaScript tutorial](https://github.com/iliakan/javascript-tutorial-cn)，是一个免费的 JavaScript 的教程，作者在 Github 开源。欢迎大家加入进来。
+从今年三月份开始，就参与到一个开源的翻译项目中。项目名称是：[JavaScript tutorial](http://github.com/iliakan/javascript-tutorial-cn)，是一个免费的 JavaScript 的教程，作者在 Github 开源。欢迎大家加入进来。
 
 <!-- more -->
 
@@ -19,7 +19,7 @@ tag: Github
 
 ## 如何找到一个开源翻译项目
 
-搜索的能力是一个优秀程序员所必备的功能，现在社会，不再是闭门造车。[Github trending](https://github.com/trending) 页面就是一个收集最近 Github 上的一些开源流行库。
+搜索的能力是一个优秀程序员所必备的功能，现在社会，不再是闭门造车。[Github trending](http://github.com/trending) 页面就是一个收集最近 Github 上的一些开源流行库。
 
 那么，找到一个可供翻译的开源库之后，怎么办呢？第一步当然是向原作者提出翻译申请。比如，我们的这个翻译项目中，原作者提供一个 `javascript-tutorial-cn`，接下来，可以开始我们的翻译工作。
 
@@ -46,24 +46,24 @@ tag: Github
 使用命令 `git remote add upstream`，后面跟随的是原作者的仓库地址。
 
 ```bash
-$ git remote add upstream https://github.com/iliakan/javascript-tutorial-cn
+$ git remote add upstream http://github.com/iliakan/javascript-tutorial-cn
 ```
 
 我们使用 `git remote -v` 来查看。
 
 ```bash
 $ git remote -v
-origin  https://github.com/lowols/javascript-tutorial-cn (fetch)
-origin  https://github.com/lowols/javascript-tutorial-cn (push)
-upstream        https://github.com/iliakan/javascript-tutorial-cn (fetch)
-upstream        https://github.com/iliakan/javascript-tutorial-cn (push)
+origin  http://github.com/lowols/javascript-tutorial-cn (fetch)
+origin  http://github.com/lowols/javascript-tutorial-cn (push)
+upstream        http://github.com/iliakan/javascript-tutorial-cn (fetch)
+upstream        http://github.com/iliakan/javascript-tutorial-cn (push)
 ```
 
 之后，只要原作者有更改，就可以使用 `git pull` 来拉取更改的内容了。
 
 ```bash
 $ git pull upstream master
-From https://github.com/iliakan/javascript-tutorial-cn
+From http://github.com/iliakan/javascript-tutorial-cn
  * branch            master     -> FETCH_HEAD
 Already up-to-date.
 ```

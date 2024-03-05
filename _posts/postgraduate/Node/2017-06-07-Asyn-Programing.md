@@ -39,7 +39,7 @@ bar();
 
 所谓的异步编程，就是我们并不将函数处理完成，而是当回调函数产生结果时，再将其加入消息队列。所谓事件轮询，就是我们如何处理*消息队列*的这个过程。
 
-> 参考： [https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/EventLoop](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/EventLoop)
+> 参考： [http://developer.mozilla.org/zh-CN/docs/Web/JavaScript/EventLoop](http://developer.mozilla.org/zh-CN/docs/Web/JavaScript/EventLoop)
 
 比如我们调用`setTimeout()`函数，我们会在一个时间段过后向队列中添加一个消息(也就是将回调函数放进消息队列中)。如果消息队列中没有其他消息，消息就会被马上处理。但是，如果有其他消息，就必须要等其他消息处理完。所以说，`setTimeout()`的时间并不是确切时间。
 

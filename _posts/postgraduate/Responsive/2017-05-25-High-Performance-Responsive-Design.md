@@ -18,7 +18,7 @@ tags:
 
 ## 显然不正确的模式
 
-我们可以在[`The Search Agency`](https://www.thesearchagency.com/our-work/white-papers/)得到一些有关`.m`网站和响应式网站比较的一些报告。设计网站的时候，这样的一些*反模式*值得我们注意：
+我们可以在[`The Search Agency`](http://www.thesearchagency.com/our-work/white-papers/)得到一些有关`.m`网站和响应式网站比较的一些报告。设计网站的时候，这样的一些*反模式*值得我们注意：
 
 - 为所有设备加载同样的内容： 比如，一些网站会为手机和桌面渲染加载完全一样的资源。加载同样的`CSS`文件，然后通过媒体查询给不同的分辨率设备提供不同的体验
 - 加载额外的资源：一般情况下，会为手机体验加载除了通用资源意外的资源
@@ -89,7 +89,7 @@ tags:
 
 ## 服务端实现
 
-[`Charles`](https://www.charlesproxy.com/)是一个可以观察到网络传输情况的工具，能深入分析网络传输。不过很可惜的是，它是收费的。
+[`Charles`](http://www.charlesproxy.com/)是一个可以观察到网络传输情况的工具，能深入分析网络传输。不过很可惜的是，它是收费的。
 
 + `HTTP`监测工具
 + `HTTP`代理工具
@@ -100,7 +100,7 @@ tags:
 
 在我们的`HTTP`请求报文当中，有一个`User Agent`的选项，它描述了客户端的特征。所以，我们可以在**服务端来确定客户端的特征和能力**。
 
-比如，我们可以对**设备进行检测**，从而以恰当的内容做出响应。`Wurfl`能提供这样的一个设备检测服务，现在隶属于[`Scientiamobile`公司](https://www.scientiamobile.com/)。
+比如，我们可以对**设备进行检测**，从而以恰当的内容做出响应。`Wurfl`能提供这样的一个设备检测服务，现在隶属于[`Scientiamobile`公司](http://www.scientiamobile.com/)。
 
 不过这个解决方案的一个潜在的风险就是如何处理缓存内容。一个解决方式就是使用响应`header`中的`Vary`参数。另一种方式就是通过使用`ESA`(Edge Side Include)，把我们的设备或者能力检测逻辑从我们的服务器移到`CDN edge`服务器上。
 
@@ -151,7 +151,7 @@ tags:
 
 对`web`进行单元测试，`headless web browser`是一个极好的选择。其中最流行的测试库是[`PhantomJS`](http://phantomjs.org/)
 
-另一个开源的`CI`工具是[`Jenkins`](https://jenkins.io/)，可以把相关逻辑集成到`CI`工作流中。
+另一个开源的`CI`工具是[`Jenkins`](http://jenkins.io/)，可以把相关逻辑集成到`CI`工作流中。
 
 ---
 

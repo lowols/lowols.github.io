@@ -19,9 +19,9 @@ tag: JavaScript
 - Server-side JavaScript extended the core language by supplying objects relevant to running JavaScript on a Server.
 
 
-### [JavaScript and Java](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Introduction) ###
+### [JavaScript and Java](http://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Introduction) ###
 
-### [JavaScript and the ECMAScript specification](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Introduction) ###
+### [JavaScript and the ECMAScript specification](http://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Introduction) ###
 
 ## Grammer ##
 

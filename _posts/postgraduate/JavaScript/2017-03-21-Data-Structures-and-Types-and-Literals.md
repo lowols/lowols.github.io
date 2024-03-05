@@ -9,7 +9,7 @@ tag: JavaScript
 {:toc}
 
 
-关于数据类型和数据结构的概念，可以参考[Wiki百科](https://en.wikipedia.org/wiki/Data_type)。
+关于数据类型和数据结构的概念，可以参考[Wiki百科](http://en.wikipedia.org/wiki/Data_type)。
 
 在`JavaScript`中，对象是语言的中心，连`functions`也被视为对象。
 
@@ -447,10 +447,10 @@ You can call any of the methods of the String object on a string literal value :
 `\` is used as a Escaping characters(转义字符).
 
 
-[grammar-and-types]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types
-[parseInt]:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt 
-[parseFloat]:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseFloat
-[object-initializer]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects#Using_object_initializers
+[grammar-and-types]: http://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types
+[parseInt]:http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt 
+[parseFloat]:http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseFloat
+[object-initializer]: http://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects#Using_object_initializers
 
 
 编辑备注：

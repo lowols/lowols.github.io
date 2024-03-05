@@ -140,7 +140,7 @@ Cookie: name=value
 + domain 域名 确定 cookie 有效的域，所有向该域发送的请求中都包含这个 cookie 信息
 + path 路径 对于制定域中的那个路径，才应该向服务器发送 cookie
 + expire 失效时间
-+ secure 安全标识 指定后，cookie 只能在使用 SSL 连接时(即HTTPS通信时)才发送到服务器
++ secure 安全标识 指定后，cookie 只能在使用 SSL 连接时(即http通信时)才发送到服务器
 + HttpOnly 它使得附加在 HttpOnly 属性后的 Cookie 内容无法被 JavaScript 读取，可以防止 XSS 攻击
 
 **Cookie** 字段只包含 `Cookie` 属性。该属性在请求中包含从服务器接收到的 Cookie，接收到多个 Cookie 时，同样可以以多个 Cookie 形式发送。
@@ -177,4 +177,4 @@ IndexedDB 是在浏览器中保存结构化数据的一种数据库。
 参考:
 
 + 《JavaScript 高级程序设计》
-+ [What is the difference between localStorage, sessionStorage, session and cookies?](https://stackoverflow.com/questions/19867599/what-is-the-difference-between-localstorage-sessionstorage-session-and-cookies)
++ [What is the difference between localStorage, sessionStorage, session and cookies?](http://stackoverflow.com/questions/19867599/what-is-the-difference-between-localstorage-sessionstorage-session-and-cookies)

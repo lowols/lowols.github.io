@@ -14,7 +14,7 @@ Angular系列教程:
 + [Angular4第一课 -- 启动]({{ '/2017/07/04/First-Meet-Angular' | prepend: site.baseurl }})
 + [Angular4第三课 -- 从Heroes的栗子看Angular]({{ '/2017/07/12/Angular-Third' | prepend: site.baseurl }})
 
-上一节中主要是介绍了Angular的启动和命令。这一节仍然是介绍基础概念，而且，而且，而且(重要的事情说三遍)，这一节也主要参考[官网的这篇文章](https://angular.io/guide/architecture)，所以呢，大致会一样。
+上一节中主要是介绍了Angular的启动和命令。这一节仍然是介绍基础概念，而且，而且，而且(重要的事情说三遍)，这一节也主要参考[官网的这篇文章](http://angular.io/guide/architecture)，所以呢，大致会一样。
 
 <!-- more -->
 
@@ -22,9 +22,9 @@ Angular系列教程:
 
 总的架构可以用下面这张图来表示。主要包括8大块。
 
-![Angular总架构](https://www.angular.cn/resources/images/devguide/architecture/overview2.png)
+![Angular总架构](http://www.angular.cn/resources/images/devguide/architecture/overview2.png)
 
-> 图片[来源](https://www.angular.cn/docs/ts/latest/guide/architecture.html#!#component-code)
+> 图片[来源](http://www.angular.cn/docs/ts/latest/guide/architecture.html#!#component-code)
 
 + [模块](#模块)
 + [组件](#组件)
@@ -41,7 +41,7 @@ Angular系列教程:
 
 模块 -- Module
 
-![模块](https://www.angular.cn/resources/images/devguide/architecture/module.png)
+![模块](http://www.angular.cn/resources/images/devguide/architecture/module.png)
 
 ### Angular模块系统: NgModule
 
@@ -151,7 +151,7 @@ export class AppComponent {
 
 首先，`AppComponent`真的只是一个简简单单的类，一点Angular的痕迹都没有，直到我们使用了`@Component`装饰器函数，添加了元数据，才告诉Angular这是一个组件。元数据告诉Angular从哪里获取你为组件指定的主要构建块。
 
-![template-metadata-component](https://www.angular.cn/resources/images/devguide/architecture/template-metadata-component.png)
+![template-metadata-component](http://www.angular.cn/resources/images/devguide/architecture/template-metadata-component.png)
 
 模板、元素据和组件共同渲染了一个视图(view)。
 
@@ -165,7 +165,7 @@ export class AppComponent {
 
 我们来看这张图:
 
-![数据绑定](https://www.angular.cn/resources/images/devguide/architecture/databinding.png)
+![数据绑定](http://www.angular.cn/resources/images/devguide/architecture/databinding.png)
 
 数据绑定有四种形式，这四种形式要么绑定到DOM，要么绑定自DOM或者双向绑定。
 
@@ -178,11 +178,11 @@ export class AppComponent {
 
 数据绑定的重要性表现在**模板与对应组件的交互**中。
 
-![component-databinding](https://www.angular.cn/resources/images/devguide/architecture/component-databinding.png)
+![component-databinding](http://www.angular.cn/resources/images/devguide/architecture/component-databinding.png)
 
 也表现在**父组件与子组件**的通信中。
 
-![parent-child-binding](https://www.angular.cn/resources/images/devguide/architecture/parent-child-binding.png)
+![parent-child-binding](http://www.angular.cn/resources/images/devguide/architecture/parent-child-binding.png)
 
 ---
 

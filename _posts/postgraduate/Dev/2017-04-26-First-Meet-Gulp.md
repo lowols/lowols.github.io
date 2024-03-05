@@ -16,7 +16,7 @@ tag: gulp
 首先，贴出一些可供参考的网站：
 
 * [`gulp`官网](http://gulpjs.com/)
-* [`gulp`github 地址](https://github.com/gulpjs/gulp)
+* [`gulp`github 地址](http://github.com/gulpjs/gulp)
 * [`gulp`官方插件地址](http://gulpjs.com/plugins/)
 * [`gulp`详细入门教程](http://www.ydcss.com/archives/18#lesson6)
 
@@ -38,7 +38,7 @@ tag: gulp
 
 ## 安装node.js
 
-因为`gulp`是基于`node.js`，所以需要先安装`node.js`。[官网传送门](https://nodejs.org/en/)
+因为`gulp`是基于`node.js`，所以需要先安装`node.js`。[官网传送门](http://nodejs.org/en/)
 
 安装完`Node.js`之后，`Node.js`的包管理工具`npm`也应该安装好了。可以用以下方法测试一下：
 
@@ -67,11 +67,11 @@ npm -v
 
 可以选择`npm init`初始化一个`package.json`文件，或者手动添加这个文件，都是有效的。
 
-使用`npm init`添加一个`package.json`文件时，会有一个向导提示我们输入项目名称、版本信息等内容，这么多的属性可以在`npm`的参考文档中查阅。传送门：[https://docs.npmjs.com/files/package.json](https://docs.npmjs.com/files/package.json)
+使用`npm init`添加一个`package.json`文件时，会有一个向导提示我们输入项目名称、版本信息等内容，这么多的属性可以在`npm`的参考文档中查阅。传送门：[http://docs.npmjs.com/files/package.json](http://docs.npmjs.com/files/package.json)
 
 ### 答疑解惑 -- devDependencies依赖 和 dependencies依赖
 
-`package.json`文档中有`devDependencies`和`dependencies`两个属性。这两个属性的介绍也可以在[https://docs.npmjs.com/files/package.json](https://docs.npmjs.com/files/package.json)页面中查到，官方解释好难懂呀。但简单解释就是：项目运行过程中依赖的模块，你就使用`dependencies`依赖，开发过程中，比如测试，压缩，文档框架这些东西，就使用`devDependencies`依赖。即，想要使用`devDependencies`依赖，安装的时候就加上`-dev`。
+`package.json`文档中有`devDependencies`和`dependencies`两个属性。这两个属性的介绍也可以在[http://docs.npmjs.com/files/package.json](http://docs.npmjs.com/files/package.json)页面中查到，官方解释好难懂呀。但简单解释就是：项目运行过程中依赖的模块，你就使用`dependencies`依赖，开发过程中，比如测试，压缩，文档框架这些东西，就使用`devDependencies`依赖。即，想要使用`devDependencies`依赖，安装的时候就加上`-dev`。
 
 当然，`npm`还有其他操作：
 
@@ -80,7 +80,7 @@ npm -v
 * `npm help`: 查看帮助
 * `npm list`: 列出当前目录已安装插件
 
-`npm`的一些其他命令，可参考[`npm`官方文档](https://docs.npmjs.com/)
+`npm`的一些其他命令，可参考[`npm`官方文档](http://docs.npmjs.com/)
 
 ---
 
@@ -159,7 +159,7 @@ $ gulp
 
 则将会`default`任务中所有的任务。
 
-如果你想了解更多，可以访问`gulp`的中文文档：[http://www.gulpjs.com.cn/docs/](http://www.gulpjs.com.cn/docs/)或者他们的`Github`仓库的`API`文档[https://github.com/gulpjs/gulp/blob/master/docs/API.md](https://github.com/gulpjs/gulp/blob/master/docs/API.md)。
+如果你想了解更多，可以访问`gulp`的中文文档：[http://www.gulpjs.com.cn/docs/](http://www.gulpjs.com.cn/docs/)或者他们的`Github`仓库的`API`文档[http://github.com/gulpjs/gulp/blob/master/docs/API.md](http://github.com/gulpjs/gulp/blob/master/docs/API.md)。
 
 ---
 
@@ -190,7 +190,7 @@ $ gulp
 
 `autoprefixer`可以根据浏览器版本自动处理浏览器前缀，使我们写代码的时候可以不考虑各浏览器兼容问题。
 
-`autoprefixer`的`Github`地址是：[https://github.com/postcss/autoprefixer](https://github.com/postcss/autoprefixer)
+`autoprefixer`的`Github`地址是：[http://github.com/postcss/autoprefixer](http://github.com/postcss/autoprefixer)
 
 #### 该项目结构如下
 
@@ -237,7 +237,7 @@ gulp.task('testAutoFx', function () {
 });
 ```
 
-函数`autoprefixer(options)`的选项有`8`。可参见[https://github.com/postcss/autoprefixer#options](https://github.com/postcss/autoprefixer#options)
+函数`autoprefixer(options)`的选项有`8`。可参见[http://github.com/postcss/autoprefixer#options](http://github.com/postcss/autoprefixer#options)
 
 #### 执行任务
 
@@ -251,7 +251,7 @@ $ gulp testAutoFx
 
 #### 福利
 
-`autoprefixer`还有一个`online`服务，网址是：[https://autoprefixer.github.io/](https://autoprefixer.github.io/)。
+`autoprefixer`还有一个`online`服务，网址是：[http://autoprefixer.github.io/](http://autoprefixer.github.io/)。
 
 ---
 
@@ -259,8 +259,8 @@ $ gulp testAutoFx
 
 ### 为啥有些要return 有些不需要
 
-> 参考: [Running tasks in series](https://github.com/gulpjs/gulp/blob/master/docs/recipes/running-tasks-in-series.md#running-tasks-in-series-ie-task-dependency) [Does a gulp task have to return anything?
+> 参考: [Running tasks in series](http://github.com/gulpjs/gulp/blob/master/docs/recipes/running-tasks-in-series.md#running-tasks-in-series-ie-task-dependency) [Does a gulp task have to return anything?
 
-](https://stackoverflow.com/questions/26079118/does-a-gulp-task-have-to-return-anything) [Gulp.js task, return on src?
+](http://stackoverflow.com/questions/26079118/does-a-gulp-task-have-to-return-anything) [Gulp.js task, return on src?
 
-](https://stackoverflow.com/questions/21699146/gulp-js-task-return-on-src)
+](http://stackoverflow.com/questions/21699146/gulp-js-task-return-on-src)

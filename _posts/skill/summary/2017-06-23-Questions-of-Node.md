@@ -16,7 +16,7 @@ tag: Interview
 <!-- TOC -->
 
 - [有哪些常见的 Web 服务器](#有哪些常见的-web-服务器)
-- [简述 HTTPS 的工作原理，如何实现的加密传输](#简述-https-的工作原理如何实现的加密传输)
+- [简述 http 的工作原理，如何实现的加密传输](#简述-http-的工作原理如何实现的加密传输)
 
 <!-- /TOC -->
 
@@ -41,6 +41,6 @@ tag: Interview
 
 ---
 
-## 简述 HTTPS 的工作原理，如何实现的加密传输
+## 简述 http 的工作原理，如何实现的加密传输
 
-[HTTPS加密通信]({{ '/2017/08/16/First-Meet-HTTPS' | prepend: site.baseurl }})
+[http加密通信]({{ '/2017/08/16/First-Meet-http' | prepend: site.baseurl }})

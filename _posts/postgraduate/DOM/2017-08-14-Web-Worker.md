@@ -256,7 +256,7 @@ onconnect = function(e) {
 }
 ```
 
-参考: [Using Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers#Shared_workers)
+参考: [Using Web Workers](http://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers#Shared_workers)
 
 ---
 
@@ -270,8 +270,8 @@ onconnect = function(e) {
 
 有关 Service worker 可参考的内容:
 
-+ [Service Worker - first draft published](https://jakearchibald.com/2014/service-worker-first-draft/)
-+ [Service Workers Nightly](https://w3c.github.io/ServiceWorker/)
-+ [深入了解 Service Worker，看这篇就够了](https://zhuanlan.zhihu.com/p/27264234)
-+ [Service Worker API](https://developer.mozilla.org/en/docs/Web/API/Service_Worker_API)
-+ [The ServiceWorker: The network layer is yours to own](https://www.youtube.com/watch?v=4uQMl7mFB6g&feature=youtu.be)
++ [Service Worker - first draft published](http://jakearchibald.com/2014/service-worker-first-draft/)
++ [Service Workers Nightly](http://w3c.github.io/ServiceWorker/)
++ [深入了解 Service Worker，看这篇就够了](http://zhuanlan.zhihu.com/p/27264234)
++ [Service Worker API](http://developer.mozilla.org/en/docs/Web/API/Service_Worker_API)
++ [The ServiceWorker: The network layer is yours to own](http://www.youtube.com/watch?v=4uQMl7mFB6g&feature=youtu.be)

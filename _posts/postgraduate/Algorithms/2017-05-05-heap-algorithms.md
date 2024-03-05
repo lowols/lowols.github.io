@@ -21,7 +21,7 @@ tags:
 
 ![a-method-of-full-arrangement]({{ '/styles/images/algorithms/a-method-of-full-arrangement.png' | prepend: site.baseurl }})
 
-> 图片来源： [freecodecamp github](https://camo.githubusercontent.com/b03b14d937879d36804ead55a10d4d73712b9a96/68747470733a2f2f692e696d6775722e636f6d2f7a466d356752782e706e67)
+> 图片来源： [freecodecamp github](http://camo.githubusercontent.com/b03b14d937879d36804ead55a10d4d73712b9a96/68747470733a2f2f692e696d6775722e636f6d2f7a466d356752782e706e67)
 
 但是这种算法有一种弊端，如果我们需要全排列的元素过多，就需要多次移动元素，这是非常费力的一件事情。
 
@@ -29,7 +29,7 @@ tags:
 
 ## Heap's Algorithm
 
-`Heap's Algorithm` 是B. R. Heap在1963提出的一种全排列的算法。核心思想就是每次保持`n - 2`个元素不动，对剩余的两个元素进行交换。什么意思呢？我们以`[a,b,c,d]`这四个元素的全排列为例，首先，我们将元素`d`作为固定元素拿出来，对`[a,b,c]`进行全排列，而对`[a,b,c]`进行全排列的过程中，我们又将`c`作为固定元素拿出来，对元素`a`、`b`进行交换，这样就得到全排列的两种可能。同理，下一步是我们将`b`作为固定元素拿出来，对`a`、`c`进行交换。依次类推。这张图详细地展示了这一种算法思想，[请参考](https://upload.wikimedia.org/wikipedia/commons/1/19/Heap_algorithm_with_4_elements.svg)。
+`Heap's Algorithm` 是B. R. Heap在1963提出的一种全排列的算法。核心思想就是每次保持`n - 2`个元素不动，对剩余的两个元素进行交换。什么意思呢？我们以`[a,b,c,d]`这四个元素的全排列为例，首先，我们将元素`d`作为固定元素拿出来，对`[a,b,c]`进行全排列，而对`[a,b,c]`进行全排列的过程中，我们又将`c`作为固定元素拿出来，对元素`a`、`b`进行交换，这样就得到全排列的两种可能。同理，下一步是我们将`b`作为固定元素拿出来，对`a`、`c`进行交换。依次类推。这张图详细地展示了这一种算法思想，[请参考](http://upload.wikimedia.org/wikipedia/commons/1/19/Heap_algorithm_with_4_elements.svg)。
 
 
 
@@ -52,7 +52,7 @@ procedure generate(n : integer, A : array of any):
     end if
 ```
 
-> 来源：[wiki百科](https://en.wikipedia.org/wiki/Heap%27s_algorithm)
+> 来源：[wiki百科](http://en.wikipedia.org/wiki/Heap%27s_algorithm)
 
 ### 算法过程
 
@@ -125,7 +125,7 @@ heapPermutation(arr,arr.length,arr.length);
 
 ![recursion-tree-for-permutations]({{ '/styles/images/algorithms/anther-method-of-full-arrangement.png' | prepend: site.baseurl }})
 
-> 图片来源：[https://www.youtube.com/watch?v=KBHFyg2AcZ4](https://www.youtube.com/watch?v=KBHFyg2AcZ4) 其中也有对该思想的理解。
+> 图片来源：[http://www.youtube.com/watch?v=KBHFyg2AcZ4](http://www.youtube.com/watch?v=KBHFyg2AcZ4) 其中也有对该思想的理解。
 
 这种想法也是通过固定一个元素，进行剩余元素的交换。缺点是，每次交换过后需要再次交换以回到上一层数组。
 
@@ -165,4 +165,4 @@ generate(arr, 0 ,arr.length);
 [ 'c', 'a', 'b' ]
 ```
 
-> 更多可参考： [freecodecamp forum](https://forum.freecodecamp.com/t/no-repeats-please-heaps-algorithm-and-frustration-with-recursions/15909)
+> 更多可参考： [freecodecamp forum](http://forum.freecodecamp.com/t/no-repeats-please-heaps-algorithm-and-frustration-with-recursions/15909)

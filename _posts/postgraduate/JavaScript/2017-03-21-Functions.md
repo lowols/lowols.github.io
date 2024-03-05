@@ -81,7 +81,7 @@ var square = function(n) {
 }
 ```
 
-> **函数也是对象**，也有自己的**方法**。[具体参见](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function)
+> **函数也是对象**，也有自己的**方法**。[具体参见](http://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function)
 
 在函数调用过程中，时刻记住函数就是对象，很多行为就变得容易理解了。比如，你可以将函数当作参数传递给其他的函数：
 
@@ -456,7 +456,7 @@ function(a, b, ...theArgs) {
 
 ## Arrow functions -- 箭头函数
 
-An [arrow function expression](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions) has a shorter syntax compared to function expressions and lexically binds the `this` value.(箭头函数表达式相比函数表达式具有较短的语法并以词法的方式绑定`this`)
+An [arrow function expression](http://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions) has a shorter syntax compared to function expressions and lexically binds the `this` value.(箭头函数表达式相比函数表达式具有较短的语法并以词法的方式绑定`this`)
 
 箭头函数**总是匿名的**。
 
@@ -592,10 +592,10 @@ var result = (function(){
 
 参考：
 
-+ [https://en.wikipedia.org/wiki/Immediately-invoked_function_expression](https://en.wikipedia.org/wiki/Immediately-invoked_function_expression)
++ [http://en.wikipedia.org/wiki/Immediately-invoked_function_expression](http://en.wikipedia.org/wiki/Immediately-invoked_function_expression)
 + [http://benalman.com/news/2010/11/immediately-invoked-function-expression/](http://benalman.com/news/2010/11/immediately-invoked-function-expression/)
 
-> [更多解析参见：](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+> [更多解析参见：](http://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
 
 
 编辑备注：

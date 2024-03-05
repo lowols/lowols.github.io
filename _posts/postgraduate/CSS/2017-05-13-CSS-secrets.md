@@ -10,7 +10,7 @@ tag: CSS
 
 最近再看`<<CSS解密>>`，是由`W3C CSS`工作组专家，设计`CSS`语言得委员之一，`Lea Verou` -- 是一位漂亮、得体得女士，所写。主要讲述了`CSS3`新版本得一些特性，对网页得设计难题，有难得一见得解决方法。特将一些重点勾勒如下。
 
-另外，所强调的一点是：[CSS tricks](https://css-tricks.com/)是一个相当棒的网站，提供了很多`CSS`的处理和难题解决方案。
+另外，所强调的一点是：[CSS tricks](http://css-tricks.com/)是一个相当棒的网站，提供了很多`CSS`的处理和难题解决方案。
 
 <!-- more -->
 
@@ -26,7 +26,7 @@ tag: CSS
 hyphens: auto;
 ```
 
-> 更多参见：[https://css-tricks.com/almanac/properties/h/hyphenate/](https://css-tricks.com/almanac/properties/h/hyphenate/)
+> 更多参见：[http://css-tricks.com/almanac/properties/h/hyphenate/](http://css-tricks.com/almanac/properties/h/hyphenate/)
 
 可是，中文不需要断字符的呀。
 
@@ -59,7 +59,7 @@ hyphens: auto;
 5. 为了更美观，我们在每个`<dd>`元素之间插入逗号，为了去除逗号前面的一个空格，我们使用`margin-left`负外边距的方法来解决。
 6. 这样，就完美了。
 
-> 更多参考： [https://css-tricks.com/injecting-line-break/](https://css-tricks.com/injecting-line-break/)
+> 更多参考： [http://css-tricks.com/injecting-line-break/](http://css-tricks.com/injecting-line-break/)
 
 ### 难题三： 文本行的斑马条纹
 

@@ -23,7 +23,7 @@ tag: Sass
 
 ## 安装Sass
 
-`Sass`最初是使用`Ruby`编程语言开发的，所以我们需要安装`Ruby`，访问[http://www.ruby-lang.org/en/downloads/](http://www.ruby-lang.org/en/downloads/)来下载。同时我们需要下载`Ruby`的包管理工具`gem`，访问[https://rubygems.org/pages/download](https://rubygems.org/pages/download)来进行下载。
+`Sass`最初是使用`Ruby`编程语言开发的，所以我们需要安装`Ruby`，访问[http://www.ruby-lang.org/en/downloads/](http://www.ruby-lang.org/en/downloads/)来下载。同时我们需要下载`Ruby`的包管理工具`gem`，访问[http://rubygems.org/pages/download](http://rubygems.org/pages/download)来进行下载。
 
 之后，输入
 

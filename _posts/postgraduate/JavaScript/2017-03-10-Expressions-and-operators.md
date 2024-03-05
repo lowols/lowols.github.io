@@ -16,7 +16,7 @@ tag: JavaScript
 
 ## Destructuring -- 解构
 
-对于更复杂的赋值, 这个解构赋值[`destructuring assignment`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)语法是一个能从数组或对象对应的数组结构或对象字面量里提取数据的`Javascript`表达式。
+对于更复杂的赋值, 这个解构赋值[`destructuring assignment`](http://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)语法是一个能从数组或对象对应的数组结构或对象字面量里提取数据的`Javascript`表达式。
 
 ```javascript
 var foo = ["one", "two", "three"];
@@ -85,7 +85,7 @@ console.log((-13).mod(64));  // 51
 
 ### 若只想要要得到整数商呢？
 
-`JavaScript`有一个全局对象[`parseInt()`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/parseInt)可以帮助我们解决这个问题。
+`JavaScript`有一个全局对象[`parseInt()`](http://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/parseInt)可以帮助我们解决这个问题。
 
 语法是：
 
@@ -99,7 +99,7 @@ parseInt (string, radix)
 parseInt(7 /2); // 3
 ```
 
-`JavaScript`的内置[`Math`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math)还提供一些其他的方法：
+`JavaScript`的内置[`Math`](http://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math)还提供一些其他的方法：
 
 + `Math.ceil(x)`: 返回向上取整
 + `Math.round(x)`: 返回四舍五入后的整数
@@ -182,7 +182,7 @@ if (3 in trees) {
 
 ### typedof
 
-[`typeof`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof)的语法形式如下：
+[`typeof`](http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof)的语法形式如下：
 
 ```javascript
 typeof operand
@@ -272,7 +272,7 @@ An expression is any valid unit of code that resolves to a value.
 
 #### this
 
-使用[`this`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/this) keyword关键字来指代当前对象(current object)，通常，`this`指代的是方法中正在被调用的对象。用法如下
+使用[`this`](http://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/this) keyword关键字来指代当前对象(current object)，通常，`this`指代的是方法中正在被调用的对象。用法如下
 
 ```javascript
 this["propertyName"]
@@ -285,7 +285,7 @@ Left values are the destination of an assignment.
 
 #### new
 
-你可以使用[`new`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/new) operator 创建一个自定义类型或者是预置类型的对象实例。用法如下：
+你可以使用[`new`](http://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/new) operator 创建一个自定义类型或者是预置类型的对象实例。用法如下：
 
 ```javascript
 var objectName = new objectType([param1, param2, ..., paramN]);
@@ -293,7 +293,7 @@ var objectName = new objectType([param1, param2, ..., paramN]);
 
 #### super
 
-[`super`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/super)关键字可以用来调用一个对象父类的函数，它在用来调用一个类的父类的构造函数时非常有用。
+[`super`](http://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/super)关键字可以用来调用一个对象父类的函数，它在用来调用一个类的父类的构造函数时非常有用。
 
 ```javascript
 super([arguments]); // calls the parent constructor. super.functionOnParent([arguments]);
@@ -301,4 +301,4 @@ super([arguments]); // calls the parent constructor. super.functionOnParent([arg
 
 #### Spread operator
 
-[`spread`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Spread_operator) operator允许一个表达式在原地展开，当需要多个参数(比如函数调用时)或者多个值(比如字面量数组)。
+[`spread`](http://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Spread_operator) operator允许一个表达式在原地展开，当需要多个参数(比如函数调用时)或者多个值(比如字面量数组)。

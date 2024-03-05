@@ -75,7 +75,7 @@ getMaxOfArray(arr); // 23
 
 ### 1.1.2. es6的...操作符
 
-ES6新增一个[spread operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator)，可以展开数组元素。
+ES6新增一个[spread operator](http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator)，可以展开数组元素。
 
 ```js
 let arr = [6,4,1,8,1,11,23];
@@ -99,7 +99,7 @@ arr.sort((a,b) => a-b);
 let max = arr[arr.length-1]; //23
 ```
 
->参考: [Math.max()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/max)
+>参考: [Math.max()](http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/max)
 
 ## 1.2. 数组的拷贝
 
@@ -203,8 +203,8 @@ jQuery -- `&.extend()` 调用 `$.extend(true, {}, obj);`就可以进行深复制
 lodash -- `_.clone()` 和 `_.cloneDeep()`，这个库效果要更好。
 
 参考:
-+ [深入剖析 JavaScript 的深复制](https://segmentfault.com/a/1190000002801042)
-+ [How to Deep clone in javascript](https://stackoverflow.com/questions/4459928/how-to-deep-clone-in-javascript)
++ [深入剖析 JavaScript 的深复制](http://segmentfault.com/a/1190000002801042)
++ [How to Deep clone in javascript](http://stackoverflow.com/questions/4459928/how-to-deep-clone-in-javascript)
 
 # 2. Date 对象相关的操作
 

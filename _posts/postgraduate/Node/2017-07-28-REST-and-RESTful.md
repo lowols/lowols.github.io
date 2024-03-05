@@ -98,6 +98,6 @@ RESTful API的目的呢，就是通过一套统一的接口，为web、ios和and
 
 参考1: [理解RESTful架构](http://www.ruanyifeng.com/blog/2011/09/restful.html)
 参考2: [理解本真的REST架构风格](http://www.infoq.com/cn/articles/understanding-restful-style/)
-参考3: [What exactly is RESTful programming?](https://stackoverflow.com/questions/671118/what-exactly-is-restful-programming)
+参考3: [What exactly is RESTful programming?](http://stackoverflow.com/questions/671118/what-exactly-is-restful-programming)
 参考4: [What Is REST?](http://www.restapitutorial.com/lessons/whatisrest.html)
 参考5: <<JavaScript Application Design-A build first approach>>

@@ -48,10 +48,10 @@ tag: Node
 1/17/2017 8:01:17 PM 
 
 
-[moudle]:https://docs.npmjs.com/how-npm-works/packages#what-is-a-module "what-is-a-moudle"
+[moudle]:http://docs.npmjs.com/how-npm-works/packages#what-is-a-module "what-is-a-moudle"
 
-[package-and-module]:https://docs.npmjs.com/how-npm-works/packages#most-npm-packages-are-modules 
+[package-and-module]:http://docs.npmjs.com/how-npm-works/packages#most-npm-packages-are-modules 
 
-[package.json]:https://docs.npmjs.com/getting-started/using-a-package.json#requirements 
+[package.json]:http://docs.npmjs.com/getting-started/using-a-package.json#requirements 
 
-[express.json]:https://github.com/expressjs/express/blob/master/package.json
+[express.json]:http://github.com/expressjs/express/blob/master/package.json

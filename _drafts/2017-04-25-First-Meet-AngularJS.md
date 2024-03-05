@@ -200,7 +200,7 @@ app.controller('FirstController',function($scope){
 
 2. date
 
-将日期格式化成需要的格式。具体参见[https://docs.angularjs.org/api/ng/filter/date](https://docs.angularjs.org/api/ng/filter/date)
+将日期格式化成需要的格式。具体参见[http://docs.angularjs.org/api/ng/filter/date](http://docs.angularjs.org/api/ng/filter/date)
 
 3. filter
 
@@ -279,8 +279,8 @@ app.controller('FirstController',function($scope){
     <meta charset="UTF-8">
     <title>My First AngularJS</title>
     <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css">
 </head>
 <body>
 <div ng-controller="MainController">
