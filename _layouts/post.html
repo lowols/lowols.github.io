@@ -1,74 +1,88 @@
 ---
-layout: default
+layout: base
 ---
-<div class="container docs-container">
-  <div class="row">
-    <div class="col-md-3">
-      <div class="sidebar hidden-print" role="complementary">
-        {% include lefttree.html %} 
-      </div>
-    </div>
-    <div class="col-md-9" role="main">
-      <div class="panel docs-content">
-        <div class="wrapper">
-            <header class="post-header">
-              <h1 class="post-title">{{ page.title }}</h1>
-              <!--
-                <p class="post-meta">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p>
-              -->
-              <div class="meta">Date： <span class="postdate">{{ page.date | date: "%b %d, %Y" }}</span> Author： <a target="_blank" href="{{site.url}}">{{ site.author }}</a></div>
-              <br />
-              <blockquote><p>本文章采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh"> 知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议 </a>进行许可。转载请注明来自<a href="http://baidu.com">walon的博客</a></p></blockquote>
-            </header>
-            <article class="post-content">
-              {{ content }}
-            </article>
-          <hr>
-          <blockquote><p>对于本文内容有问题或建议的小伙伴，欢迎在文章底部留言交流讨论。</p></blockquote>
-          <div class="text-center">
-            <a href="{{ '/donate/' | prepend: site.baseurl }}" target="_blank" style="text-decoration: none"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> 您的支持是将是我写作最大的动力!</button></a>
-          </div>
-        </div>
-      </div>
-      <!--comment-->
-      <!--code for 网易云跟帖
-      <div class="panel docs-content">
-        <article class="post-content">
-          <div class="wrapper">
-            <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
-            <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
-            <script src="http://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
-            <script>
-            var cloudTieConfig = {
-            url: document.location.href, 
-            sourceId: "",
-            productKey: "b6d55f09637f497389b80bafc11aada1",
-            target: "cloud-tie-wrapper"
-            };
-            var yunManualLoad = true;
-            Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
-            </script>
-          </div>
-        </article>
-      </div> -->
-      <!--Gitment-->
-      <div id="container"></div>
-      <link rel="stylesheet" href="http://imsun.github.io/gitment/style/default.css">
-      <script src="http://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-      <script>
-        var gitment = new Gitment({
-          id: window.location.pathname, 
-          owner: 'lowols',
-          repo: 'lowols.github.io',
-          oauth: {
-          client_id: 'a884d93361c09d5c03b3',
-          client_secret: '73f1de789521db427d431e9f8488db2f974ee0ba',
-          },
-        })
-        gitment.render('container')
-      </script>
-      
-    </div>
-  </div>
-</div>
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">{{ page.title }}</h1>
+        <p class="post-meta">
+            <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+                <i class="icon-post-date">{{ page.date | date: "%b %-d, %Y" }}</i>
+            </time>
+            {% if page.categories.size > 0 %} |
+            <span class="post-category">
+            <i class="icon-post-category">
+            {% for page_category in page.categories %}
+                <a href="{{ site.baseurl }}/category/#{{ page_category }}">{{ page_category }}</a>
+            {% endfor %}
+            </i>
+        </span> {% endif %} {% if page.tags.size > 0 %} |
+            <span class="post-tag">
+            <i class="icon-post-tag">
+            {% for page_tag in page.tags %}
+                <a href="{{ site.baseurl }}/tags/#{{ page_tag }}">{{ page_tag }}</a>
+            {% endfor %}
+            </i>
+        </span>{% endif %}
+
+
+            <!-- 阅读量统计， id 将作为查询条件 -->
+            <span id={{page.url}} class="leancloud-visitors" data-flag-title={{page.title}}>
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-text">阅读量 </span>
+                <span class="leancloud-visitors-count"></span>
+            </span>
+        </p>
+
+    </header>
+
+    <div class="post-content" itemprop="articleBody">
+        {{ content }}
+    </div>
+
+    <div id="donate" >
+        <a href="/donate/" style="text-decoration: none" title="点击直达打赏页面～" >
+            <button>客官~对小店满意的话，<mark>赏个铜板</mark>再走啊🐼</button>
+        </a>
+    </div>
+
+
+    <div class="post-nav">
+        {% if page.previous %}
+        <a href="{{ page.previous.url | prepend: site.baseurl }}" class="pre"><i class="icon-post-pre"> {{
+            page.previous.title }}</i></a>
+        {% endif %} {% if page.next %}
+        <a href="{{ page.next.url | prepend: site.baseur }}" class="next">{{ page.next.title }} <i
+                class="icon-post-next"></i></a>
+        {% endif %}
+    </div>
+
+
+    <!--valine comment function-->
+    <script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+    <p><br/>既已览卷至此，何不品评一二：</p>
+    <div id="valine_comment" class="fb_comments_container"></div>
+    <script>
+        var notify = '{{site.valine.notify}}' === true;
+        var verify = '{{site.valine.verify}}.>' === true;
+        var visitor = '{{site.valine.visitor}}.>' === true;
+
+        new Valine({
+            av: AV,
+            el: '#valine_comment',
+            notify: notify,
+            verify: verify,
+            // smiles_url: '/smiles',
+            visitor: true,
+            app_id: '{{site.valine.app_id}}',
+            app_key: '{{site.valine.app_key}}',
+            placeholder: '{{site.valine.placeholder}}',
+            avatar: '{{site.valine.avatar}}',
+        });
+    </script>
+
+
+</article>
