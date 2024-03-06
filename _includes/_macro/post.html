@@ -394,6 +394,7 @@
 
       {% unless is_index %}
 	    <div class="stats">
+		 <a class="icon" href="{{ site.baseurl }}/#/{{ post.category }}">{{ post.category }}</a>
          <a href="//github.com/lowols/lowols.github.io/edit/main/{{ page.path }}" class="icon">Edit</a>
         </div>
       {% if post.previous or post.next %}
