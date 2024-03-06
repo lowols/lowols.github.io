@@ -393,6 +393,9 @@
       {% endunless %}
 
       {% unless is_index %}
+	    <ul class="stats">
+         <li><a href="//github.com/lowols/lowols.github.io/edit/main/{{ page.path }}" class="icon"><i class="fas fa-fw fa-edit"></i> Edit</a></li>
+        </ul>
       {% if post.previous or post.next %}
         <div class="post-nav" id="post-nav-id">
           <div class="post-nav-next post-nav-item">
