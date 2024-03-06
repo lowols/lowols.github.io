@@ -349,9 +349,6 @@
       {% endunless %}
     </div>
     <footer class="post-footer">
-	<ul class="stats">
-      <li><a href="//github.com/lowols/lowols.github.io/edit/main/{{ page.path }}" class="icon"><i class="fas fa-fw fa-edit"></i> Edit</a></li>
-    </ul>
       {% if post.tags and post.tags.size != 0 and is_index == nil or is_index == false %}
         <div class="post-tags">
           {% for tag in post.tags %}
