@@ -13,7 +13,8 @@ tags:
 [Live Preview](http://simpleyyt.github.io/jekyll-theme-next/)
 
 ## Screenshots
-
+* test
+![Desktop Sidebar Preview](/_post/assets/testImg.jpg)
 * Desktop
 ![Desktop Preview](http://iissnan.com/nexus/next/desktop-preview.png)
 
