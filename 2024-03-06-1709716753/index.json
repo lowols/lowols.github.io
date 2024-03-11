@@ -1,0 +1,23 @@
+{
+  "version": "2.0",
+  "clipId": "1709716753",
+  "format": "md",
+  "title": "About Me | Kyle's Blog",
+  "link": "https://cyborg2077.github.io/2022/08/29/Spring/",
+  "category": "java",
+  "tags": [
+    "Spring"
+  ],
+  "created_at": "2024-03-06 17:19:13",
+  "mainPath": "index.md",
+  "paths": [
+    "index.json",
+    "a-title_About-Me-Kyle-s-Blog",
+    "assets/1709716753-4d6d6291e99cad948013bccd8692d275.jpg",
+    "assets/1709716753-cfe7a551a5cf0294ed00870d0f923f17.jpg",
+    "assets/1709716753-7e657a47af096692a2525008bc9adf29.jpg",
+    "assets/1709716753-366d87fe4a74f15e280ad691acce2e11.jpg",
+    "assets/1709716753-b9a31d3949b1882a09ed2f8508d538f3.gif",
+    "index.md"
+  ]
+}
