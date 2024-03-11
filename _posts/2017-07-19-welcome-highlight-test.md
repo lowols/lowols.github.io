@@ -61,3 +61,8 @@ int main()
   return 0;
 }
 ```
+
+
+
+This is a image test post.
+![](/_posts/assets/111.jpg)
