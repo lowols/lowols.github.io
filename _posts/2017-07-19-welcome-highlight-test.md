@@ -65,4 +65,4 @@ int main()
 
 
 This is a image test post.
-![](/_posts/assets/111.jpg)
+![](https://raw.githubusercontent.com/lowols/lowols.github.io/main/_posts/assets/111.jpg)
