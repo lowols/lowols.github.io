@@ -2,9 +2,9 @@
 title: Redis-Start
 date: 2024-03-28 22:46:49
 tags:
-- redis
+- Spring
 categories:
-- database
+- java
 ---
 
 ---
