@@ -102,7 +102,7 @@ typora-root-url: ./
     *   Spring有若干个项目，可以根据需要自行选择，把这些个项目组合起来，起了一个名称叫Spring全家桶，如下图所示
         
 
-[![Spring全家桶](/assets/images/20240312/1709716753-4d6d6291e99cad948013bccd8692d275.jpg)](https://pic.imgdb.cn/item/630c26bd16f2c2beb1e9ef1e.jpg)
+[![Spring全家桶](/assets/images/20240312/1709716753-4d6d6291e99cad948013bccd8692d275.jpg)]
 
 **说明:**
 
