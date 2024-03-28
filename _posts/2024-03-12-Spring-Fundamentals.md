@@ -19,21 +19,6 @@ typora-root-url: ./
 
 [↓↓↓](https://www.bilibili.com/video/BV1Fi4y1S7ix)  
 
-
-20:55:08
-
-黑马程序员SSM框架教程\_Spring+SpringMVC+Maven高级+SpringBoot+MyBatisPlus企业实用开发技术
-
-372.6万 9.3万
-
-视频 黑马程序员
-
-  
-
-[↑↑↑](https://www.bilibili.com/video/BV1Fi4y1S7ix)
-
-* * *
-
 ## 课程介绍
 
 对于一门新技术，我们需要从`为什么要学`、`学什么`以及`怎么学`这三个方向入手来学习。那对于Spring来说:
