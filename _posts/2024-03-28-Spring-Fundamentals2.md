@@ -1,10 +1,10 @@
 ---
-title: Spring-Fundamentals2
-date: 2024-03-11 22:46:49
+title: Redis-Start
+date: 2024-03-28 22:46:49
 tags:
-- Spring
+- redis
 categories:
-- java
+- database
 ---
 
 ---
