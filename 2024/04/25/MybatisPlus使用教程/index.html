@@ -636,7 +636,10 @@
 <li>MybatisPlus 会把名为 id 的字段作为主键</li>
 </ul>
 <p>但很多情况下，默认的实现与实际场景不符，因此 MybatisPlus 提供了一些注解便于我们声明表信息。</p>
-<h3 id="1-3-1-TableNamemailto-1-3-1-TableName"><a href="#1-3-1-TableNamemailto-1-3-1-TableName" class="headerlink" title="1.3.1.@TableNamemailto:1.3.1.@TableName"></a><strong>1.3.1.@TableNamemailto:1.3.1.@TableName</strong></h3><p>说明：</p>
+<h3 id="1-3-1-TableName"><a href="#1-3-1-TableName" class="headerlink" title="1.3.1.@TableName"></a><strong>1.3.1.@TableName</strong></h3><p>说明：</p>
+<pre class="line-numbers language-none"><code class="language-none">- 描述：表名注解，标识实体类对应的表
+- 使用位置：实体类<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <p>示例：</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@TableName</span><span class="token punctuation">(</span><span class="token string">"user"</span><span class="token punctuation">)</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">&#123;</span>
@@ -698,7 +701,10 @@
 <td>需要排除的属性名 @since 3.3.1</td>
 </tr>
 </tbody></table>
-<h3 id="1-3-2-TableIdmailto-1-3-2-TableId"><a href="#1-3-2-TableIdmailto-1-3-2-TableId" class="headerlink" title="1.3.2.@TableIdmailto:1.3.2.@TableId"></a><strong>1.3.2.@TableIdmailto:1.3.2.@TableId</strong></h3><p>说明：</p>
+<h3 id="1-3-2-TableId"><a href="#1-3-2-TableId" class="headerlink" title="1.3.2.@TableId"></a><strong>1.3.2.@TableId</strong></h3><p>说明：</p>
+<pre class="line-numbers language-none"><code class="language-none">- 描述：主键注解，标识实体类中的主键字段
+- 使用位置：实体类的主键字段<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <p>示例：</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@TableName</span><span class="token punctuation">(</span><span class="token string">"user"</span><span class="token punctuation">)</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">&#123;</span>
@@ -1773,6 +1779,10 @@ Parameters: user_3<span class="token punctuation">,</span> <span class="token nu
 </ul>
 <p>一旦采用了逻辑删除，所有的查询和删除逻辑都要跟着变化，非常麻烦。</p>
 <p>为了解决这个问题，MybatisPlus 就添加了对逻辑删除的支持。</p>
+<blockquote>
+<p>[!NOTE]</p>
+<p><strong>注意</strong>，只有MybatisPlus生成的SQL语句才支持自动的逻辑删除，自定义SQL需要自己手动处理逻辑删除。</p>
+</blockquote>
 <p>例如，我们给 <code>address</code> 表添加一个逻辑删除字段：</p>
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">alter</span> <span class="token keyword">table</span> address <span class="token keyword">add</span> deleted <span class="token keyword">bit</span> <span class="token keyword">default</span> b<span class="token string">'0'</span> <span class="token boolean">null</span> <span class="token keyword">comment</span> <span class="token string">'逻辑删除'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
@@ -1805,6 +1815,15 @@ Parameters: user_3<span class="token punctuation">,</span> <span class="token nu
 <p>会发现 id 为 59 的确实没有查询出来，而且 SQL 中也对逻辑删除字段做了判断：</p>
 <p><img src="/2024/04/25/MybatisPlus%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/NhOZbUzX5oqfMhxA3socVJDlnjb.png"></p>
 <p>综上， 开启了逻辑删除功能以后，我们就可以像普通删除一样做 CRUD，基本不用考虑代码逻辑问题。还是非常方便的。</p>
+<blockquote>
+<p>[!CAUTION]</p>
+<p><strong>注意</strong>： 逻辑删除本身也有自己的问题，比如：</p>
+<ul>
+<li>会导致数据库表垃圾数据越来越多，从而影响查询效率</li>
+<li>SQL中全都需要对逻辑删除字段做判断，影响查询效率</li>
+</ul>
+<p>因此，我不太推荐采用逻辑删除功能，如果数据不能删除，可以采用把数据迁移到其它表的办法。</p>
+</blockquote>
 <h2 id="3-3-通用枚举"><a href="#3-3-通用枚举" class="headerlink" title="3.3.通用枚举"></a><strong>3.3.通用枚举</strong></h2><p>User 类中有一个用户状态字段：</p>
 <p><img src="/2024/04/25/MybatisPlus%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/U3s1bGCPkoLYadxpUbIcITJUnae.png"></p>
 <p>像这种字段我们一般会定义一个枚举，做业务判断的时候就可以直接基于枚举做比较。但是我们数据库采用的是 <code>int</code> 类型，对应的 PO 也是 <code>Integer</code>。因此业务操作时必须手动把 <code>枚举</code> 与 <code>Integer</code> 转换，非常麻烦。</p>
