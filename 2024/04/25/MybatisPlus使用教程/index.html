@@ -1024,7 +1024,7 @@
     users<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token operator">::</span><span class="token function">println</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="2-2-自定义SQL"><a href="#2-2-自定义SQL" class="headerlink" title="*2.2.自定义SQL*"></a>*<em>2.2.<strong><strong>自定义</strong></strong>SQL</em>*</h3><p>在演示 UpdateWrapper 的案例中，我们在代码中编写了更新的 SQL 语句：</p>
+<h3 id="2-2-自定义SQL"><a href="#2-2-自定义SQL" class="headerlink" title="2.2.自定义SQL"></a><strong>2.2.自定义SQL</strong></h3><p>在演示 UpdateWrapper 的案例中，我们在代码中编写了更新的 SQL 语句：</p>
 <p><img src="/2024/04/25/MybatisPlus%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/YDypbDjXworWFexxEGXcmzVonCe.png"></p>
 <p>这种写法在某些企业也是不允许的，因为 SQL 语句最好都维护在持久层，而不是业务层。就当前案例来说，由于条件是 in 语句，只能将 SQL 写在 Mapper.xml 文件，利用 foreach 来生成动态 SQL。<br>这实在是太麻烦了。假如查询条件更复杂，动态 SQL 的编写也会更加复杂。</p>
 <p>所以，MybatisPlus 提供了自定义 SQL 功能，可以让我们利用 Wrapper 生成查询条件，再结合 Mapper.xml 编写 SQL</p>
@@ -1091,7 +1091,7 @@
     SELECT * FROM user u INNER JOIN address a ON u.id = a.user_id $&#123;ew.customSqlSegment&#125;
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="2-3-Service-接口"><a href="#2-3-Service-接口" class="headerlink" title="**2.3.**Service 接口"></a>**2.3.**<strong>Service 接口</strong></h3><p>MybatisPlus 不仅提供了 BaseMapper，还提供了通用的 Service 接口及默认实现，封装了一些常用的 service 模板方法。<br>通用接口为 <code>IService</code>，默认实现为 <code>ServiceImpl</code>，其中封装的方法可以分为以下几类：</p>
+<h3 id="2-3-Service-接口"><a href="#2-3-Service-接口" class="headerlink" title="2.3. Service 接口"></a><strong>2.3. Service 接口</strong></h3><p>MybatisPlus 不仅提供了 BaseMapper，还提供了通用的 Service 接口及默认实现，封装了一些常用的 service 模板方法。<br>通用接口为 <code>IService</code>，默认实现为 <code>ServiceImpl</code>，其中封装的方法可以分为以下几类：</p>
 <ul>
 <li><code>save</code>：新增</li>
 <li><code>remove</code>：删除</li>
@@ -1101,7 +1101,7 @@
 <li><code>count</code>：计数</li>
 <li><code>page</code>：分页查询</li>
 </ul>
-<h4 id="2-3-1-CRUD"><a href="#2-3-1-CRUD" class="headerlink" title="**2.3.1.**CRUD"></a>**2.3.1.**<strong>CRUD</strong></h4><p>我们先俩看下基本的 CRUD 接口。<br><strong>新增</strong>：</p>
+<h4 id="2-3-1-CRUD"><a href="#2-3-1-CRUD" class="headerlink" title="2.3.1.CRUD"></a><strong>2.3.1.CRUD</strong></h4><p>我们先俩看下基本的 CRUD 接口。<br><strong>新增</strong>：</p>
 <p><img src="/2024/04/25/MybatisPlus%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/XbiKbBgB1oY6hDxWvBVcpX9lnFh.png"></p>
 <ul>
 <li><code>save</code> 是新增单个元素</li>
@@ -1431,7 +1431,7 @@
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Update</span><span class="token punctuation">(</span><span class="token string">"UPDATE user SET balance = balance - #&#123;money&#125; WHERE id = #&#123;id&#125;"</span><span class="token punctuation">)</span>
 <span class="token keyword">void</span> <span class="token function">deductMoneyById</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Param</span><span class="token punctuation">(</span><span class="token string">"id"</span><span class="token punctuation">)</span> <span class="token class-name">Long</span> id<span class="token punctuation">,</span> <span class="token annotation punctuation">@Param</span><span class="token punctuation">(</span><span class="token string">"money"</span><span class="token punctuation">)</span> <span class="token class-name">Integer</span> money<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<h4 id="2-3-3-Lambda"><a href="#2-3-3-Lambda" class="headerlink" title="**2.3.3.**Lambda"></a>**2.3.3.**<strong>Lambda</strong></h4><p>IService 中还提供了 Lambda 功能来简化我们的复杂查询及更新功能。我们通过两个案例来学习一下。</p>
+<h4 id="2-3-3-Lambda"><a href="#2-3-3-Lambda" class="headerlink" title="2.3.3.Lambda"></a><strong>2.3.3.Lambda</strong></h4><p>IService 中还提供了 Lambda 功能来简化我们的复杂查询及更新功能。我们通过两个案例来学习一下。</p>
 <p>案例一：实现一个根据复杂条件查询用户的接口，查询条件如下：</p>
 <ul>
 <li>name：用户名关键字，可以为空</li>
@@ -1542,7 +1542,7 @@
             <span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h4 id="2-3-4-批量新增"><a href="#2-3-4-批量新增" class="headerlink" title="**2.3.4.**批量新增"></a>**2.3.4.**<strong>批量新增</strong></h4><p>IService 中的批量新增功能使用起来非常方便，但有一点注意事项，我们先来测试一下。<br>首先我们测试逐条插入数据：</p>
+<h4 id="2-3-4-批量新增"><a href="#2-3-4-批量新增" class="headerlink" title="2.3.4.批量新增"></a><strong>2.3.4.批量新增</strong></h4><p>IService 中的批量新增功能使用起来非常方便，但有一点注意事项，我们先来测试一下。<br>首先我们测试逐条插入数据：</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
 <span class="token keyword">void</span> <span class="token function">testSaveOneByOne</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">long</span> b <span class="token operator">=</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
