@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  {%- for article in articles %}
+  <entry>
+    <title></title>
+    <url></url>
+    <content><![CDATA[]]></content>
+    {%- if article.categories %}
+      <categories>
+        {%- for category in article.categories %}
+        <category></category>
+        {%- endfor %}
+      </categories>
+    {%- endif %}
+    {%- if article.tags %}
+      <tags>
+        {%- for tag in article.tags %}
+        <tag></tag>
+        {%- endfor %}
+      </tags>
+    {%- endif %}
+  </entry>
+  {%- endfor %}
+</search>
