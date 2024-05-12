@@ -1,0 +1,2243 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="微服务常用组件ES-下, Hexo">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>微服务常用组件ES-下 | Hexo</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Hexo</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Hexo</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">微服务常用组件ES-下</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/ES/">
+                                <span class="chip bg-color">ES</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%90%8E%E7%AB%AF/" class="post-category">
+                                后端
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-05-12
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><strong>微服务常用组件ES-下</strong></p>
+<p>在昨天的学习中，我们已经导入了大量数据到 elasticsearch 中，实现了商品数据的存储。不过查询商品数据时依然采用的是根据 id 查询，而非模糊搜索。</p>
+<p>所以今天，我们来研究下 elasticsearch 的数据搜索功能。Elasticsearch 提供了基于 JSON 的 DSL（<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/7.12/query-dsl.html">Domain Specific Language</a>）语句来定义查询条件，其 JavaAPI 就是在组织 DSL 条件。</p>
+<p>因此，我们先学习 DSL 的查询语法，然后再基于 DSL 来对照学习 JavaAPI，就会事半功倍。</p>
+<h2 id="1-DSL-查询"><a href="#1-DSL-查询" class="headerlink" title="1.DSL 查询"></a>1.DSL 查询</h2><p>Elasticsearch 的查询可以分为两大类：</p>
+<ul>
+<li><strong>叶子查询（Leaf <strong><strong>query</strong></strong> clauses）</strong>：一般是在特定的字段里查询特定值，属于简单查询，很少单独使用。</li>
+<li><strong>复合查询（Compound <strong><strong>query</strong></strong> clauses）</strong>：以逻辑方式组合多个叶子查询或者更改叶子查询的行为方式。</li>
+</ul>
+<h3 id="1-1-快速入门"><a href="#1-1-快速入门" class="headerlink" title="1.1.快速入门"></a>1.1.快速入门</h3><p>我们依然在 Kibana 的 DevTools 中学习查询的 DSL 语法。首先来看查询的语法结构：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json">GET /<span class="token punctuation">&#123;</span>索引库名<span class="token punctuation">&#125;</span>/_search
+<span class="token punctuation">&#123;</span>
+  <span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"查询类型"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token comment">// .. 查询条件</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>说明：</p>
+<ul>
+<li><code>GET /&#123;索引库名&#125;/_search</code>：其中的 <code>_search</code> 是固定路径，不能修改</li>
+</ul>
+<p>例如，我们以最简单的无条件查询为例，无条件查询的类型是：match_all，因此其查询语句如下：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json">GET /items/_search
+<span class="token punctuation">&#123;</span>
+  <span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"match_all"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>由于 match_all 无条件，所以条件位置不写即可。</p>
+<p>执行结果如下：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/IFNub8Zn6oNqb2xciZScRkk4nsd.png"></p>
+<p>你会发现虽然是 match_all，但是响应结果中并不会包含索引库中的所有文档，而是仅有 10 条。这是因为处于安全考虑，elasticsearch 设置了默认的查询页数。</p>
+<h3 id="1-2-叶子查询"><a href="#1-2-叶子查询" class="headerlink" title="1.2.叶子查询"></a>1.2.叶子查询</h3><p>叶子查询的类型也可以做进一步细分，详情大家可以查看官方文档：</p>
+<p>如图：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/DgiabobteoKwNIxLChHcZyvdnQb.png"></p>
+<p>这里列举一些常见的，例如：</p>
+<ul>
+<li><p><strong>全文检索查询（Full Text Queries）</strong>：利用分词器对用户输入搜索条件先分词，得到词条，然后再利用倒排索引搜索词条。例如：</p>
+<ul>
+<li><code>match</code>：</li>
+<li><code>multi_match</code></li>
+</ul>
+</li>
+<li><p><strong>精确查询（Term-level queries）</strong>：不对用户输入搜索条件分词，根据字段内容精确值匹配。但只能查找 keyword、数值、日期、boolean 类型的字段。例如：</p>
+<ul>
+<li><code>ids</code></li>
+<li><code>term</code></li>
+<li><code>range</code></li>
+</ul>
+</li>
+<li><p><strong>地理坐标查询：</strong>用于搜索地理位置，搜索方式很多，例如：</p>
+<ul>
+<li><code>geo_bounding_box</code>：按矩形搜索</li>
+<li><code>geo_distance</code>：按点和半径搜索</li>
+</ul>
+</li>
+<li><p>…略</p>
+</li>
+</ul>
+<h4 id="1-2-1-全文检索查询"><a href="#1-2-1-全文检索查询" class="headerlink" title="1.2.1.全文检索查询"></a>1.2.1.全文检索查询</h4><p>全文检索的种类也很多，详情可以参考官方文档：</p>
+<p>以全文检索中的 <code>match</code> 为例，语法如下：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json">GET /<span class="token punctuation">&#123;</span>索引库名<span class="token punctuation">&#125;</span>/_search
+<span class="token punctuation">&#123;</span>
+  <span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"match"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"字段名"</span><span class="token operator">:</span> <span class="token string">"搜索条件"</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>示例：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/Dp30bjD77oO5U5xCjowcsLaqnse.png"></p>
+<p>与 <code>match</code> 类似的还有 <code>multi_match</code>，区别在于可以同时对多个字段搜索，而且多个字段都要满足，语法示例：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json">GET /<span class="token punctuation">&#123;</span>索引库名<span class="token punctuation">&#125;</span>/_search
+<span class="token punctuation">&#123;</span>
+  <span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"multi_match"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"query"</span><span class="token operator">:</span> <span class="token string">"搜索条件"</span><span class="token punctuation">,</span>
+      <span class="token property">"fields"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"字段1"</span><span class="token punctuation">,</span> <span class="token string">"字段2"</span><span class="token punctuation">]</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>示例：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/Dt2dbDLaDoK3HZxyLdGc8OGUnZe.png"></p>
+<h4 id="1-2-2-精确查询"><a href="#1-2-2-精确查询" class="headerlink" title="1.2.2.精确查询"></a>1.2.2.精确查询</h4><p>精确查询，英文是 <code>Term-level query</code>，顾名思义，词条级别的查询。也就是说不会对用户输入的搜索条件再分词，而是作为一个词条，与搜索的字段内容精确值匹配。因此推荐查找 <code>keyword</code>、数值、日期、<code>boolean</code> 类型的字段。例如：</p>
+<ul>
+<li>id</li>
+<li>price</li>
+<li>城市</li>
+<li>地名</li>
+<li>人名</li>
+</ul>
+<p>等等，作为一个整体才有含义的字段。</p>
+<p>详情可以查看官方文档：</p>
+<p>以 <code>term</code> 查询为例，其语法如下：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json">GET /<span class="token punctuation">&#123;</span>索引库名<span class="token punctuation">&#125;</span>/_search
+<span class="token punctuation">&#123;</span>
+  <span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"term"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"字段名"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"value"</span><span class="token operator">:</span> <span class="token string">"搜索条件"</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>示例：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/WUUibThF1oiPkkxRQ8lcfHjEnbg.png"></p>
+<p>当你输入的搜索条件不是词条，而是短语时，由于不做分词，你反而搜索不到：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/BlQTbUnvGoBRU1xVFSXcyEManCh.png"></p>
+<p>再来看下 <code>range</code> 查询，语法如下：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json">GET /<span class="token punctuation">&#123;</span>索引库名<span class="token punctuation">&#125;</span>/_search
+<span class="token punctuation">&#123;</span>
+  <span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"range"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"字段名"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"gte"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>最小值<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token property">"lte"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>最大值<span class="token punctuation">&#125;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>range</code> 是范围查询，对于范围筛选的关键字有：</p>
+<ul>
+<li><code>gte</code>：大于等于</li>
+<li><code>gt</code>：大于</li>
+<li><code>lte</code>：小于等于</li>
+<li><code>lt</code>：小于</li>
+</ul>
+<p>示例：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/RQeTbGbTvoIsrAxhj5ccTSG5nye.png"></p>
+<h3 id="1-3-复合查询"><a href="#1-3-复合查询" class="headerlink" title="1.3.复合查询"></a>1.3.复合查询</h3><p>复合查询大致可以分为两类：</p>
+<ul>
+<li><p>第一类：基于逻辑运算组合叶子查询，实现组合条件，例如</p>
+<ul>
+<li>bool</li>
+</ul>
+</li>
+<li><p>第二类：基于某种算法修改查询时的文档相关性算分，从而改变文档排名。例如：</p>
+<ul>
+<li>function_score</li>
+<li>dis_max</li>
+</ul>
+</li>
+</ul>
+<p>其它复合查询及相关语法可以参考官方文档：</p>
+<h4 id="1-3-1-算分函数查询（选讲）"><a href="#1-3-1-算分函数查询（选讲）" class="headerlink" title="1.3.1.算分函数查询（选讲）"></a>1.3.1.算分函数查询（选讲）</h4><p>当我们利用 match 查询时，文档结果会根据与搜索词条的<strong>关联度打分</strong>（**_score**），返回结果时按照分值降序排列。</p>
+<p>例如，我们搜索 “手机”，结果如下：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/OmBkbJlkzotHRXxEWINcrDJqnhe.png"></p>
+<p>从 elasticsearch5.1 开始，采用的相关性打分算法是 BM25 算法，公式如下：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/GxE2b7cgvoMmk5xnbyScVB2NnDf.png"></p>
+<p>基于这套公式，就可以判断出某个文档与用户搜索的关键字之间的关联度，还是比较准确的。但是，在实际业务需求中，常常会有竞价排名的功能。不是相关度越高排名越靠前，而是掏的钱多的排名靠前。</p>
+<p>例如在百度中搜索 Java 培训，排名靠前的就是广告推广：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/BlC2bhAZZoLR9jxBToKc9uP7nqh.png"></p>
+<p>要想认为控制相关性算分，就需要利用 elasticsearch 中的 function score 查询了。</p>
+<p><strong>基本语法</strong>：</p>
+<p>function score 查询中包含四部分内容：</p>
+<ul>
+<li><p><strong>原始查询</strong>条件：query 部分，基于这个条件搜索文档，并且基于 BM25 算法给文档打分，<strong>原始算分</strong>（query score)</p>
+</li>
+<li><p><strong>过滤条件</strong>：filter 部分，符合该条件的文档才会重新算分</p>
+</li>
+<li><p><strong>算分函数</strong>：符合 filter 条件的文档要根据这个函数做运算，得到的<strong>函数算分</strong>（function score），有四种函数</p>
+<ul>
+<li>weight：函数结果是常量</li>
+<li>field_value_factor：以文档中的某个字段值作为函数结果</li>
+<li>random_score：以随机数作为函数结果</li>
+<li>script_score：自定义算分函数算法</li>
+</ul>
+</li>
+<li><p><strong>运算模式</strong>：算分函数的结果、原始查询的相关性算分，两者之间的运算方式，包括：</p>
+<ul>
+<li>multiply：相乘</li>
+<li>replace：用 function score 替换 query score</li>
+<li>其它，例如：sum、avg、max、min</li>
+</ul>
+</li>
+</ul>
+<p>function score 的运行流程如下：</p>
+<ul>
+<li>1）根据<strong>原始条件</strong>查询搜索文档，并且计算相关性算分，称为<strong>原始算分</strong>（query score）</li>
+<li>2）根据<strong>过滤条件</strong>，过滤文档</li>
+<li>3）符合<strong>过滤条件</strong>的文档，基于<strong>算分函数</strong>运算，得到<strong>函数算分</strong>（function score）</li>
+<li>4）将<strong>原始算分</strong>（query score）和<strong>函数算分</strong>（function score）基于<strong>运算模式</strong>做运算，得到最终结果，作为相关性算分。</li>
+</ul>
+<p>因此，其中的关键点是：</p>
+<ul>
+<li>过滤条件：决定哪些文档的算分被修改</li>
+<li>算分函数：决定函数算分的算法</li>
+<li>运算模式：决定最终算分结果</li>
+</ul>
+<p>示例：给 IPhone 这个品牌的手机算分提高十倍，分析如下：</p>
+<ul>
+<li>过滤条件：品牌必须为 IPhone</li>
+<li>算分函数：常量 weight，值为 10</li>
+<li>算分模式：相乘 multiply</li>
+</ul>
+<p>对应代码如下：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json">GET /hotel/_search
+<span class="token punctuation">&#123;</span>
+  <span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"function_score"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>  .... <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token comment">// 原始查询，可以是任意条件</span>
+      <span class="token property">"functions"</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token comment">// 算分函数</span>
+        <span class="token punctuation">&#123;</span>
+          <span class="token property">"filter"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 满足的条件，品牌必须是Iphone</span>
+            <span class="token property">"term"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+              <span class="token property">"brand"</span><span class="token operator">:</span> <span class="token string">"Iphone"</span>
+            <span class="token punctuation">&#125;</span>
+          <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+          <span class="token property">"weight"</span><span class="token operator">:</span> <span class="token number">10</span> <span class="token comment">// 算分权重为2</span>
+        <span class="token punctuation">&#125;</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"boost_mode"</span><span class="token operator">:</span> <span class="token string">"multipy"</span> <span class="token comment">// 加权模式，求乘积</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="1-3-2-bool-查询"><a href="#1-3-2-bool-查询" class="headerlink" title="1.3.2.bool 查询"></a>1.3.2.bool 查询</h4><p>bool 查询，即布尔查询。就是利用逻辑运算来组合一个或多个查询子句的组合。bool 查询支持的逻辑运算有：</p>
+<ul>
+<li>must：必须匹配每个子查询，类似“与”</li>
+<li>should：选择性匹配子查询，类似“或”</li>
+<li>must_not：必须不匹配，<strong>不参与算分</strong>，类似“非”</li>
+<li>filter：必须匹配，<strong>不参与算分</strong></li>
+</ul>
+<p>bool 查询的语法如下：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json">GET /items/_search
+<span class="token punctuation">&#123;</span>
+  <span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"bool"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"must"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">&#123;</span><span class="token property">"match"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"手机"</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"should"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">&#123;</span><span class="token property">"term"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token property">"brand"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token property">"value"</span><span class="token operator">:</span> <span class="token string">"vivo"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#123;</span><span class="token property">"term"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token property">"brand"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token property">"value"</span><span class="token operator">:</span> <span class="token string">"小米"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"must_not"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">&#123;</span><span class="token property">"range"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token property">"price"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token property">"gte"</span><span class="token operator">:</span> <span class="token number">2500</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"filter"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">&#123;</span><span class="token property">"range"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token property">"price"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token property">"lte"</span><span class="token operator">:</span> <span class="token number">1000</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>出于性能考虑，与搜索关键字无关的查询尽量采用 must_not 或 filter 逻辑运算，避免参与相关性算分。</p>
+<p>例如黑马商城的搜索页面：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/HctPb4AUWofhUzx4P4McavP0nAc.png"></p>
+<p>其中输入框的搜索条件肯定要参与相关性算分，可以采用 match。但是价格范围过滤、品牌过滤、分类过滤等尽量采用 filter，不要参与相关性算分。</p>
+<p>比如，我们要搜索 <code>手机</code>，但品牌必须是 <code>华为</code>，价格必须是 <code>900~1599</code>，那么可以这样写：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json">GET /items/_search
+<span class="token punctuation">&#123;</span>
+  <span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"bool"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"must"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">&#123;</span><span class="token property">"match"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"手机"</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"filter"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">&#123;</span><span class="token property">"term"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token property">"brand"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token property">"value"</span><span class="token operator">:</span> <span class="token string">"华为"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#123;</span><span class="token property">"range"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token property">"price"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token property">"gte"</span><span class="token operator">:</span> <span class="token number">90000</span><span class="token punctuation">,</span> <span class="token property">"lt"</span><span class="token operator">:</span> <span class="token number">159900</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="1-4-排序"><a href="#1-4-排序" class="headerlink" title="1.4.排序"></a>1.4.排序</h3><p>elasticsearch 默认是根据相关度算分（<code>_score</code>）来排序，但是也支持自定义方式对搜索结果排序。不过分词字段无法排序，能参与排序字段类型有：<code>keyword</code> 类型、数值类型、地理坐标类型、日期类型等。</p>
+<p>详细说明可以参考官方文档：</p>
+<p>语法说明：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json">GET /indexName/_search
+<span class="token punctuation">&#123;</span>
+  <span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"match_all"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token property">"sort"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">&#123;</span>
+      <span class="token property">"排序字段"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"order"</span><span class="token operator">:</span> <span class="token string">"排序方式asc和desc"</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>示例，我们按照商品价格排序：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json">GET /items/_search
+<span class="token punctuation">&#123;</span>
+  <span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"match_all"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token property">"sort"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">&#123;</span>
+      <span class="token property">"price"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"order"</span><span class="token operator">:</span> <span class="token string">"desc"</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="1-5-分页"><a href="#1-5-分页" class="headerlink" title="1.5.分页"></a>1.5.分页</h3><p>elasticsearch 默认情况下只返回 top10 的数据。而如果要查询更多数据就需要修改分页参数了。</p>
+<h4 id="1-5-1-基础分页"><a href="#1-5-1-基础分页" class="headerlink" title="1.5.1.基础分页"></a>1.5.1.基础分页</h4><p>elasticsearch 中通过修改 <code>from</code>、<code>size</code> 参数来控制要返回的分页结果：</p>
+<ul>
+<li><code>from</code>：从第几个文档开始</li>
+<li><code>size</code>：总共查询几个文档</li>
+</ul>
+<p>类似于 mysql 中的 <code>limit ?, ?</code></p>
+<p>官方文档如下：</p>
+<p>语法如下：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json">GET /items/_search
+<span class="token punctuation">&#123;</span>
+  <span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"match_all"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token property">"from"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token comment">// 分页开始的位置，默认为0</span>
+  <span class="token property">"size"</span><span class="token operator">:</span> <span class="token number">10</span><span class="token punctuation">,</span>  <span class="token comment">// 每页文档数量，默认10</span>
+  <span class="token property">"sort"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">&#123;</span>
+      <span class="token property">"price"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"order"</span><span class="token operator">:</span> <span class="token string">"desc"</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="1-5-2-深度分页"><a href="#1-5-2-深度分页" class="headerlink" title="1.5.2.深度分页"></a>1.5.2.深度分页</h4><p>elasticsearch 的数据一般会采用分片存储，也就是把一个索引中的数据分成 N 份，存储到不同节点上。这种存储方式比较有利于数据扩展，但给分页带来了一些麻烦。</p>
+<p>比如一个索引库中有 100000 条数据，分别存储到 4 个分片，每个分片 25000 条数据。现在每页查询 10 条，查询第 99 页。那么分页查询的条件如下：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json">GET /items/_search
+<span class="token punctuation">&#123;</span>
+  <span class="token property">"from"</span><span class="token operator">:</span> <span class="token number">990</span><span class="token punctuation">,</span> <span class="token comment">// 从第990条开始查询</span>
+  <span class="token property">"size"</span><span class="token operator">:</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token comment">// 每页查询10条</span>
+  <span class="token property">"sort"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">&#123;</span>
+      <span class="token property">"price"</span><span class="token operator">:</span> <span class="token string">"asc"</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>从语句来分析，要查询第 990~1000 名的数据。</p>
+<p>从实现思路来分析，肯定是将所有数据排序，找出前 1000 名，截取其中的 990~1000 的部分。但问题来了，我们如何才能找到所有数据中的前 1000 名呢？</p>
+<p>要知道每一片的数据都不一样，第 1 片上的第 900<del>1000，在另 1 个节点上并不一定依然是 900</del>1000 名。所以我们只能在每一个分片上都找出排名前 1000 的数据，然后汇总到一起，重新排序，才能找出整个索引库中真正的前 1000 名，此时截取 990~1000 的数据即可。</p>
+<p>如图：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/VtAcboF7XorwxQxQGcecUKannZb.png"></p>
+<p>试想一下，假如我们现在要查询的是第 999 页数据呢，是不是要找第 9990~10000 的数据，那岂不是需要把每个分片中的前 10000 名数据都查询出来，汇总在一起，在内存中排序？如果查询的分页深度更深呢，需要一次检索的数据岂不是更多？</p>
+<p>由此可知，当查询分页深度较大时，汇总数据过多，对内存和 CPU 会产生非常大的压力。</p>
+<p>因此 elasticsearch 会禁止 <code>from+ size </code> 超过 10000 的请求。</p>
+<p>针对深度分页，elasticsearch 提供了两种解决方案：</p>
+<ul>
+<li><code>search after</code>：分页时需要排序，原理是从上一次的排序值开始，查询下一页数据。官方推荐使用的方式。</li>
+<li><code>scroll</code>：原理将排序后的文档 id 形成快照，保存下来，基于快照做分页。官方已经不推荐使用。</li>
+</ul>
+<p>详情见文档：</p>
+<h3 id="1-6-高亮"><a href="#1-6-高亮" class="headerlink" title="1.6.高亮"></a>1.6.高亮</h3><h4 id="1-6-1-高亮原理"><a href="#1-6-1-高亮原理" class="headerlink" title="1.6.1.高亮原理"></a>1.6.1.高亮原理</h4><p>什么是高亮显示呢？</p>
+<p>我们在百度，京东搜索时，关键字会变成红色，比较醒目，这叫高亮显示：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/ZIBlbmXcXo3NDmxF8NdctC1Xnac.png"></p>
+<p>观察页面源码，你会发现两件事情：</p>
+<ul>
+<li>高亮词条都被加了 <code>&lt;em&gt;</code> 标签</li>
+<li><code>&lt;em&gt;</code> 标签都添加了红色样式</li>
+</ul>
+<p>css 样式肯定是前端实现页面的时候写好的，但是前端编写页面的时候是不知道页面要展示什么数据的，不可能给数据加标签。而服务端实现搜索功能，要是有 <code>elasticsearch</code> 做分词搜索，是知道哪些词条需要高亮的。</p>
+<p>因此词条的<strong>高亮标签肯定是由服务端提供数据的时候已经加上的</strong>。</p>
+<p>因此实现高亮的思路就是：</p>
+<ul>
+<li>用户输入搜索关键字搜索数据</li>
+<li>服务端根据搜索关键字到 elasticsearch 搜索，并给搜索结果中的关键字词条添加 <code>html</code> 标签</li>
+<li>前端提前给约定好的 <code>html</code> 标签添加 <code>CSS</code> 样式</li>
+</ul>
+<h4 id="1-6-2-实现高亮"><a href="#1-6-2-实现高亮" class="headerlink" title="1.6.2.实现高亮"></a>1.6.2.实现高亮</h4><p>事实上 elasticsearch 已经提供了给搜索关键字加标签的语法，无需我们自己编码。</p>
+<p>基本语法如下：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json">GET /<span class="token punctuation">&#123;</span>索引库名<span class="token punctuation">&#125;</span>/_search
+<span class="token punctuation">&#123;</span>
+  <span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"match"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"搜索字段"</span><span class="token operator">:</span> <span class="token string">"搜索关键字"</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token property">"highlight"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"fields"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"高亮字段名称"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"pre_tags"</span><span class="token operator">:</span> <span class="token string">"&lt;em>"</span><span class="token punctuation">,</span>
+        <span class="token property">"post_tags"</span><span class="token operator">:</span> <span class="token string">"&lt;/em>"</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>示例：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/LOWmbxxZ5ojScsxEFTSctz4pnDd.png"></p>
+<h3 id="1-7-总结"><a href="#1-7-总结" class="headerlink" title="1.7.总结"></a>1.7.总结</h3><p>查询的 DSL 是一个大的 JSON 对象，包含下列属性：</p>
+<ul>
+<li><code>query</code>：查询条件</li>
+<li><code>from</code> 和 <code>size</code>：分页条件</li>
+<li><code>sort</code>：排序条件</li>
+<li><code>highlight</code>：高亮条件</li>
+</ul>
+<p>示例：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/VJEobeRpBozcyGx1UqFcFhwrngl.png"></p>
+<h2 id="2-RestClient-查询"><a href="#2-RestClient-查询" class="headerlink" title="2.RestClient 查询"></a>2.RestClient 查询</h2><p>文档的查询依然使用昨天学习的 <code>RestHighLevelClient</code> 对象，查询的基本步骤如下：</p>
+<ul>
+<li>1）创建 <code>request</code> 对象，这次是搜索，所以是 <code>SearchRequest</code></li>
+<li>2）准备请求参数，也就是查询 DSL 对应的 JSON 参数</li>
+<li>3）发起请求</li>
+<li>4）解析响应，响应结果相对复杂，需要逐层解析</li>
+</ul>
+<h3 id="2-1-快速入门"><a href="#2-1-快速入门" class="headerlink" title="2.1.快速入门"></a>2.1.快速入门</h3><p>之前说过，由于 Elasticsearch 对外暴露的接口都是 Restful 风格的接口，因此 JavaAPI 调用就是在发送 Http 请求。而我们核心要做的就是利用<strong>利用 Java 代码组织请求参数</strong>，<strong>解析响应结果</strong>。</p>
+<p>这个参数的格式完全参考 DSL 查询语句的 JSON 结构，因此我们在学习的过程中，会不断的把 JavaAPI 与 DSL 语句对比。大家在学习记忆的过程中，也应该这样对比学习。</p>
+<h4 id="2-1-1-发送请求"><a href="#2-1-1-发送请求" class="headerlink" title="2.1.1.发送请求"></a>2.1.1.发送请求</h4><p>首先以 <code>match_all</code> 查询为例，其 DSL 和 JavaAPI 的对比如图：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/R4Gsbi2mko4PHixgIgucki3Vn6R.png"></p>
+<p>代码解读：</p>
+<ul>
+<li><p>第一步，创建 <code>SearchRequest</code> 对象，指定索引库名</p>
+</li>
+<li><p>第二步，利用 <code>request.source()</code> 构建 DSL，DSL 中可以包含查询、分页、排序、高亮等</p>
+<ul>
+<li><code>query()</code>：代表查询条件，利用 <code>QueryBuilders.matchAllQuery()</code> 构建一个 <code>match_all</code> 查询的 DSL</li>
+</ul>
+</li>
+<li><p>第三步，利用 <code>client.search()</code> 发送请求，得到响应</p>
+</li>
+</ul>
+<p>这里关键的 API 有两个，一个是 <code>request.source()</code>，它构建的就是 DSL 中的完整 JSON 参数。其中包含了 <code>query</code>、<code>sort</code>、<code>from</code>、<code>size</code>、<code>highlight</code> 等所有功能：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/FVtobCskqobCdgxKtkYcpYDnnQg.png"></p>
+<p>另一个是 <code>QueryBuilders</code>，其中包含了我们学习过的各种<strong>叶子查询</strong>、<strong>复合查询</strong>等：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/VzBwbA6PToT0NvxUDGLcunqun3g.png"></p>
+<h4 id="2-1-2-解析响应结果"><a href="#2-1-2-解析响应结果" class="headerlink" title="2.1.2.解析响应结果"></a>2.1.2.解析响应结果</h4><p>在发送请求以后，得到了响应结果 <code>SearchResponse</code>，这个类的结构与我们在 kibana 中看到的响应结果 JSON 结构完全一致：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"took"</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token property">"timed_out"</span> <span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token property">"hits"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"total"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+            <span class="token property">"value"</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+            <span class="token property">"relation"</span> <span class="token operator">:</span> <span class="token string">"eq"</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token property">"max_score"</span> <span class="token operator">:</span> <span class="token number">1.0</span><span class="token punctuation">,</span>
+        <span class="token property">"hits"</span> <span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token punctuation">&#123;</span>
+                <span class="token property">"_index"</span> <span class="token operator">:</span> <span class="token string">"heima"</span><span class="token punctuation">,</span>
+                <span class="token property">"_type"</span> <span class="token operator">:</span> <span class="token string">"_doc"</span><span class="token punctuation">,</span>
+                <span class="token property">"_id"</span> <span class="token operator">:</span> <span class="token string">"1"</span><span class="token punctuation">,</span>
+                <span class="token property">"_score"</span> <span class="token operator">:</span> <span class="token number">1.0</span><span class="token punctuation">,</span>
+                <span class="token property">"_source"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+                <span class="token property">"info"</span> <span class="token operator">:</span> <span class="token string">"Java讲师"</span><span class="token punctuation">,</span>
+                <span class="token property">"name"</span> <span class="token operator">:</span> <span class="token string">"赵云"</span>
+                <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">]</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>因此，我们解析 <code>SearchResponse</code> 的代码就是在解析这个 JSON 结果，对比如下：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/XoNXbPdAAo04rEx0DnmcQxM2nse.png"></p>
+<p><strong>代码解读</strong>：</p>
+<p>elasticsearch 返回的结果是一个 JSON 字符串，结构包含：</p>
+<ul>
+<li><code>hits</code>：命中的结果<ul>
+<li><code>total</code>：总条数，其中的 value 是具体的总条数值</li>
+<li><code>max_score</code>：所有结果中得分最高的文档的相关性算分</li>
+<li><code>hits</code>：搜索结果的文档数组，其中的每个文档都是一个 json 对象<ul>
+<li><code>_source</code>：文档中的原始数据，也是 json 对象</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>因此，我们解析响应结果，就是逐层解析 JSON 字符串，流程如下：</p>
+<ul>
+<li><code>SearchHits</code>：通过 <code>response.getHits()</code> 获取，就是 JSON 中的最外层的 <code>hits</code>，代表命中的结果<ul>
+<li><code>SearchHits#getTotalHits().value</code>：获取总条数信息</li>
+<li><code>SearchHits#getHits()</code>：获取 <code>SearchHit</code> 数组，也就是文档数组<ul>
+<li><code>SearchHit#getSourceAsString()</code>：获取文档结果中的 <code>_source</code>，也就是原始的 <code>json</code> 文档数据</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-1-3-总结"><a href="#2-1-3-总结" class="headerlink" title="2.1.3.总结"></a>2.1.3.总结</h4><p>文档搜索的基本步骤是：</p>
+<ol>
+<li><p>创建 <code>SearchRequest</code> 对象</p>
+</li>
+<li><p>准备 <code>request.source()</code>，也就是 DSL。</p>
+<ol>
+<li><code>QueryBuilders</code> 来构建查询条件</li>
+<li>传入 <code>request.source()</code> 的 <code>query()</code> 方法</li>
+</ol>
+</li>
+<li><p>发送请求，得到结果</p>
+</li>
+<li><p>解析结果（参考 JSON 结果，从外到内，逐层解析）</p>
+</li>
+</ol>
+<p>完整代码如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
+<span class="token keyword">void</span> <span class="token function">testMatchAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 1.创建Request</span>
+    <span class="token class-name">SearchRequest</span> request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SearchRequest</span><span class="token punctuation">(</span><span class="token string">"items"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 2.组织请求参数</span>
+    request<span class="token punctuation">.</span><span class="token function">source</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token class-name">QueryBuilders</span><span class="token punctuation">.</span><span class="token function">matchAllQuery</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 3.发送请求</span>
+    <span class="token class-name">SearchResponse</span> response <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">search</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> <span class="token class-name">RequestOptions</span><span class="token punctuation">.</span><span class="token constant">DEFAULT</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 4.解析响应</span>
+    <span class="token function">handleResponse</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">handleResponse</span><span class="token punctuation">(</span><span class="token class-name">SearchResponse</span> response<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">SearchHits</span> searchHits <span class="token operator">=</span> response<span class="token punctuation">.</span><span class="token function">getHits</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 1.获取总条数</span>
+    <span class="token keyword">long</span> total <span class="token operator">=</span> searchHits<span class="token punctuation">.</span><span class="token function">getTotalHits</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"共搜索到"</span> <span class="token operator">+</span> total <span class="token operator">+</span> <span class="token string">"条数据"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 2.遍历结果数组</span>
+    <span class="token class-name">SearchHit</span><span class="token punctuation">[</span><span class="token punctuation">]</span> hits <span class="token operator">=</span> searchHits<span class="token punctuation">.</span><span class="token function">getHits</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">SearchHit</span> hit <span class="token operator">:</span> hits<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// 3.得到_source，也就是原始json文档</span>
+        <span class="token class-name">String</span> source <span class="token operator">=</span> hit<span class="token punctuation">.</span><span class="token function">getSourceAsString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 4.反序列化并打印</span>
+        <span class="token class-name">ItemDoc</span> item <span class="token operator">=</span> <span class="token class-name">JSONUtil</span><span class="token punctuation">.</span><span class="token function">toBean</span><span class="token punctuation">(</span>source<span class="token punctuation">,</span> <span class="token class-name">ItemDoc</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-2-叶子查询"><a href="#2-2-叶子查询" class="headerlink" title="2.2.叶子查询"></a>2.2.叶子查询</h3><p>所有的查询条件都是由 QueryBuilders 来构建的，叶子查询也不例外。因此整套代码中变化的部分仅仅是 query 条件构造的方式，其它不动。</p>
+<p>例如 <code>match</code> 查询：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
+<span class="token keyword">void</span> <span class="token function">testMatch</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 1.创建Request</span>
+    <span class="token class-name">SearchRequest</span> request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SearchRequest</span><span class="token punctuation">(</span><span class="token string">"items"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 2.组织请求参数</span>
+    request<span class="token punctuation">.</span><span class="token function">source</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token class-name">QueryBuilders</span><span class="token punctuation">.</span><span class="token function">matchQuery</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">,</span> <span class="token string">"脱脂牛奶"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 3.发送请求</span>
+    <span class="token class-name">SearchResponse</span> response <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">search</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> <span class="token class-name">RequestOptions</span><span class="token punctuation">.</span><span class="token constant">DEFAULT</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 4.解析响应</span>
+    <span class="token function">handleResponse</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>再比如 <code>multi_match</code> 查询：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
+<span class="token keyword">void</span> <span class="token function">testMultiMatch</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 1.创建Request</span>
+    <span class="token class-name">SearchRequest</span> request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SearchRequest</span><span class="token punctuation">(</span><span class="token string">"items"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 2.组织请求参数</span>
+    request<span class="token punctuation">.</span><span class="token function">source</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token class-name">QueryBuilders</span><span class="token punctuation">.</span><span class="token function">multiMatchQuery</span><span class="token punctuation">(</span><span class="token string">"脱脂牛奶"</span><span class="token punctuation">,</span> <span class="token string">"name"</span><span class="token punctuation">,</span> <span class="token string">"category"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 3.发送请求</span>
+    <span class="token class-name">SearchResponse</span> response <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">search</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> <span class="token class-name">RequestOptions</span><span class="token punctuation">.</span><span class="token constant">DEFAULT</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 4.解析响应</span>
+    <span class="token function">handleResponse</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>还有 <code>range</code> 查询：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
+<span class="token keyword">void</span> <span class="token function">testRange</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 1.创建Request</span>
+    <span class="token class-name">SearchRequest</span> request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SearchRequest</span><span class="token punctuation">(</span><span class="token string">"items"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 2.组织请求参数</span>
+    request<span class="token punctuation">.</span><span class="token function">source</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token class-name">QueryBuilders</span><span class="token punctuation">.</span><span class="token function">rangeQuery</span><span class="token punctuation">(</span><span class="token string">"price"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">gte</span><span class="token punctuation">(</span><span class="token number">10000</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">lte</span><span class="token punctuation">(</span><span class="token number">30000</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 3.发送请求</span>
+    <span class="token class-name">SearchResponse</span> response <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">search</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> <span class="token class-name">RequestOptions</span><span class="token punctuation">.</span><span class="token constant">DEFAULT</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 4.解析响应</span>
+    <span class="token function">handleResponse</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>还有 <code>term</code> 查询：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
+<span class="token keyword">void</span> <span class="token function">testTerm</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 1.创建Request</span>
+    <span class="token class-name">SearchRequest</span> request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SearchRequest</span><span class="token punctuation">(</span><span class="token string">"items"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 2.组织请求参数</span>
+    request<span class="token punctuation">.</span><span class="token function">source</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token class-name">QueryBuilders</span><span class="token punctuation">.</span><span class="token function">termQuery</span><span class="token punctuation">(</span><span class="token string">"brand"</span><span class="token punctuation">,</span> <span class="token string">"华为"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 3.发送请求</span>
+    <span class="token class-name">SearchResponse</span> response <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">search</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> <span class="token class-name">RequestOptions</span><span class="token punctuation">.</span><span class="token constant">DEFAULT</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 4.解析响应</span>
+    <span class="token function">handleResponse</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-3-复合查询"><a href="#2-3-复合查询" class="headerlink" title="2.3.复合查询"></a>2.3.复合查询</h3><p>复合查询也是由 <code>QueryBuilders</code> 来构建，我们以 <code>bool</code> 查询为例，DSL 和 JavaAPI 的对比如图：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/O5HxbOcZpowtCyxrFyQcl520nne.png"></p>
+<p>完整代码如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
+<span class="token keyword">void</span> <span class="token function">testBool</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 1.创建Request</span>
+    <span class="token class-name">SearchRequest</span> request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SearchRequest</span><span class="token punctuation">(</span><span class="token string">"items"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 2.组织请求参数</span>
+    <span class="token comment">// 2.1.准备bool查询</span>
+    <span class="token class-name">BoolQueryBuilder</span> bool <span class="token operator">=</span> <span class="token class-name">QueryBuilders</span><span class="token punctuation">.</span><span class="token function">boolQuery</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 2.2.关键字搜索</span>
+    bool<span class="token punctuation">.</span><span class="token function">must</span><span class="token punctuation">(</span><span class="token class-name">QueryBuilders</span><span class="token punctuation">.</span><span class="token function">matchQuery</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">,</span> <span class="token string">"脱脂牛奶"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 2.3.品牌过滤</span>
+    bool<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token class-name">QueryBuilders</span><span class="token punctuation">.</span><span class="token function">termQuery</span><span class="token punctuation">(</span><span class="token string">"brand"</span><span class="token punctuation">,</span> <span class="token string">"德亚"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 2.4.价格过滤</span>
+    bool<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token class-name">QueryBuilders</span><span class="token punctuation">.</span><span class="token function">rangeQuery</span><span class="token punctuation">(</span><span class="token string">"price"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">lte</span><span class="token punctuation">(</span><span class="token number">30000</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    request<span class="token punctuation">.</span><span class="token function">source</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span>bool<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 3.发送请求</span>
+    <span class="token class-name">SearchResponse</span> response <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">search</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> <span class="token class-name">RequestOptions</span><span class="token punctuation">.</span><span class="token constant">DEFAULT</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 4.解析响应</span>
+    <span class="token function">handleResponse</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-4-排序和分页"><a href="#2-4-排序和分页" class="headerlink" title="2.4.排序和分页"></a>2.4.排序和分页</h3><p>之前说过，<code>requeset.source()</code> 就是整个请求 JSON 参数，所以排序、分页都是基于这个来设置，其 DSL 和 JavaAPI 的对比如下：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/Ix3EbJ8x8oiZC1xa6xwcMoZIn4d.png"></p>
+<p>完整示例代码：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
+<span class="token keyword">void</span> <span class="token function">testPageAndSort</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> pageNo <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> pageSize <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 1.创建Request</span>
+    <span class="token class-name">SearchRequest</span> request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SearchRequest</span><span class="token punctuation">(</span><span class="token string">"items"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 2.组织请求参数</span>
+    <span class="token comment">// 2.1.搜索条件参数</span>
+    request<span class="token punctuation">.</span><span class="token function">source</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token class-name">QueryBuilders</span><span class="token punctuation">.</span><span class="token function">matchQuery</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">,</span> <span class="token string">"脱脂牛奶"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 2.2.排序参数</span>
+    request<span class="token punctuation">.</span><span class="token function">source</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span><span class="token string">"price"</span><span class="token punctuation">,</span> <span class="token class-name">SortOrder</span><span class="token punctuation">.</span><span class="token constant">ASC</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 2.3.分页参数</span>
+    request<span class="token punctuation">.</span><span class="token function">source</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span><span class="token punctuation">(</span>pageNo <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">*</span> pageSize<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span>pageSize<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 3.发送请求</span>
+    <span class="token class-name">SearchResponse</span> response <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">search</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> <span class="token class-name">RequestOptions</span><span class="token punctuation">.</span><span class="token constant">DEFAULT</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 4.解析响应</span>
+    <span class="token function">handleResponse</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-5-高亮"><a href="#2-5-高亮" class="headerlink" title="2.5.高亮"></a>2.5.高亮</h3><p>高亮查询与前面的查询有两点不同：</p>
+<ul>
+<li>条件同样是在 <code>request.source()</code> 中指定，只不过高亮条件要基于 <code>HighlightBuilder</code> 来构造</li>
+<li>高亮响应结果与搜索的文档结果不在一起，需要单独解析</li>
+</ul>
+<p>首先来看高亮条件构造，其 DSL 和 JavaAPI 的对比如图：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/FE45bv7PUoUEKxxh0JXcMlawnDg.png"></p>
+<p>示例代码如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
+<span class="token keyword">void</span> <span class="token function">testHighlight</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 1.创建Request</span>
+    <span class="token class-name">SearchRequest</span> request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SearchRequest</span><span class="token punctuation">(</span><span class="token string">"items"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 2.组织请求参数</span>
+    <span class="token comment">// 2.1.query条件</span>
+    request<span class="token punctuation">.</span><span class="token function">source</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token class-name">QueryBuilders</span><span class="token punctuation">.</span><span class="token function">matchQuery</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">,</span> <span class="token string">"脱脂牛奶"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 2.2.高亮条件</span>
+    request<span class="token punctuation">.</span><span class="token function">source</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">highlighter</span><span class="token punctuation">(</span>
+            <span class="token class-name">SearchSourceBuilder</span><span class="token punctuation">.</span><span class="token function">highlight</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">field</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">preTags</span><span class="token punctuation">(</span><span class="token string">"&lt;em>"</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">postTags</span><span class="token punctuation">(</span><span class="token string">"&lt;/em>"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 3.发送请求</span>
+    <span class="token class-name">SearchResponse</span> response <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">search</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> <span class="token class-name">RequestOptions</span><span class="token punctuation">.</span><span class="token constant">DEFAULT</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 4.解析响应</span>
+    <span class="token function">handleResponse</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>再来看结果解析，文档解析的部分不变，主要是高亮内容需要单独解析出来，其 DSL 和 JavaAPI 的对比如图：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/PG6PbI9KpoWaYDxm1Yfcba1nnLc.png"></p>
+<p>代码解读：</p>
+<ul>
+<li>第 <code>3、4</code> 步：从结果中获取 <code>_source</code>。<code>hit.getSourceAsString()</code>，这部分是非高亮结果，json 字符串。还需要反序列为 <code>ItemDoc</code> 对象</li>
+<li>第 <code>5</code> 步：获取高亮结果。<code>hit.getHighlightFields()</code>，返回值是一个 <code>Map</code>，key 是高亮字段名称，值是 <code>HighlightField</code> 对象，代表高亮值</li>
+<li>第 <code>5.1</code> 步：从 <code>Map</code> 中根据高亮字段名称，获取高亮字段值对象 <code>HighlightField</code></li>
+<li>第 <code>5.2</code> 步：从 <code>HighlightField</code> 中获取 <code>Fragments</code>，并且转为字符串。这部分就是真正的高亮字符串了</li>
+<li>最后：用高亮的结果替换 <code>ItemDoc</code> 中的非高亮结果</li>
+</ul>
+<p>完整代码如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">handleResponse</span><span class="token punctuation">(</span><span class="token class-name">SearchResponse</span> response<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">SearchHits</span> searchHits <span class="token operator">=</span> response<span class="token punctuation">.</span><span class="token function">getHits</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 1.获取总条数</span>
+    <span class="token keyword">long</span> total <span class="token operator">=</span> searchHits<span class="token punctuation">.</span><span class="token function">getTotalHits</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"共搜索到"</span> <span class="token operator">+</span> total <span class="token operator">+</span> <span class="token string">"条数据"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 2.遍历结果数组</span>
+    <span class="token class-name">SearchHit</span><span class="token punctuation">[</span><span class="token punctuation">]</span> hits <span class="token operator">=</span> searchHits<span class="token punctuation">.</span><span class="token function">getHits</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">SearchHit</span> hit <span class="token operator">:</span> hits<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// 3.得到_source，也就是原始json文档</span>
+        <span class="token class-name">String</span> source <span class="token operator">=</span> hit<span class="token punctuation">.</span><span class="token function">getSourceAsString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 4.反序列化</span>
+        <span class="token class-name">ItemDoc</span> item <span class="token operator">=</span> <span class="token class-name">JSONUtil</span><span class="token punctuation">.</span><span class="token function">toBean</span><span class="token punctuation">(</span>source<span class="token punctuation">,</span> <span class="token class-name">ItemDoc</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 5.获取高亮结果</span>
+        <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">HighlightField</span><span class="token punctuation">></span></span> hfs <span class="token operator">=</span> hit<span class="token punctuation">.</span><span class="token function">getHighlightFields</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token class-name">CollUtils</span><span class="token punctuation">.</span><span class="token function">isNotEmpty</span><span class="token punctuation">(</span>hfs<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token comment">// 5.1.有高亮结果，获取name的高亮结果</span>
+            <span class="token class-name">HighlightField</span> hf <span class="token operator">=</span> hfs<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>hf <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token comment">// 5.2.获取第一个高亮结果片段，就是商品名称的高亮值</span>
+                <span class="token class-name">String</span> hfName <span class="token operator">=</span> hf<span class="token punctuation">.</span><span class="token function">getFragments</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                item<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span>hfName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-数据聚合"><a href="#3-数据聚合" class="headerlink" title="3.数据聚合"></a>3.数据聚合</h2><p>聚合（<code>aggregations</code>）可以让我们极其方便的实现对数据的统计、分析、运算。例如：</p>
+<ul>
+<li>什么品牌的手机最受欢迎？</li>
+<li>这些手机的平均价格、最高价格、最低价格？</li>
+<li>这些手机每月的销售情况如何？</li>
+</ul>
+<p>实现这些统计功能的比数据库的 sql 要方便的多，而且查询速度非常快，可以实现近实时搜索效果。</p>
+<p>官方文档：</p>
+<p>聚合常见的有三类：</p>
+<ul>
+<li><p><strong>桶（<strong><strong>Bucket</strong></strong>）</strong>聚合：用来对文档做分组</p>
+<ul>
+<li><code>TermAggregation</code>：按照文档字段值分组，例如按照品牌值分组、按照国家分组</li>
+<li><code>Date Histogram</code>：按照日期阶梯分组，例如一周为一组，或者一月为一组</li>
+</ul>
+</li>
+<li><p><strong>度量（<strong><strong>Metric</strong></strong>）</strong>聚合：用以计算一些值，比如：最大值、最小值、平均值等</p>
+<ul>
+<li><code>Avg</code>：求平均值</li>
+<li><code>Max</code>：求最大值</li>
+<li><code>Min</code>：求最小值</li>
+<li><code>Stats</code>：同时求 <code>max</code>、<code>min</code>、<code>avg</code>、<code>sum</code> 等</li>
+</ul>
+</li>
+<li><p><strong>管道（<strong><strong>pipeline</strong></strong>）</strong>聚合：其它聚合的结果为基础做进一步运算</p>
+</li>
+</ul>
+<p><strong>注意：</strong>参加聚合的字段必须是 keyword、日期、数值、布尔类型</p>
+<h3 id="3-1-DSL-实现聚合"><a href="#3-1-DSL-实现聚合" class="headerlink" title="3.1.DSL 实现聚合"></a>3.1.DSL 实现聚合</h3><p>与之前的搜索功能类似，我们依然先学习 DSL 的语法，再学习 JavaAPI.</p>
+<h4 id="3-1-1-Bucket-聚合"><a href="#3-1-1-Bucket-聚合" class="headerlink" title="3.1.1.Bucket 聚合"></a>3.1.1.Bucket 聚合</h4><p>例如我们要统计所有商品中共有哪些商品分类，其实就是以分类（category）字段对数据分组。category 值一样的放在同一组，属于 <code>Bucket</code> 聚合中的 <code>Term</code> 聚合。</p>
+<p>基本语法如下：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json">GET /items/_search
+<span class="token punctuation">&#123;</span>
+  <span class="token property">"size"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> 
+  <span class="token property">"aggs"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"category_agg"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"terms"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"field"</span><span class="token operator">:</span> <span class="token string">"category"</span><span class="token punctuation">,</span>
+        <span class="token property">"size"</span><span class="token operator">:</span> <span class="token number">20</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>语法说明：</p>
+<ul>
+<li><p><code>size</code>：设置 <code>size</code> 为 0，就是每页查 0 条，则结果中就不包含文档，只包含聚合</p>
+</li>
+<li><p><code>aggs</code>：定义聚合</p>
+<ul>
+<li><code>category_agg</code>：聚合名称，自定义，但不能重复<ul>
+<li><code>terms</code>：聚合的类型，按分类聚合，所以用 <code>term</code><ul>
+<li><code>field</code>：参与聚合的字段名称</li>
+<li><code>size</code>：希望返回的聚合结果的最大数量</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>来看下查询的结果：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/QlUSbzBdEogKarxFuYSc1uqvnhb.png"></p>
+<h4 id="3-1-2-带条件聚合"><a href="#3-1-2-带条件聚合" class="headerlink" title="3.1.2.带条件聚合"></a>3.1.2.带条件聚合</h4><p>默认情况下，Bucket 聚合是对索引库的所有文档做聚合，例如我们统计商品中所有的品牌，结果如下：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/AsFtbYzHPozBAnx1UjLcmCAun1f.png"></p>
+<p>可以看到统计出的品牌非常多。</p>
+<p>但真实场景下，用户会输入搜索条件，因此聚合必须是对搜索结果聚合。那么聚合必须添加限定条件。</p>
+<p>例如，我想知道价格高于 3000 元的手机品牌有哪些，该怎么统计呢？</p>
+<p>我们需要从需求中分析出搜索查询的条件和聚合的目标：</p>
+<ul>
+<li><p>搜索查询条件：</p>
+<ul>
+<li>价格高于 3000</li>
+<li>必须是手机</li>
+</ul>
+</li>
+<li><p>聚合目标：统计的是品牌，肯定是对 brand 字段做 term 聚合</p>
+</li>
+</ul>
+<p>语法如下：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json">GET /items/_search
+<span class="token punctuation">&#123;</span>
+  <span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"bool"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"filter"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">&#123;</span>
+          <span class="token property">"term"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+            <span class="token property">"category"</span><span class="token operator">:</span> <span class="token string">"手机"</span>
+          <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#123;</span>
+          <span class="token property">"range"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+            <span class="token property">"price"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+              <span class="token property">"gte"</span><span class="token operator">:</span> <span class="token number">300000</span>
+            <span class="token punctuation">&#125;</span>
+          <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> 
+  <span class="token property">"size"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> 
+  <span class="token property">"aggs"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"brand_agg"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"terms"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"field"</span><span class="token operator">:</span> <span class="token string">"brand"</span><span class="token punctuation">,</span>
+        <span class="token property">"size"</span><span class="token operator">:</span> <span class="token number">20</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>聚合结果如下：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"took"</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+  <span class="token property">"timed_out"</span> <span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+  <span class="token property">"hits"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"total"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"value"</span> <span class="token operator">:</span> <span class="token number">13</span><span class="token punctuation">,</span>
+      <span class="token property">"relation"</span> <span class="token operator">:</span> <span class="token string">"eq"</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token property">"max_score"</span> <span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+    <span class="token property">"hits"</span> <span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">]</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token property">"aggregations"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"brand_agg"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"doc_count_error_upper_bound"</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">"sum_other_doc_count"</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">"buckets"</span> <span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">&#123;</span>
+          <span class="token property">"key"</span> <span class="token operator">:</span> <span class="token string">"华为"</span><span class="token punctuation">,</span>
+          <span class="token property">"doc_count"</span> <span class="token operator">:</span> <span class="token number">7</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#123;</span>
+          <span class="token property">"key"</span> <span class="token operator">:</span> <span class="token string">"Apple"</span><span class="token punctuation">,</span>
+          <span class="token property">"doc_count"</span> <span class="token operator">:</span> <span class="token number">5</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#123;</span>
+          <span class="token property">"key"</span> <span class="token operator">:</span> <span class="token string">"小米"</span><span class="token punctuation">,</span>
+          <span class="token property">"doc_count"</span> <span class="token operator">:</span> <span class="token number">1</span>
+        <span class="token punctuation">&#125;</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到，结果中只剩下 3 个品牌了。</p>
+<h4 id="3-1-3-Metric-聚合"><a href="#3-1-3-Metric-聚合" class="headerlink" title="3.1.3.Metric 聚合"></a>3.1.3.Metric 聚合</h4><p>上节课，我们统计了价格高于 3000 的手机品牌，形成了一个个桶。现在我们需要对桶内的商品做运算，获取每个品牌价格的最小值、最大值、平均值。</p>
+<p>这就要用到 <code>Metric</code> 聚合了，例如 <code>stat</code> 聚合，就可以同时获取 <code>min</code>、<code>max</code>、<code>avg</code> 等结果。</p>
+<p>语法如下：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json">GET /items/_search
+<span class="token punctuation">&#123;</span>
+  <span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"bool"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"filter"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">&#123;</span>
+          <span class="token property">"term"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+            <span class="token property">"category"</span><span class="token operator">:</span> <span class="token string">"手机"</span>
+          <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#123;</span>
+          <span class="token property">"range"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+            <span class="token property">"price"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+              <span class="token property">"gte"</span><span class="token operator">:</span> <span class="token number">300000</span>
+            <span class="token punctuation">&#125;</span>
+          <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> 
+  <span class="token property">"size"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> 
+  <span class="token property">"aggs"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"brand_agg"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"terms"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"field"</span><span class="token operator">:</span> <span class="token string">"brand"</span><span class="token punctuation">,</span>
+        <span class="token property">"size"</span><span class="token operator">:</span> <span class="token number">20</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+      <span class="token property">"aggs"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"stats_meric"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+          <span class="token property">"stats"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+            <span class="token property">"field"</span><span class="token operator">:</span> <span class="token string">"price"</span>
+          <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>query</code> 部分就不说了，我们重点解读聚合部分语法。</p>
+<p>可以看到我们在 <code>brand_agg</code> 聚合的内部，我们新加了一个 <code>aggs</code> 参数。这个聚合就是 <code>brand_agg</code> 的子聚合，会对 <code>brand_agg</code> 形成的每个桶中的文档分别统计。</p>
+<ul>
+<li><code>stats_meric</code>：聚合名称<ul>
+<li><code>stats</code>：聚合类型，stats 是 <code>metric</code> 聚合的一种<ul>
+<li><code>field</code>：聚合字段，这里选择 <code>price</code>，统计价格</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>由于 stats 是对 brand_agg 形成的每个品牌桶内文档分别做统计，因此每个品牌都会统计出自己的价格最小、最大、平均值。</p>
+<p>结果如下：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/Cm0qb1YisoM8cMxlPAKcUKiYnje.png"></p>
+<p>另外，我们还可以让聚合按照每个品牌的价格平均值排序：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/PL9gbErQ1o4naaxL02Kc4gD6nvh.png"></p>
+<h4 id="3-1-4-总结"><a href="#3-1-4-总结" class="headerlink" title="3.1.4.总结"></a>3.1.4.总结</h4><p>aggs 代表聚合，与 query 同级，此时 query 的作用是？</p>
+<ul>
+<li>限定聚合的的文档范围</li>
+</ul>
+<p>聚合必须的三要素：</p>
+<ul>
+<li>聚合名称</li>
+<li>聚合类型</li>
+<li>聚合字段</li>
+</ul>
+<p>聚合可配置属性有：</p>
+<ul>
+<li>size：指定聚合结果数量</li>
+<li>order：指定聚合结果排序方式</li>
+<li>field：指定聚合字段</li>
+</ul>
+<h3 id="3-2-RestClient-实现聚合"><a href="#3-2-RestClient-实现聚合" class="headerlink" title="3.2.RestClient 实现聚合"></a>3.2.RestClient 实现聚合</h3><p>可以看到在 DSL 中，<code>aggs</code> 聚合条件与 <code>query</code> 条件是同一级别，都属于查询 JSON 参数。因此依然是利用 <code>request.source()</code> 方法来设置。</p>
+<p>不过聚合条件的要利用 <code>AggregationBuilders</code> 这个工具类来构造。DSL 与 JavaAPI 的语法对比如下：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/ZwsYbcoLMo9KF0xE8P0cAGBDnJb.png"></p>
+<p>聚合结果与搜索文档同一级别，因此需要单独获取和解析。具体解析语法如下：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/QNZ1bhwwNo0rG9xYzqQcf86VnCg.png"></p>
+<p>完整代码如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
+<span class="token keyword">void</span> <span class="token function">testAgg</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 1.创建Request</span>
+    <span class="token class-name">SearchRequest</span> request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SearchRequest</span><span class="token punctuation">(</span><span class="token string">"items"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 2.准备请求参数</span>
+    <span class="token class-name">BoolQueryBuilder</span> bool <span class="token operator">=</span> <span class="token class-name">QueryBuilders</span><span class="token punctuation">.</span><span class="token function">boolQuery</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token class-name">QueryBuilders</span><span class="token punctuation">.</span><span class="token function">termQuery</span><span class="token punctuation">(</span><span class="token string">"category"</span><span class="token punctuation">,</span> <span class="token string">"手机"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token class-name">QueryBuilders</span><span class="token punctuation">.</span><span class="token function">rangeQuery</span><span class="token punctuation">(</span><span class="token string">"price"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">gte</span><span class="token punctuation">(</span><span class="token number">300000</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    request<span class="token punctuation">.</span><span class="token function">source</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span>bool<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 3.聚合参数</span>
+    request<span class="token punctuation">.</span><span class="token function">source</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">aggregation</span><span class="token punctuation">(</span>
+            <span class="token class-name">AggregationBuilders</span><span class="token punctuation">.</span><span class="token function">terms</span><span class="token punctuation">(</span><span class="token string">"brand_agg"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">field</span><span class="token punctuation">(</span><span class="token string">"brand"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 4.发送请求</span>
+    <span class="token class-name">SearchResponse</span> response <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">search</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> <span class="token class-name">RequestOptions</span><span class="token punctuation">.</span><span class="token constant">DEFAULT</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 5.解析聚合结果</span>
+    <span class="token class-name">Aggregations</span> aggregations <span class="token operator">=</span> response<span class="token punctuation">.</span><span class="token function">getAggregations</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 5.1.获取品牌聚合</span>
+    <span class="token class-name">Terms</span> brandTerms <span class="token operator">=</span> aggregations<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"brand_agg"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 5.2.获取聚合中的桶</span>
+    <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Terms<span class="token punctuation">.</span>Bucket</span><span class="token punctuation">></span></span> buckets <span class="token operator">=</span> brandTerms<span class="token punctuation">.</span><span class="token function">getBuckets</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 5.3.遍历桶内数据</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Terms<span class="token punctuation">.</span>Bucket</span> bucket <span class="token operator">:</span> buckets<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// 5.4.获取桶内key</span>
+        <span class="token class-name">String</span> brand <span class="token operator">=</span> bucket<span class="token punctuation">.</span><span class="token function">getKeyAsString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"brand = "</span> <span class="token operator">+</span> brand<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">long</span> count <span class="token operator">=</span> bucket<span class="token punctuation">.</span><span class="token function">getDocCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"; count = "</span> <span class="token operator">+</span> count<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-作业"><a href="#4-作业" class="headerlink" title="4.作业"></a>4.作业</h2><p>Elasticsearch 的基本语法我们已经学完，足以应对大多数搜索业务需求了。接下来大家就可以基于学习的知识实现商品搜索的业务了。</p>
+<p>在昨天的作业中要求大家拆分一个独立的微服务：<code>search-service</code>，在这个微服务中实现搜索数据的导入、商品数据库数据与 elasticsearch 索引库数据的同步。</p>
+<p>接下来的搜索功能也要在 <code>search-service</code> 服务中实现。</p>
+<h3 id="4-1-实现搜索接口"><a href="#4-1-实现搜索接口" class="headerlink" title="4.1.实现搜索接口"></a>4.1.实现搜索接口</h3><p>在黑马商城的搜索页面，输入关键字，点击搜索时，会发现前端会发起查询商品的请求：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/Vv2ObuV8eoU7tax2s1BcZREynPe.png"></p>
+<p>请求的接口信息如下：</p>
+<ul>
+<li><p><strong>请求方式</strong>：<code>GET</code></p>
+</li>
+<li><p><strong>请求路径</strong>：<code>/search/list</code></p>
+</li>
+<li><p><strong>请求参数</strong>：</p>
+<ul>
+<li><strong>key</strong>：搜索关键字</li>
+<li><strong>pageNo</strong>：页码</li>
+<li><strong>pageSize</strong>：每页大小</li>
+<li><strong>sortBy</strong>：排序字段</li>
+<li><strong>isAsc</strong>：是否升序</li>
+<li><strong>category</strong>：分类</li>
+<li><strong>brand</strong>：品牌</li>
+<li><strong>minPrice</strong>：价格最小值</li>
+<li><strong>maxPrice</strong>：价格最大值</li>
+</ul>
+</li>
+</ul>
+<p>请求参数可以参考原本 <code>item-service</code> 中 <code>com.hmall.item.controller.SearchController</code> 类中的基于数据库查询的接口：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/WM7qbTDgroGmLJxjP5kc5qKpnC2.png"></p>
+<h3 id="4-2-过滤条件聚合"><a href="#4-2-过滤条件聚合" class="headerlink" title="4.2.过滤条件聚合"></a>4.2.过滤条件聚合</h3><p>搜索页面的过滤项目前是写死的：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/AFLQb6JXToDmggxYtimcrfxsnac.png"></p>
+<p>但是大家思考一下，随着搜索条件的变化，过滤条件展示的过滤项是不是应该跟着变化。</p>
+<p>例如搜索 <code>电视</code>，那么搜索结果中展示的肯定只有电视，而此时过滤条件中的<strong>分类</strong>就不能还出现手机、拉杆箱等内容。过滤条件的<strong>品牌</strong>中就不能出现与电视无关的品牌。而是应该展示搜索结果中存在的分类和品牌。</p>
+<p>那么问题来，我们怎么知道搜索结果中存在哪些分类和品牌呢？</p>
+<p>大家应该能想到，就是利用聚合，而且是带有限定条件的聚合。用户搜索的条件是什么，我们在对分类、品牌聚合时的条件也就是什么，这样就能统计出搜索结果中包含的分类、品牌了。</p>
+<p>事实上，搜索时，前端已经发出了请求，尝试搜索栏中除价格以外的过滤项：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/G0FHbAsK1omuI6x2U0icj4TQnSe.png"></p>
+<p>由于采用的是 POST 请求，所以参数在请求体中：</p>
+<p><img src="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/Wqg1bYlvUogOOwx9l0tce8I8nbb.png"></p>
+<p>接口信息如下：</p>
+<ul>
+<li><p><strong>请求方式</strong>：<code>POST</code></p>
+</li>
+<li><p><strong>请求路径</strong>：<code>/search/filters</code></p>
+</li>
+<li><p><strong>请求参数</strong>：</p>
+<ul>
+<li><strong>key</strong>：搜索关键字</li>
+<li><strong>pageNo</strong>：页码</li>
+<li><strong>pageSize</strong>：每页大小</li>
+<li><strong>sortBy</strong>：排序字段</li>
+<li><strong>isAsc</strong>：是否升序</li>
+<li><strong>category</strong>：分类</li>
+<li><strong>brand</strong>：品牌</li>
+<li><strong>minPrice</strong>：价格最小值</li>
+<li><strong>maxPrice</strong>：价格最大值</li>
+</ul>
+</li>
+</ul>
+<p>可见参数与搜索参数一致，不过这里大家可以忽略分页和排序参数。</p>
+<p>返回值参考这个格式：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"category"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"手机"</span><span class="token punctuation">,</span> <span class="token string">"曲面电视"</span><span class="token punctuation">,</span> <span class="token string">"拉杆箱"</span><span class="token punctuation">,</span> <span class="token string">"休闲鞋"</span><span class="token punctuation">,</span> <span class="token string">"休闲鞋"</span><span class="token punctuation">,</span> <span class="token string">"硬盘"</span><span class="token punctuation">,</span> <span class="token string">"真皮包"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"brand"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"希捷"</span><span class="token punctuation">,</span> <span class="token string">"小米"</span><span class="token punctuation">,</span> <span class="token string">"华为"</span><span class="token punctuation">,</span> <span class="token string">"oppo"</span><span class="token punctuation">,</span> <span class="token string">"新秀丽"</span><span class="token punctuation">,</span> <span class="token string">"Apple"</span><span class="token punctuation">,</span><span class="token string">"锤子"</span><span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-3-竞价排名"><a href="#4-3-竞价排名" class="headerlink" title="4.3.竞价排名"></a>4.3.竞价排名</h3><p>elasticsearch 的默认排序规则是按照相关性打分排序，而这个打分是可以通过 API 来控制的。详情可以参考复合查询中的算分函数查询（1.3.1 小节）</p>
+<p>对应的 JavaAPI 可以参考文档：</p>
+<p>在商品的数据库表中，已经设计了 <code>isAD</code> 字段来标记广告商品，请利用 <code>function_score</code> 查询在原本搜索的结果基础上，让这些 <code>isAD</code> 字段值为 <code>true</code> 的商品排名到最前面。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Leon Walon</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://example.com/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/">http://example.com/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Leon Walon</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/ES/">
+                                    <span class="chip bg-color">ES</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8B/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="微服务常用组件ES-下">
+                        
+                        <span class="card-title">微服务常用组件ES-下</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-05-12
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%90%8E%E7%AB%AF/" class="post-category">
+                                    后端
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ES/">
+                        <span class="chip bg-color">ES</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/05/12/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6ES-%E4%B8%8A/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="微服务常用组件ES-上">
+                        
+                        <span class="card-title">微服务常用组件ES-上</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-05-12
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%90%8E%E7%AB%AF/" class="post-category">
+                                    后端
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ES/">
+                        <span class="chip bg-color">ES</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2024</span>
+            
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">Leon Walon</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/lowols" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1573329264@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1573329264" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1573329264" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+	
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
