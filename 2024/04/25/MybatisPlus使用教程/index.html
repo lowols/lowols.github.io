@@ -484,7 +484,7 @@
 <li>会使用 MybatisPlus 处理枚举、JSON 类型字段</li>
 <li>会使用 MybatisPlus 实现分页</li>
 </ul>
-<h1 id="1-快速入门"><a href="#1-快速入门" class="headerlink" title="1.快速入门"></a><strong>1.快速入门</strong></h1><p>为了方便测试，我们先创建一个新的项目，并准备一些基础数据。</p>
+<h1 id="1-快速入门"><a href="#1-快速入门" class="headerlink" title="1.快速入门"></a>1.快速入门</h1><p>为了方便测试，我们先创建一个新的项目，并准备一些基础数据。</p>
 <h2 id="1-1-环境准备"><a href="#1-1-环境准备" class="headerlink" title="1.1.环境准备"></a><strong>1.1.环境准备</strong></h2><p>复制课前资料提供好的一个项目到你的工作空间（不要包含空格和特殊字符）：</p>
 <p><img src="/2024/04/25/MybatisPlus%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/Ne43bMnAUo6HzIxgTkbcDbalnRb.png"></p>
 <p>然后用你的 IDEA 工具打开，项目结构如下：</p>
@@ -637,9 +637,12 @@
 </ul>
 <p>但很多情况下，默认的实现与实际场景不符，因此 MybatisPlus 提供了一些注解便于我们声明表信息。</p>
 <h3 id="1-3-1-TableName"><a href="#1-3-1-TableName" class="headerlink" title="1.3.1.@TableName"></a><strong>1.3.1.@TableName</strong></h3><p>说明：</p>
-<pre class="line-numbers language-none"><code class="language-none">- 描述：表名注解，标识实体类对应的表
-- 使用位置：实体类<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
+<blockquote>
+<ul>
+<li>描述：表名注解，标识实体类对应的表</li>
+<li>使用位置：实体类</li>
+</ul>
+</blockquote>
 <p>示例：</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@TableName</span><span class="token punctuation">(</span><span class="token string">"user"</span><span class="token punctuation">)</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">&#123;</span>
@@ -948,7 +951,7 @@
     <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"user = "</span> <span class="token operator">+</span> user<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h1 id="2-核心功能"><a href="#2-核心功能" class="headerlink" title="2.核心功能"></a><strong>2.核心功能</strong></h1><p>刚才的案例中都是以 id 为条件的简单 CRUD，一些复杂条件的 SQL 语句就要用到一些更高级的功能了。</p>
+<h1 id="2-核心功能"><a href="#2-核心功能" class="headerlink" title="2.核心功能"></a>2.核心功能</h1><p>刚才的案例中都是以 id 为条件的简单 CRUD，一些复杂条件的 SQL 语句就要用到一些更高级的功能了。</p>
 <h2 id="2-1-条件构造器"><a href="#2-1-条件构造器" class="headerlink" title="2.1.条件构造器"></a><strong>2.1.条件构造器</strong></h2><p>除了新增以外，修改、删除、查询的 SQL 语句都需要指定 where 条件。因此 BaseMapper 中提供的相关方法除了以 <code>id</code> 作为 <code>where</code> 条件以外，还支持更加复杂的 <code>where</code> 条件。</p>
 <p><img src="/2024/04/25/MybatisPlus%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/AySPbBUUSonpkzxcLzHcKNXpnUc.png"></p>
 <p>参数中的 <code>Wrapper</code> 就是条件构造的抽象类，其下有很多默认实现，继承关系如图：</p>
@@ -1641,7 +1644,7 @@ Parameters: user_3<span class="token punctuation">,</span> <span class="token nu
 <p>在 <code>ClientPreparedStatement</code> 的 <code>executeBatchInternal</code> 中，有判断 <code>rewriteBatchedStatements</code> 值是否为 true 并重写 SQL 的功能：</p>
 <p>最终，SQL 被重写了：</p>
 <p><img src="/2024/04/25/MybatisPlus%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/BSMIbdzhqo5TvHxwaB3cOBKdnLe.png"></p>
-<h2 id><a href="#" class="headerlink" title></a></h2><h1 id="3-扩展功能"><a href="#3-扩展功能" class="headerlink" title="3.扩展功能"></a><strong>3.扩展功能</strong></h1><h2 id="3-1-代码生成"><a href="#3-1-代码生成" class="headerlink" title="3.1.代码生成"></a><strong>3.1.代码生成</strong></h2><p>在使用 MybatisPlus 以后，基础的 <code>Mapper</code>、<code>Service</code>、<code>PO</code> 代码相对固定，重复编写也比较麻烦。因此 MybatisPlus 官方提供了代码生成器根据数据库表结构生成 <code>PO</code>、<code>Mapper</code>、<code>Service</code> 等相关代码。只不过代码生成器同样要编码使用，也很麻烦。</p>
+<h2 id><a href="#" class="headerlink" title></a></h2><h1 id="3-扩展功能"><a href="#3-扩展功能" class="headerlink" title="3.扩展功能"></a>3.扩展功能</h1><h2 id="3-1-代码生成"><a href="#3-1-代码生成" class="headerlink" title="3.1.代码生成"></a><strong>3.1.代码生成</strong></h2><p>在使用 MybatisPlus 以后，基础的 <code>Mapper</code>、<code>Service</code>、<code>PO</code> 代码相对固定，重复编写也比较麻烦。因此 MybatisPlus 官方提供了代码生成器根据数据库表结构生成 <code>PO</code>、<code>Mapper</code>、<code>Service</code> 等相关代码。只不过代码生成器同样要编码使用，也很麻烦。</p>
 <p>这里推荐大家使用一款 <code>MybatisPlus</code> 的插件，它可以基于图形化界面完成 <code>MybatisPlus</code> 的代码生成，非常简单。</p>
 <h3 id="3-1-1-安装插件"><a href="#3-1-1-安装插件" class="headerlink" title="3.1.1.安装插件"></a><strong>3.1.1.安装插件</strong></h3><p>在 <code>Idea</code> 的 plugins 市场中搜索并安装 <code>MyBatisPlus</code> 插件：</p>
 <p><img src="/2024/04/25/MybatisPlus%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/V8x1bsS0HoWV7HxEin9coRb9n4e.png"></p>
@@ -1950,7 +1953,7 @@ password <span class="token operator">=</span> FGvCSEaOuga3ulDAsxw68Q<span class
 <p>单元测试的时候不能添加启动参数，所以要在测试类的注解上配置：</p>
 <p><img src="/2024/04/25/MybatisPlus%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/ZSJxbE3CdoByw3xrETvcKRhlnDb.png"></p>
 <p>然后随意运行一个单元测试，可以发现数据库查询正常。</p>
-<h1 id="4-插件功能"><a href="#4-插件功能" class="headerlink" title="4.插件功能"></a><strong>4.插件功能</strong></h1><p>MybatisPlus 提供了很多的插件功能，进一步拓展其功能。目前已有的插件有：</p>
+<h1 id="4-插件功能"><a href="#4-插件功能" class="headerlink" title="4.插件功能"></a>4.插件功能</h1><p>MybatisPlus 提供了很多的插件功能，进一步拓展其功能。目前已有的插件有：</p>
 <ul>
 <li><code>PaginationInnerInterceptor</code>：自动分页</li>
 <li><code>TenantLineInnerInterceptor</code>：多租户</li>
@@ -1959,6 +1962,14 @@ password <span class="token operator">=</span> FGvCSEaOuga3ulDAsxw68Q<span class
 <li><code>IllegalSQLInnerInterceptor</code>：sql 性能规范</li>
 <li><code>BlockAttackInnerInterceptor</code>：防止全表更新与删除</li>
 </ul>
+<blockquote>
+<p>使用多个分页插件的时候需要注意插件定义顺序，建议使用顺序如下：</p>
+<ul>
+<li>多租户,动态表名</li>
+<li>分页,乐观锁</li>
+<li>sql 性能规范,防止全表更新与删除</li>
+</ul>
+</blockquote>
 <p>这里我们以分页插件为里来学习插件的用法。</p>
 <h2 id="4-1-分页插件"><a href="#4-1-分页插件" class="headerlink" title="4.1.分页插件"></a><strong>4.1.分页插件</strong></h2><p>在未引入分页插件的情况下，<code>MybatisPlus</code> 是不支持分页功能的，<code>IService</code> 和 <code>BaseMapper</code> 中的分页方法都无法正常起效。<br>所以，我们必须配置分页插件。</p>
 <h3 id="4-1-1-配置分页插件"><a href="#4-1-1-配置分页插件" class="headerlink" title="4.1.1.配置分页插件"></a><strong>4.1.1.配置分页插件</strong></h3><p>在项目中新建一个配置类：</p>
