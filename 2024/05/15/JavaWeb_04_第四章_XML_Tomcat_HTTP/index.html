@@ -1,14 +1,15 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Walon的技术博客 | Walon的技术博客</title><meta name="author" content="Leon Walon"><meta name="copyright" content="Leon Walon"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="第四章 XML_Tomcat10_HTTP一 XML     XML是EXtensible Markup Language的缩写，翻译过来就是可扩展标记语言。所以很明显，XML和HTML一样都是标记语言，也就是说它们的基本语法都是标签。   可扩展 三个字表面上的意思是XML允许自定义格式。但这不代表你可以随便写。  在XML基本语法规范的基础上，你使用的那些第三方应用程序、框架会通过XML约束的">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>JavaWeb_04_第四章_XML_Tomcat_HTTP | Walon的技术博客</title><meta name="author" content="Leon Walon"><meta name="copyright" content="Leon Walon"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="第四章 XML_Tomcat10_HTTP一 XML     XML是EXtensible Markup Language的缩写，翻译过来就是可扩展标记语言。所以很明显，XML和HTML一样都是标记语言，也就是说它们的基本语法都是标签。   可扩展 三个字表面上的意思是XML允许自定义格式。但这不代表你可以随便写。  在XML基本语法规范的基础上，你使用的那些第三方应用程序、框架会通过XML约束的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Walon的技术博客">
+<meta property="og:title" content="JavaWeb_04_第四章_XML_Tomcat_HTTP">
 <meta property="og:url" content="https://lowols.github.io/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/index.html">
 <meta property="og:site_name" content="Walon的技术博客">
 <meta property="og:description" content="第四章 XML_Tomcat10_HTTP一 XML     XML是EXtensible Markup Language的缩写，翻译过来就是可扩展标记语言。所以很明显，XML和HTML一样都是标记语言，也就是说它们的基本语法都是标签。   可扩展 三个字表面上的意思是XML允许自定义格式。但这不代表你可以随便写。  在XML基本语法规范的基础上，你使用的那些第三方应用程序、框架会通过XML约束的">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
-<meta property="article:published_time" content="2024-05-15T13:01:35.822Z">
-<meta property="article:modified_time" content="2023-09-14T07:14:15.000Z">
+<meta property="article:published_time" content="2024-05-15T09:48:00.000Z">
+<meta property="article:modified_time" content="2024-05-15T13:25:06.945Z">
 <meta property="article:author" content="Leon Walon">
+<meta property="article:tag" content="JavaWeb">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lowols.github.io/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
   root: '/',
@@ -50,12 +51,12 @@
   },
   autoDarkmode: false
 }</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: 'Walon的技术博客',
+  title: 'JavaWeb_04_第四章_XML_Tomcat_HTTP',
   isPost: true,
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2023-09-14 15:14:15'
+  postUpdate: '2024-05-15 21:25:06'
 }</script><script>(win=>{
       win.saveToLocal = {
         set: (key, value, ttl) => {
@@ -152,7 +153,7 @@
         }
       }
       detectApple()
-    })(window)</script><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Walon的技术博客"><span class="site-name">Walon的技术博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">无题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-05-15T13:01:35.822Z" title="发表于 2024-05-15 21:01:35">2024-05-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-09-14T07:14:15.000Z" title="更新于 2023-09-14 15:14:15">2023-09-14</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="第四章-XML-Tomcat10-HTTP"><a href="#第四章-XML-Tomcat10-HTTP" class="headerlink" title="第四章 XML_Tomcat10_HTTP"></a>第四章 XML_Tomcat10_HTTP</h1><h1 id="一-XML"><a href="#一-XML" class="headerlink" title="一 XML"></a>一 XML</h1><img src="images/1681452257379.png" alt="1681452257379" style="zoom:50%;">
+    })(window)</script><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Walon的技术博客"><span class="site-name">Walon的技术博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">JavaWeb_04_第四章_XML_Tomcat_HTTP</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-05-15T09:48:00.000Z" title="发表于 2024-05-15 17:48:00">2024-05-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-05-15T13:25:06.945Z" title="更新于 2024-05-15 21:25:06">2024-05-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/">Java</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="JavaWeb_04_第四章_XML_Tomcat_HTTP"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="第四章-XML-Tomcat10-HTTP"><a href="#第四章-XML-Tomcat10-HTTP" class="headerlink" title="第四章 XML_Tomcat10_HTTP"></a>第四章 XML_Tomcat10_HTTP</h1><h1 id="一-XML"><a href="#一-XML" class="headerlink" title="一 XML"></a>一 XML</h1><img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681452257379.png" alt="1681452257379" style="zoom:50%;">
 
 
 
@@ -278,7 +279,7 @@ atguigu.jdbc.password&#x3D;root<span aria-hidden="true" class="line-numbers-rows
 <li>硬件：电脑，提供服务供其它客户电脑访问</li>
 <li>软件：电脑上安装的服务器软件，安装后能提供服务给网络中的其他计算机，将本地文件映射成一个虚拟的url地址供网络中的其他人访问。</li>
 </ul>
-<p><img src="/images/1681441674967.png" alt="1681441674967"></p>
+<p><img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681441674967.png" alt="1681441674967"></p>
 <blockquote>
 <p>常见的JavaWeb服务器：</p>
 </blockquote>
@@ -291,7 +292,7 @@ atguigu.jdbc.password&#x3D;root<span aria-hidden="true" class="line-numbers-rows
 <li>Weblogic（Orcale）：要钱的！支持JavaEE，适合大型项目</li>
 <li>Websphere（IBM）：要钱的！支持JavaEE，适合大型项目</li>
 </ul>
-<h2 id="2-2-Tomcat服务器"><a href="#2-2-Tomcat服务器" class="headerlink" title="2.2 Tomcat服务器"></a>2.2 Tomcat服务器</h2><h3 id="2-2-1-简介"><a href="#2-2-1-简介" class="headerlink" title="2.2.1 简介"></a>2.2.1 简介</h3><img src="images/1681452377469.png" alt="1681452377469" style="zoom:50%;">
+<h2 id="2-2-Tomcat服务器"><a href="#2-2-Tomcat服务器" class="headerlink" title="2.2 Tomcat服务器"></a>2.2 Tomcat服务器</h2><h3 id="2-2-1-简介"><a href="#2-2-1-简介" class="headerlink" title="2.2.1 简介"></a>2.2.1 简介</h3><img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681452377469.png" alt="1681452377469" style="zoom:50%;">
 
 <blockquote>
 <p>Tomcat是Apache 软件基金会（Apache Software Foundation）的Jakarta 项目中的一个核心项目，由Apache、Sun 和其他一些公司及个人共同开发而成。最新的Servlet 和JSP 规范总是能在Tomcat 中得到体现，因为Tomcat 技术先进、性能稳定，而且免费，因而深受Java 爱好者的喜爱并得到了部分软件开发商的认可，成为目前比较流行的Web 应用服务器。</p>
@@ -394,7 +395,7 @@ atguigu.jdbc.password&#x3D;root<span aria-hidden="true" class="line-numbers-rows
 <li>安装版：需要安装，一般不考虑使用。</li>
 <li>解压版: 直接解压缩使用，我们使用的版本。</li>
 </ul>
-<img src="images/1681442513261.png" alt="1681442513261" style="zoom:67%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681442513261.png" alt="1681442513261" style="zoom:67%;">
 
 <blockquote>
 <p>安装</p>
@@ -402,49 +403,49 @@ atguigu.jdbc.password&#x3D;root<span aria-hidden="true" class="line-numbers-rows
 <ol>
 <li>正确安装JDK并配置JAVA_HOME(以JDK17为例 <a target="_blank" rel="noopener" href="https://injdk.cn中可以下载各种版本的jdk/">https://injdk.cn中可以下载各种版本的JDK</a>)</li>
 </ol>
-<img src="images/1681442778503.png" alt="1681442778503" style="zoom:67%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681442778503.png" alt="1681442778503" style="zoom:67%;">
 
 <ol start="2">
 <li>解压tomcat到非中文无空格目录</li>
 </ol>
-<img src="images/1681442849940.png" alt="1681442849940" style="zoom: 80%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681442849940.png" alt="1681442849940" style="zoom: 80%;">
 
 <ol start="3">
 <li>点击bin&#x2F;startup.bat启动</li>
 </ol>
-<img src="images/1681442946756.png" alt="1681442946756" style="zoom: 80%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681442946756.png" alt="1681442946756" style="zoom: 80%;">
 
-<img src="images/1681442998407.png" alt="1681442998407" style="zoom: 60%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681442998407.png" alt="1681442998407" style="zoom: 60%;">
 
 <ol start="4">
 <li>打开浏览器输入 <a href="http://localhost:8080访问测试">http://localhost:8080访问测试</a></li>
 </ol>
-<img src="images/1681443038911.png" alt="1681443038911">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681443038911.png" alt="1681443038911">
 
 <ol start="5">
 <li>直接关闭窗口或者运行 bin&#x2F;shutdown.bat关闭tomcat</li>
 </ol>
-<img src="images/1681442946756.png" alt="1681442946756" style="zoom: 80%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681442946756.png" alt="1681442946756" style="zoom: 80%;">
 
 <ol start="6">
 <li>处理dos窗口日志中文乱码问题: 修改conf&#x2F;logging.properties,将所有的UTF-8修改为GBK</li>
 </ol>
-<img src="images/1681443124315.png" alt="1681443124315" style="zoom: 80%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681443124315.png" alt="1681443124315" style="zoom: 80%;">
 
 <ul>
 <li>修改前</li>
 </ul>
-<img src="images/1681443202115.png" alt="1681443202115" style="zoom:50%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681443202115.png" alt="1681443202115" style="zoom:50%;">
 
 <ul>
 <li>修改后</li>
 </ul>
-<img src="images/1681443273573.png" alt="1681443273573" style="zoom:50%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681443273573.png" alt="1681443273573" style="zoom:50%;">
 
 <ul>
 <li>重启测试</li>
 </ul>
-<img src="images/1681443314432.png" alt="1681443314432">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681443314432.png" alt="1681443314432">
 
 <h2 id="2-3-Tomcat目录及测试"><a href="#2-3-Tomcat目录及测试" class="headerlink" title="2.3 Tomcat目录及测试"></a>2.3 Tomcat目录及测试</h2><blockquote>
 <p>C:\Program4java\apache-tomcat-10.1.7 这个目录下直接包含Tomcat的bin目录，conf目录等，我们称之为<strong>Tomcat的安装目录或根目录</strong>。</p>
@@ -496,7 +497,7 @@ atguigu.jdbc.password&#x3D;root<span aria-hidden="true" class="line-numbers-rows
 <h2 id="2-4-WEB项目的标准结构"><a href="#2-4-WEB项目的标准结构" class="headerlink" title="2.4 WEB项目的标准结构"></a>2.4 WEB项目的标准结构</h2><blockquote>
 <p>一个标准的可以用于发布的WEB项目标准结构如下</p>
 </blockquote>
-<p><img src="/images/1681453620343.png" alt="1681453620343"></p>
+<p><img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681453620343.png" alt="1681453620343"></p>
 <ul>
 <li>app  本应用根目录<ul>
 <li>static 非必要目录,约定俗成的名字,一般在此处放静态资源 ( css  js  img)</li>
@@ -513,7 +514,7 @@ atguigu.jdbc.password&#x3D;root<span aria-hidden="true" class="line-numbers-rows
 <blockquote>
 <p>url的组成部分和项目中资源的对应关系</p>
 </blockquote>
-<p><img src="/images/1681456161723.png" alt="1681456161723"></p>
+<p><img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681456161723.png" alt="1681456161723"></p>
 <h2 id="2-5-WEB项目部署的方式"><a href="#2-5-WEB项目部署的方式" class="headerlink" title="2.5 WEB项目部署的方式"></a>2.5 WEB项目部署的方式</h2><blockquote>
 <p>方式1   直接将编译好的项目放在webapps目录下  (已经演示)</p>
 </blockquote>
@@ -526,7 +527,7 @@ atguigu.jdbc.password&#x3D;root<span aria-hidden="true" class="line-numbers-rows
 <ul>
 <li>在磁盘的自定义目录上准备一个app</li>
 </ul>
-<p><img src="/images/1681456447284.png" alt="1681456447284"></p>
+<p><img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681456447284.png" alt="1681456447284"></p>
 <ul>
 <li>在tomcat的conf下创建Catalina&#x2F;localhost目录,并在该目录下准备一个app.xml文件</li>
 </ul>
@@ -541,83 +542,83 @@ atguigu.jdbc.password&#x3D;root<span aria-hidden="true" class="line-numbers-rows
 <h2 id="2-6-IDEA中开发并部署运行WEB项目"><a href="#2-6-IDEA中开发并部署运行WEB项目" class="headerlink" title="2.6 IDEA中开发并部署运行WEB项目"></a>2.6 IDEA中开发并部署运行WEB项目</h2><h3 id="2-6-1-IDEA关联本地Tomcat"><a href="#2-6-1-IDEA关联本地Tomcat" class="headerlink" title="2.6.1 IDEA关联本地Tomcat"></a>2.6.1 IDEA关联本地Tomcat</h3><blockquote>
 <p>可以在创建项目前设置本地tomcat,也可以在打开某个项目的状态下找到settings</p>
 </blockquote>
-<img src="images/1681457611053.png" alt="1681457611053" style="zoom: 80%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681457611053.png" alt="1681457611053" style="zoom: 80%;">
 
 <blockquote>
 <p>找到 Build,Execution,Eeployment下的Application Servers ,找到+号</p>
 </blockquote>
-<img src="images/1681457711914.png" alt="1681457711914">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681457711914.png" alt="1681457711914">
 
 <blockquote>
 <p>选择Tomcat Server</p>
 </blockquote>
-<img src="images/1681457800708.png" alt="1681457800708">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681457800708.png" alt="1681457800708">
 
 <blockquote>
 <p>选择tomcat的安装目录</p>
 </blockquote>
-<img src="images/1681457879937.png" alt="1681457879937" style="zoom:50%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681457879937.png" alt="1681457879937" style="zoom:50%;">
 
 <blockquote>
 <p>点击ok</p>
 </blockquote>
-<img src="images/1681457921094.png" alt="1681457921094">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681457921094.png" alt="1681457921094">
 
 <blockquote>
 <p>关联完毕</p>
 </blockquote>
-<img src="images/1681458031957.png" alt="1681458031957" style="zoom:65%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681458031957.png" alt="1681458031957" style="zoom:65%;">
 
 <h3 id="2-6-2-IDEA创建web工程"><a href="#2-6-2-IDEA创建web工程" class="headerlink" title="2.6.2 IDEA创建web工程"></a>2.6.2 IDEA创建web工程</h3><blockquote>
 <p>推荐先创建一个空项目,这样可以在一个空项目下同时存在多个modules,不用后续来回切换之前的项目,当然也可以忽略此步直接创建web项目</p>
 </blockquote>
-<img src="images/1681458194939.png" alt="1681458194939" style="zoom: 60%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681458194939.png" alt="1681458194939" style="zoom: 60%;">
 
-<img src="images/1681458273381.png" alt="1681458273381" style="zoom: 60%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681458273381.png" alt="1681458273381" style="zoom: 60%;">
 
 <blockquote>
 <p>检查项目的SDK,语法版本,以及项目编译后的输出目录</p>
 </blockquote>
-<img src="images/1681458343921.png" alt="1681458343921" style="zoom:50%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681458343921.png" alt="1681458343921" style="zoom:50%;">
 
-<img src="images/1681458393871.png" alt="1681458393871" style="zoom: 55%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681458393871.png" alt="1681458393871" style="zoom: 55%;">
 
 <blockquote>
 <p>先创建一个普通的JAVA项目</p>
 </blockquote>
-<img src="images/1681458485837.png" alt="1681458485837" style="zoom:63%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681458485837.png" alt="1681458485837" style="zoom:63%;">
 
 <blockquote>
 <p>检查各项信息是否填写有误</p>
 </blockquote>
-<img src="images/1681458599545.png" alt="1681458599545" style="zoom:60%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681458599545.png" alt="1681458599545" style="zoom:60%;">
 
 <blockquote>
 <p>创建完毕后,为项目添加Tomcat依赖</p>
 </blockquote>
-<img src="images/1681458857830.png" alt="1681458857830" style="zoom: 67%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681458857830.png" alt="1681458857830" style="zoom: 67%;">
 
 
 
-<img src="images/1681458897017.png" alt="1681458897017" style="zoom: 95%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681458897017.png" alt="1681458897017" style="zoom: 95%;">
 
-<img src="images/1681458939400.png" alt="1681458939400" style="zoom:70%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681458939400.png" alt="1681458939400" style="zoom:70%;">
 
 <blockquote>
 <p>选择modules,添加  framework support</p>
 </blockquote>
-<img src="images/1681458672258.png" alt="1681458672258" style="zoom: 80%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681458672258.png" alt="1681458672258" style="zoom: 80%;">
 
 <blockquote>
 <p>选择Web Application 注意Version,勾选  Create web.xml</p>
 </blockquote>
-<img src="images/1681459007273.png" alt="1681459007273" style="zoom:80%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681459007273.png" alt="1681459007273" style="zoom:80%;">
 
 <blockquote>
 <p>删除index.jsp ,替换为 index.html</p>
 </blockquote>
-<p><img src="/images/1681459080873.png" alt="1681459080873"></p>
-<img src="images/1681459147133.png" alt="1681459147133" style="zoom: 67%;">
+<p><img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681459080873.png" alt="1681459080873"></p>
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681459147133.png" alt="1681459147133" style="zoom: 67%;">
 
 <blockquote>
 <p>处理配置文件</p>
@@ -626,12 +627,12 @@ atguigu.jdbc.password&#x3D;root<span aria-hidden="true" class="line-numbers-rows
 <li>在工程下创建resources目录,专门用于存放配置文件(都放在src下也行,单独存放可以尽量避免文件集中存放造成的混乱)</li>
 <li>标记目录为资源目录,不标记的话则该目录不参与编译</li>
 </ul>
-<img src="images/1681461443278.png" alt="1681461443278" style="zoom:67%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681461443278.png" alt="1681461443278" style="zoom:67%;">
 
 <ul>
 <li>标记完成后,显示效果如下</li>
 </ul>
-<img src="images/1681461513406.png" alt="1681461513406">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681461513406.png" alt="1681461513406">
 
 <blockquote>
 <p>处理依赖jar包问题</p>
@@ -641,27 +642,27 @@ atguigu.jdbc.password&#x3D;root<span aria-hidden="true" class="line-numbers-rows
 <li>必须在WEB-INF下,且目录名必须叫lib!!!</li>
 <li>复制jar文件进入lib目录</li>
 </ul>
-<p><img src="/images/1681461788411.png" alt="1681461788411"></p>
+<p><img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681461788411.png" alt="1681461788411"></p>
 <ul>
 <li>将lib目录添加为当前项目的依赖,后续可以用maven统一解决</li>
 </ul>
-<img src="images/1681461846178.png" alt="1681461846178" style="zoom:67%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681461846178.png" alt="1681461846178" style="zoom:67%;">
 
-<p><img src="/images/1681461881121.png" alt="1681461881121"></p>
+<p><img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681461881121.png" alt="1681461881121"></p>
 <ul>
 <li>环境级别推荐选择module 级别,降低对其他项目的影响,name可以空着不写</li>
 </ul>
-<p><img src="/images/1681461923761.png" alt="1681461923761"></p>
+<p><img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681461923761.png" alt="1681461923761"></p>
 <ul>
 <li>查看当前项目有那些环境依赖</li>
 </ul>
-<p><img src="/images/1681463867295.png" alt="1681463867295"></p>
-<img src="images/1681462179671.png" alt="1681462179671" style="zoom:50%;">
+<p><img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681463867295.png" alt="1681463867295"></p>
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681462179671.png" alt="1681462179671" style="zoom:50%;">
 
 <ul>
 <li>在此位置,可以通过-号解除依赖</li>
 </ul>
-<img src="images/1681462247973.png" alt="1681462247973" style="zoom:85%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681462247973.png" alt="1681462247973" style="zoom:85%;">
 
 <h3 id="2-6-3-IDEA部署-运行web项目"><a href="#2-6-3-IDEA部署-运行web项目" class="headerlink" title="2.6.3 IDEA部署-运行web项目"></a>2.6.3 IDEA部署-运行web项目</h3><blockquote>
 <p>检查idea是否识别modules为web项目并存在将项目构建成发布结构的配置</p>
@@ -669,48 +670,48 @@ atguigu.jdbc.password&#x3D;root<span aria-hidden="true" class="line-numbers-rows
 <ul>
 <li>就是检查工程目录下,web目录有没有特殊的识别标记</li>
 </ul>
-<p><img src="/images/1681462523901.png" alt="1681462523901"></p>
+<p><img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681462523901.png" alt="1681462523901"></p>
 <ul>
 <li>以及artifacts下,有没有对应 _war_exploded,如果没有,就点击+号添加</li>
 </ul>
-<img src="images/1681462584524.png" alt="1681462584524" style="zoom: 50%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681462584524.png" alt="1681462584524" style="zoom: 50%;">
 
 <blockquote>
 <p>点击向下箭头,出现 Edit Configurations选项</p>
 </blockquote>
-<img src="images/1681462645070.png" alt="1681462645070" style="zoom:100%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681462645070.png" alt="1681462645070" style="zoom:100%;">
 
 <blockquote>
 <p>出现运行配置界面</p>
 </blockquote>
-<img src="images/1681462710108.png" alt="1681462710108" style="zoom: 67%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681462710108.png" alt="1681462710108" style="zoom: 67%;">
 
 
 
 <blockquote>
 <p>点击+号,添加本地tomcat服务器</p>
 </blockquote>
-<img src="images/1681462754191.png" alt="1681462754191" style="zoom:67%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681462754191.png" alt="1681462754191" style="zoom:67%;">
 
 <blockquote>
 <p>因为IDEA 只关联了一个Tomcat,红色部分就只有一个Tomcat可选</p>
 </blockquote>
-<img src="images/1681462798933.png" alt="1681462798933" style="zoom: 65%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681462798933.png" alt="1681462798933" style="zoom: 65%;">
 
 <blockquote>
 <p>选择Deployment,通过+添加要部署到Tomcat中的artifact</p>
 </blockquote>
-<img src="images/1681463011546.png" alt="1681463011546" style="zoom:65%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681463011546.png" alt="1681463011546" style="zoom:65%;">
 
 <blockquote>
 <p>applicationContext中是默认的项目上下文路径,也就是url中需要输入的路径,这里可以自己定义,可以和工程名称不一样,也可以不写,但是要保留&#x2F;,我们这里暂时就用默认的</p>
 </blockquote>
-<img src="images/1681463049807.png" alt="1681463049807" style="zoom:80%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681463049807.png" alt="1681463049807" style="zoom:80%;">
 
 <blockquote>
 <p>点击apply 应用后,回到Server部分. After Launch是配置启动成功后,是否默认自动打开浏览器并输入URL中的地址,HTTP port是Http连接器目前占用的端口号</p>
 </blockquote>
-<img src="images/1681463212587.png" alt="1681463212587" style="zoom:80%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681463212587.png" alt="1681463212587" style="zoom:80%;">
 
 <blockquote>
 <p>点击OK后,启动项目,访问测试</p>
@@ -719,22 +720,22 @@ atguigu.jdbc.password&#x3D;root<span aria-hidden="true" class="line-numbers-rows
 <li>绿色箭头是正常运行模式</li>
 <li>“小虫子”是debug运行模式</li>
 </ul>
-<img src="images/1681463386274.png" alt="1681463386274" style="zoom:80%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681463386274.png" alt="1681463386274" style="zoom:80%;">
 
 <ul>
 <li>点击后,查看日志状态是否有异常</li>
 </ul>
-<img src="images/1681463361795.png" alt="1681463361795" style="zoom:100%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681463361795.png" alt="1681463361795" style="zoom:100%;">
 
 <ul>
 <li>浏览器自动打开并自动访问了index.html欢迎页</li>
 </ul>
-<img src="images/1681520068936.png" alt="1681520068936" style="zoom:50%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681520068936.png" alt="1681520068936" style="zoom:50%;">
 
 <blockquote>
 <p>工程结构和可以发布的项目结构之间的目录对应关系</p>
 </blockquote>
-<p><img src="/images/1681464081226.png" alt="1681464081226"></p>
+<p><img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681464081226.png" alt="1681464081226"></p>
 <blockquote>
 <p>IDEA部署并运行项目的原理</p>
 </blockquote>
@@ -746,10 +747,10 @@ atguigu.jdbc.password&#x3D;root<span aria-hidden="true" class="line-numbers-rows
 <li>idea启动tomcat时,是让本地tomcat程序按照tomcat副本里的配置文件运行</li>
 <li>idea的tomcat副本部署项目的模式是通过conf&#x2F;Catalina&#x2F;localhost&#x2F;*.xml配置文件的形式实现项目部署的</li>
 </ul>
-<p><img src="/images/1681521240438.png" alt="1681521240438"></p>
-<h1 id="三-HTTP协议"><a href="#三-HTTP协议" class="headerlink" title="三 HTTP协议"></a>三 HTTP协议</h1><h2 id="3-1-HTTP简介"><a href="#3-1-HTTP简介" class="headerlink" title="3.1 HTTP简介"></a>3.1 HTTP简介</h2><img src="images/1681522638617.png" alt="1681522638617" style="zoom: 67%;">
+<p><img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681521240438.png" alt="1681521240438"></p>
+<h1 id="三-HTTP协议"><a href="#三-HTTP协议" class="headerlink" title="三 HTTP协议"></a>三 HTTP协议</h1><h2 id="3-1-HTTP简介"><a href="#3-1-HTTP简介" class="headerlink" title="3.1 HTTP简介"></a>3.1 HTTP简介</h2><img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681522638617.png" alt="1681522638617" style="zoom: 67%;">
 
-<img src="images/1681522600239.png" alt="1681522600239" style="zoom:67%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681522600239.png" alt="1681522600239" style="zoom:67%;">
 
 
 
@@ -827,7 +828,7 @@ atguigu.jdbc.password&#x3D;root<span aria-hidden="true" class="line-numbers-rows
 <h3 id="3-1-2-HTTP协议的会话方式"><a href="#3-1-2-HTTP协议的会话方式" class="headerlink" title="3.1.2 HTTP协议的会话方式"></a>3.1.2 HTTP协议的会话方式</h3><blockquote>
 <p>浏览器与服务器之间的通信过程要经历四个步骤</p>
 </blockquote>
-<p><img src="/images/1557672342250_1H8nt17MNz.png"></p>
+<p><img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1557672342250_1H8nt17MNz.png"></p>
 <ul>
 <li>浏览器与WEB服务器的连接过程是短暂的，每次连接只处理一个请求和响应。对每一个页面的访问，浏览器与WEB服务器都要建立一次单独的连接。</li>
 <li>浏览器到WEB服务器之间的所有通讯都是完全独立分开的请求和响应对。</li>
@@ -835,25 +836,25 @@ atguigu.jdbc.password&#x3D;root<span aria-hidden="true" class="line-numbers-rows
 <h3 id="3-1-3-HTTP1-0和HTTP1-1的区别"><a href="#3-1-3-HTTP1-0和HTTP1-1的区别" class="headerlink" title="3.1.3 HTTP1.0和HTTP1.1的区别"></a>3.1.3 HTTP1.0和HTTP1.1的区别</h3><blockquote>
 <p>在HTTP1.0版本中，浏览器请求一个带有图片的网页，会由于下载图片而与服务器之间开启一个新的连接；但在HTTP1.1版本中，允许浏览器在拿到当前请求对应的全部资源后再断开连接，提高了效率。</p>
 </blockquote>
-<p><img src="/images/1557672415271_EgyN-GdbWY.png"></p>
+<p><img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1557672415271_EgyN-GdbWY.png"></p>
 <h3 id="3-1-4-在浏览器中通过F12工具抓取请求响应报文包"><a href="#3-1-4-在浏览器中通过F12工具抓取请求响应报文包" class="headerlink" title="3.1.4 在浏览器中通过F12工具抓取请求响应报文包"></a>3.1.4 在浏览器中通过F12工具抓取请求响应报文包</h3><blockquote>
 <p>几乎所有的PC端浏览器都支持了F12开发者工具,只不过不同的浏览器工具显示的窗口有差异</p>
 </blockquote>
-<img src="images/1681522138051.png" alt="1681522138051" style="zoom:80%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681522138051.png" alt="1681522138051" style="zoom:80%;">
 
 
 
 <h2 id="3-2-请求和响应报文"><a href="#3-2-请求和响应报文" class="headerlink" title="3.2 请求和响应报文"></a>3.2 请求和响应报文</h2><h3 id="3-2-1-报文的格式"><a href="#3-2-1-报文的格式" class="headerlink" title="3.2.1 报文的格式"></a>3.2.1 报文的格式</h3><blockquote>
 <p>主体上分为报文首部和报文主体,中间空行隔开</p>
 </blockquote>
-<img src="images/1681522962846.png" alt="1681522962846" style="zoom: 62%;">
+<img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681522962846.png" alt="1681522962846" style="zoom: 62%;">
 
 
 
 <blockquote>
 <p>报文部首可以继续细分为  “行” 和 “头”</p>
 </blockquote>
-<p><img src="/images/1681522998417.png" alt="1681522998417"></p>
+<p><img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681522998417.png" alt="1681522998417"></p>
 <h3 id="3-2-2-请求报文"><a href="#3-2-2-请求报文" class="headerlink" title="3.2.2 请求报文"></a>3.2.2 请求报文</h3><blockquote>
 <p>客户端发给服务端的报文</p>
 </blockquote>
@@ -869,7 +870,7 @@ atguigu.jdbc.password&#x3D;root<span aria-hidden="true" class="line-numbers-rows
 <blockquote>
 <p>浏览器 f12 网络下查看请求数据包</p>
 </blockquote>
-<p><img src="/images/1681524200024.png" alt="1681524200024"></p>
+<p><img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681524200024.png" alt="1681524200024"></p>
 <blockquote>
 <p>form表单发送GET请求特点</p>
 </blockquote>
@@ -921,7 +922,7 @@ atguigu.jdbc.password&#x3D;root<span aria-hidden="true" class="line-numbers-rows
 <ul>
 <li>POST请求要求将form标签的method的属性设置为post</li>
 </ul>
-<p><img src="/images/1681525012046.png" alt="1681525012046"></p>
+<p><img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681525012046.png" alt="1681525012046"></p>
 <blockquote>
 <p>查看post的请求行 请求头 请求体</p>
 </blockquote>
@@ -966,8 +967,8 @@ atguigu.jdbc.password&#x3D;root<span aria-hidden="true" class="line-numbers-rows
 <li>空行；</li>
 <li>响应体；</li>
 </ul>
-<p><img src="/images/1681525347456.png" alt="1681525347456"></p>
-<p><img src="/images/1681525384347.png" alt="1681525384347"></p>
+<p><img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681525347456.png" alt="1681525347456"></p>
+<p><img src="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/1681525384347.png" alt="1681525384347"></p>
 <ul>
 <li>响应行组成部分<ul>
 <li>协议及版本 HTTP&#x2F;1.1</li>
@@ -1256,4 +1257,4 @@ atguigu.jdbc.password&#x3D;root<span aria-hidden="true" class="line-numbers-rows
 <td align="left">服务器不支持请求的HTTP协议的版本，无法完成处理</td>
 </tr>
 </tbody></table>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://lowols.github.io">Leon Walon</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://lowols.github.io/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/">https://lowols.github.io/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://lowols.github.io" target="_blank">Walon的技术博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/05/15/JavaWeb_03_%E7%AC%AC%E4%B8%89%E7%AB%A0_JavaScript/" title=""><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info"></div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Leon Walon</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-XML-Tomcat10-HTTP"><span class="toc-text">第四章 XML_Tomcat10_HTTP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80-XML"><span class="toc-text">一 XML</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E5%B8%B8%E8%A7%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B"><span class="toc-text">1.1 常见配置文件类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-1-properties%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">1.1.1 properties配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-2-xml%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">1.1.2 xml配置文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-DOM4J%E8%BF%9B%E8%A1%8CXML%E8%A7%A3%E6%9E%90"><span class="toc-text">1.2 DOM4J进行XML解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-1-DOM4J%E7%9A%84%E4%BD%BF%E7%94%A8%E6%AD%A5%E9%AA%A4"><span class="toc-text">1.2.1 DOM4J的使用步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-2-DOM4J%E7%9A%84API%E4%BB%8B%E7%BB%8D"><span class="toc-text">1.2.2 DOM4J的API介绍</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C-Tomcat10"><span class="toc-text">二 Tomcat10</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-WEB%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">2.1 WEB服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-Tomcat%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">2.2 Tomcat服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-%E7%AE%80%E4%BB%8B"><span class="toc-text">2.2.1 简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-%E5%AE%89%E8%A3%85"><span class="toc-text">2.2.2 安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-Tomcat%E7%9B%AE%E5%BD%95%E5%8F%8A%E6%B5%8B%E8%AF%95"><span class="toc-text">2.3 Tomcat目录及测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-WEB%E9%A1%B9%E7%9B%AE%E7%9A%84%E6%A0%87%E5%87%86%E7%BB%93%E6%9E%84"><span class="toc-text">2.4 WEB项目的标准结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-WEB%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-text">2.5 WEB项目部署的方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-6-IDEA%E4%B8%AD%E5%BC%80%E5%8F%91%E5%B9%B6%E9%83%A8%E7%BD%B2%E8%BF%90%E8%A1%8CWEB%E9%A1%B9%E7%9B%AE"><span class="toc-text">2.6 IDEA中开发并部署运行WEB项目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-1-IDEA%E5%85%B3%E8%81%94%E6%9C%AC%E5%9C%B0Tomcat"><span class="toc-text">2.6.1 IDEA关联本地Tomcat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-2-IDEA%E5%88%9B%E5%BB%BAweb%E5%B7%A5%E7%A8%8B"><span class="toc-text">2.6.2 IDEA创建web工程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-3-IDEA%E9%83%A8%E7%BD%B2-%E8%BF%90%E8%A1%8Cweb%E9%A1%B9%E7%9B%AE"><span class="toc-text">2.6.3 IDEA部署-运行web项目</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89-HTTP%E5%8D%8F%E8%AE%AE"><span class="toc-text">三 HTTP协议</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-HTTP%E7%AE%80%E4%BB%8B"><span class="toc-text">3.1 HTTP简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-1-%E5%8F%91%E5%B1%95%E5%8E%86%E7%A8%8B"><span class="toc-text">3.1.1 发展历程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-2-HTTP%E5%8D%8F%E8%AE%AE%E7%9A%84%E4%BC%9A%E8%AF%9D%E6%96%B9%E5%BC%8F"><span class="toc-text">3.1.2 HTTP协议的会话方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-3-HTTP1-0%E5%92%8CHTTP1-1%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">3.1.3 HTTP1.0和HTTP1.1的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-4-%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E9%80%9A%E8%BF%87F12%E5%B7%A5%E5%85%B7%E6%8A%93%E5%8F%96%E8%AF%B7%E6%B1%82%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87%E5%8C%85"><span class="toc-text">3.1.4 在浏览器中通过F12工具抓取请求响应报文包</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87"><span class="toc-text">3.2 请求和响应报文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-1-%E6%8A%A5%E6%96%87%E7%9A%84%E6%A0%BC%E5%BC%8F"><span class="toc-text">3.2.1 报文的格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-2-%E8%AF%B7%E6%B1%82%E6%8A%A5%E6%96%87"><span class="toc-text">3.2.2 请求报文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-3-%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87"><span class="toc-text">3.2.3 响应报文</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/" title="无题">无题</a><time datetime="2024-05-15T13:01:35.822Z" title="发表于 2024-05-15 21:01:35">2024-05-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/15/JavaWeb_03_%E7%AC%AC%E4%B8%89%E7%AB%A0_JavaScript/" title="无题">无题</a><time datetime="2024-05-15T13:01:35.819Z" title="发表于 2024-05-15 21:01:35">2024-05-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/15/JavaWeb_02_%E7%AC%AC%E4%BA%8C%E7%AB%A0_HTML%E4%B8%8ECSS/" title="JavaWeb_02_第二章_HTML与CSS">JavaWeb_02_第二章_HTML与CSS</a><time datetime="2024-05-15T09:50:07.000Z" title="发表于 2024-05-15 17:50:07">2024-05-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/15/JavaWeb_01_%E7%AC%AC%E4%B8%80%E7%AB%A0_%E6%A6%82%E8%BF%B0/" title="JavaWeb_01_第一章_概述">JavaWeb_01_第一章_概述</a><time datetime="2024-05-15T09:48:00.000Z" title="发表于 2024-05-15 17:48:00">2024-05-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/15/SrpingMVC%E5%AD%A6%E4%B9%A0-%E4%B8%8B-SSM%E6%95%B4%E5%90%88%E4%B8%8E%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6/" title="SrpingMVC学习-下-SSM整合与常用组件">SrpingMVC学习-下-SSM整合与常用组件</a><time datetime="2024-05-15T08:22:42.000Z" title="发表于 2024-05-15 16:22:42">2024-05-15</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Leon Walon</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.22.1/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.65.0/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js?v=4.13.0"></script></div></div></body></html>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://lowols.github.io">Leon Walon</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://lowols.github.io/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/">https://lowols.github.io/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://lowols.github.io" target="_blank">Walon的技术博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JavaWeb/">JavaWeb</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/05/15/JavaWeb_01_%E7%AC%AC%E4%B8%80%E7%AB%A0_%E6%A6%82%E8%BF%B0/" title="JavaWeb_01_第一章_概述"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">JavaWeb_01_第一章_概述</div></div></a></div><div class="next-post pull-right"><a href="/2024/05/15/SrpingMVC%E5%AD%A6%E4%B9%A0-%E4%B8%8B-SSM%E6%95%B4%E5%90%88%E4%B8%8E%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6/" title="SrpingMVC学习-下-SSM整合与常用组件"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">SrpingMVC学习-下-SSM整合与常用组件</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/05/15/JavaWeb_01_%E7%AC%AC%E4%B8%80%E7%AB%A0_%E6%A6%82%E8%BF%B0/" title="JavaWeb_01_第一章_概述"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-15</div><div class="title">JavaWeb_01_第一章_概述</div></div></a></div><div><a href="/2024/05/15/JavaWeb_02_%E7%AC%AC%E4%BA%8C%E7%AB%A0_HTML%E4%B8%8ECSS/" title="JavaWeb_02_第二章_HTML与CSS"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-15</div><div class="title">JavaWeb_02_第二章_HTML与CSS</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Leon Walon</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-XML-Tomcat10-HTTP"><span class="toc-text">第四章 XML_Tomcat10_HTTP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80-XML"><span class="toc-text">一 XML</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E5%B8%B8%E8%A7%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B"><span class="toc-text">1.1 常见配置文件类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-1-properties%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">1.1.1 properties配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-2-xml%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">1.1.2 xml配置文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-DOM4J%E8%BF%9B%E8%A1%8CXML%E8%A7%A3%E6%9E%90"><span class="toc-text">1.2 DOM4J进行XML解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-1-DOM4J%E7%9A%84%E4%BD%BF%E7%94%A8%E6%AD%A5%E9%AA%A4"><span class="toc-text">1.2.1 DOM4J的使用步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-2-DOM4J%E7%9A%84API%E4%BB%8B%E7%BB%8D"><span class="toc-text">1.2.2 DOM4J的API介绍</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C-Tomcat10"><span class="toc-text">二 Tomcat10</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-WEB%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">2.1 WEB服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-Tomcat%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">2.2 Tomcat服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-%E7%AE%80%E4%BB%8B"><span class="toc-text">2.2.1 简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-%E5%AE%89%E8%A3%85"><span class="toc-text">2.2.2 安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-Tomcat%E7%9B%AE%E5%BD%95%E5%8F%8A%E6%B5%8B%E8%AF%95"><span class="toc-text">2.3 Tomcat目录及测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-WEB%E9%A1%B9%E7%9B%AE%E7%9A%84%E6%A0%87%E5%87%86%E7%BB%93%E6%9E%84"><span class="toc-text">2.4 WEB项目的标准结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-WEB%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-text">2.5 WEB项目部署的方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-6-IDEA%E4%B8%AD%E5%BC%80%E5%8F%91%E5%B9%B6%E9%83%A8%E7%BD%B2%E8%BF%90%E8%A1%8CWEB%E9%A1%B9%E7%9B%AE"><span class="toc-text">2.6 IDEA中开发并部署运行WEB项目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-1-IDEA%E5%85%B3%E8%81%94%E6%9C%AC%E5%9C%B0Tomcat"><span class="toc-text">2.6.1 IDEA关联本地Tomcat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-2-IDEA%E5%88%9B%E5%BB%BAweb%E5%B7%A5%E7%A8%8B"><span class="toc-text">2.6.2 IDEA创建web工程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-3-IDEA%E9%83%A8%E7%BD%B2-%E8%BF%90%E8%A1%8Cweb%E9%A1%B9%E7%9B%AE"><span class="toc-text">2.6.3 IDEA部署-运行web项目</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89-HTTP%E5%8D%8F%E8%AE%AE"><span class="toc-text">三 HTTP协议</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-HTTP%E7%AE%80%E4%BB%8B"><span class="toc-text">3.1 HTTP简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-1-%E5%8F%91%E5%B1%95%E5%8E%86%E7%A8%8B"><span class="toc-text">3.1.1 发展历程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-2-HTTP%E5%8D%8F%E8%AE%AE%E7%9A%84%E4%BC%9A%E8%AF%9D%E6%96%B9%E5%BC%8F"><span class="toc-text">3.1.2 HTTP协议的会话方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-3-HTTP1-0%E5%92%8CHTTP1-1%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">3.1.3 HTTP1.0和HTTP1.1的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-4-%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E9%80%9A%E8%BF%87F12%E5%B7%A5%E5%85%B7%E6%8A%93%E5%8F%96%E8%AF%B7%E6%B1%82%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87%E5%8C%85"><span class="toc-text">3.1.4 在浏览器中通过F12工具抓取请求响应报文包</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87"><span class="toc-text">3.2 请求和响应报文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-1-%E6%8A%A5%E6%96%87%E7%9A%84%E6%A0%BC%E5%BC%8F"><span class="toc-text">3.2.1 报文的格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-2-%E8%AF%B7%E6%B1%82%E6%8A%A5%E6%96%87"><span class="toc-text">3.2.2 请求报文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-3-%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87"><span class="toc-text">3.2.3 响应报文</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/15/JavaWeb_03_%E7%AC%AC%E4%B8%89%E7%AB%A0_JavaScript/" title="无题">无题</a><time datetime="2024-05-15T13:01:35.819Z" title="发表于 2024-05-15 21:01:35">2024-05-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/15/JavaWeb_02_%E7%AC%AC%E4%BA%8C%E7%AB%A0_HTML%E4%B8%8ECSS/" title="JavaWeb_02_第二章_HTML与CSS">JavaWeb_02_第二章_HTML与CSS</a><time datetime="2024-05-15T09:50:07.000Z" title="发表于 2024-05-15 17:50:07">2024-05-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/15/JavaWeb_01_%E7%AC%AC%E4%B8%80%E7%AB%A0_%E6%A6%82%E8%BF%B0/" title="JavaWeb_01_第一章_概述">JavaWeb_01_第一章_概述</a><time datetime="2024-05-15T09:48:00.000Z" title="发表于 2024-05-15 17:48:00">2024-05-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/15/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/" title="JavaWeb_04_第四章_XML_Tomcat_HTTP">JavaWeb_04_第四章_XML_Tomcat_HTTP</a><time datetime="2024-05-15T09:48:00.000Z" title="发表于 2024-05-15 17:48:00">2024-05-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/15/SrpingMVC%E5%AD%A6%E4%B9%A0-%E4%B8%8B-SSM%E6%95%B4%E5%90%88%E4%B8%8E%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6/" title="SrpingMVC学习-下-SSM整合与常用组件">SrpingMVC学习-下-SSM整合与常用组件</a><time datetime="2024-05-15T08:22:42.000Z" title="发表于 2024-05-15 16:22:42">2024-05-15</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Leon Walon</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.22.1/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.65.0/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js?v=4.13.0"></script></div></div></body></html>
