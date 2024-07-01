@@ -27,10 +27,10 @@
     if (window.markmap && Object.keys(window.markmap).length != 0) { createMarkmap(); return }
     const CDN = {
       "js": {
-        "d3": "https://fastly.jsdelivr.net/npm/d3@6",
+        "d3": "https://cdn.staticfile.org/d3/6.7.0/d3.min.js",
         "markmap_view": "https://fastly.jsdelivr.net/npm/markmap-view@0.2.7",
       },
-      "css": [],
+      "css": ['https://cdn.staticfile.org/KaTeX/0.16.8/katex.min.css',"https://fastly.jsdelivr.net/npm/prismjs@1.25.0/themes/prism.css",],
     }
     const loadElement = (elname, attr) => {
       const el = document.createElement(elname)
