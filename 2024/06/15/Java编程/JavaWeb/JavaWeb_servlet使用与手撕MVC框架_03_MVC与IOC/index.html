@@ -1,0 +1,248 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>JavaWeb_servlet使用与手撕MVC框架_03_MVC与IOC | Walon的技术博客</title><meta name="author" content="Leon Walon"><meta name="copyright" content="Leon Walon"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1 再次学习Servlet的初始化方法1.1 Servlet生命周期：实例化、初始化、服务、销毁1.2 组件配置：ServletConfig生效范围：当前组件可用 1.2.1 使用配置Servlet中的初始化方法有两个：init() , init(config) 其中带参数的方法代码如下：public void init(ServletConfig config) throws ServletEx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaWeb_servlet使用与手撕MVC框架_03_MVC与IOC">
+<meta property="og:url" content="https://lowols.github.io/2024/06/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_servlet%E4%BD%BF%E7%94%A8%E4%B8%8E%E6%89%8B%E6%92%95MVC%E6%A1%86%E6%9E%B6_03_MVC%E4%B8%8EIOC/index.html">
+<meta property="og:site_name" content="Walon的技术博客">
+<meta property="og:description" content="1 再次学习Servlet的初始化方法1.1 Servlet生命周期：实例化、初始化、服务、销毁1.2 组件配置：ServletConfig生效范围：当前组件可用 1.2.1 使用配置Servlet中的初始化方法有两个：init() , init(config) 其中带参数的方法代码如下：public void init(ServletConfig config) throws ServletEx">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2024-06-15T09:52:00.000Z">
+<meta property="article:modified_time" content="2024-09-23T13:36:05.554Z">
+<meta property="article:author" content="Leon Walon">
+<meta property="article:tag" content="JavaWeb">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lowols.github.io/2024/06/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_servlet%E4%BD%BF%E7%94%A8%E4%B8%8E%E6%89%8B%E6%92%95MVC%E6%A1%86%E6%9E%B6_03_MVC%E4%B8%8EIOC/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'JavaWeb_servlet使用与手撕MVC框架_03_MVC与IOC',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-23 21:36:05'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Walon的技术博客"><span class="site-name">Walon的技术博客</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">JavaWeb_servlet使用与手撕MVC框架_03_MVC与IOC</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-06-15T09:52:00.000Z" title="发表于 2024-06-15 17:52:00">2024-06-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-23T13:36:05.554Z" title="更新于 2024-09-23 21:36:05">2024-09-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/">Java</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="JavaWeb_servlet使用与手撕MVC框架_03_MVC与IOC"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="1-再次学习Servlet的初始化方法"><a href="#1-再次学习Servlet的初始化方法" class="headerlink" title="1 再次学习Servlet的初始化方法"></a>1 再次学习Servlet的初始化方法</h2><h3 id="1-1-Servlet生命周期：实例化、初始化、服务、销毁"><a href="#1-1-Servlet生命周期：实例化、初始化、服务、销毁" class="headerlink" title="1.1 Servlet生命周期：实例化、初始化、服务、销毁"></a>1.1 Servlet生命周期：实例化、初始化、服务、销毁</h3><h3 id="1-2-组件配置：ServletConfig"><a href="#1-2-组件配置：ServletConfig" class="headerlink" title="1.2 组件配置：ServletConfig"></a>1.2 组件配置：ServletConfig</h3><p>生效范围：当前组件可用</p>
+<h4 id="1-2-1-使用配置"><a href="#1-2-1-使用配置" class="headerlink" title="1.2.1 使用配置"></a>1.2.1 使用配置</h4><p>Servlet中的初始化方法有两个：init() , init(config)</p>
+<p>其中带参数的方法代码如下：<br>public void init(ServletConfig config) throws ServletException {<br>      this.config &#x3D; config ;<br>      init();<br> }<br> 另外一个无参的init方法如下：<br> public void init() throws ServletException{<br> }<br> 如果我们想要在Servlet初始化时做一些准备工作，那么我们可以重写init方法<br> 我们可以通过如下步骤去获取初始化设置的数据</p>
+<ul>
+<li>获取config对象：ServletConfig config &#x3D; getServletConfig();</li>
+<li>获取初始化参数值： config.getInitParameter(key);</li>
+</ul>
+<h4 id="1-2-2-添加配置"><a href="#1-2-2-添加配置" class="headerlink" title="1.2.2 添加配置"></a>1.2.2 添加配置</h4><p>在web.xml文件中配置Servlet</p>
+<servlet>
+    <servlet-name>Demo01Servlet</servlet-name>
+    <servlet-class>com.atguigu.servlet.Demo01Servlet</servlet-class>
+    <init-param>
+        <param-name>hello</param-name>
+        <param-value>world</param-value>
+    </init-param>
+    <init-param>
+        <param-name>uname</param-name>
+        <param-value>jim</param-value>
+    </init-param>
+</servlet>
+<servlet-mapping>
+    <servlet-name>Demo01Servlet</servlet-name>
+    <url-pattern>/demo01</url-pattern>
+</servlet-mapping>
+
+<ol start="3">
+<li>也可以通过注解的方式进行配置：<br>@WebServlet(urlPatterns &#x3D; {“&#x2F;demo01”} ,<br>initParams &#x3D; {<br>@WebInitParam(name&#x3D;”hello”,value&#x3D;”world”),<br>@WebInitParam(name&#x3D;”uname”,value&#x3D;”jim”)<br>})</li>
+</ol>
+<h3 id="1-3-应用上下文配置：ServletContext"><a href="#1-3-应用上下文配置：ServletContext" class="headerlink" title="1.3 应用上下文配置：ServletContext"></a>1.3 应用上下文配置：ServletContext</h3><p>生效范围：当前整个应用内可用。</p>
+<p>学习Servlet中的ServletContext和<context-param></context-param></p>
+<ol>
+<li>获取ServletContext，有很多方法<br>在初始化方法中： ServletContxt servletContext &#x3D; getServletContext();<br>在服务方法中也可以通过request对象获取，也可以通过session获取：<br>request.getServletContext(); session.getServletContext()</li>
+<li>获取初始化值：<br>servletContext.getInitParameter();</li>
+</ol>
+<h2 id="2-什么是MVC"><a href="#2-什么是MVC" class="headerlink" title="2 什么是MVC"></a>2 什么是MVC</h2><h3 id="2-1-背景"><a href="#2-1-背景" class="headerlink" title="2.1 背景"></a>2.1 背景</h3><h4 id="2-1-1-繁重的Controller"><a href="#2-1-1-繁重的Controller" class="headerlink" title="2.1.1 繁重的Controller"></a>2.1.1 繁重的Controller</h4><p>之前的代码中，直接在Controller里写dao代码，简单项目没有关系。但是如果业务复杂，Controller类里出现大量的业务代码，职责负担就过重了。</p>
+<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/JavaWeb_servlet%E4%BD%BF%E7%94%A8%E4%B8%8E%E6%89%8B%E6%92%95MVC%E6%A1%86%E6%9E%B6_03_MVC%E4%B8%8EIOC_Img/01.MVC04.png" alt="01.MVC04"></p>
+<h4 id="2-1-2-Model1和Model2"><a href="#2-1-2-Model1和Model2" class="headerlink" title="2.1.2 Model1和Model2"></a>2.1.2 Model1和Model2</h4><p>Model1【比如JSP，特点是html和java代码掺杂在一起】开发速度快，适合简单的小项目。Model2更规范，适合构建更健壮、扩展性更好的大项目。<br>  现在一般都用Model2【即MVC】。</p>
+<h3 id="2-2-认识MVC"><a href="#2-2-认识MVC" class="headerlink" title="2.2 认识MVC"></a>2.2 认识MVC</h3><p>经过上面分析，我们如何给Controller类减负呢？</p>
+<p>我们重新明确Controller类的职责，对Controller的定位是一个决策者角色，不再负责具体的业务操作。</p>
+<ul>
+<li>由哪个Model处理当前请求</li>
+<li>数据呈现方式【视图渲染，JSON等】</li>
+<li>是否需要重定向或内部转发</li>
+</ul>
+<p>我们引入一个新的角色，Model（模型），负责具体的复杂的业务操作。</p>
+<p>MVC : Model（模型）、View（视图）、Controller（控制器）<br>  视图层：用于做数据展示以及和用户交互的一个界面<br>  控制层：能够接受客户端的请求，并调度正确的视图和业务模块，来完成用户请求处理。担当门户功能，并且协调内部模块共同完成请求。<br>  模型层：模型分为很多种：有比较简单的pojo&#x2F;vo(value object)，数据访问模型（DAO）；业务逻辑模型（BO）；数据传输对象（DTO）</p>
+<pre><code>  1) pojo/vo : 值对象
+  2) DAO ： 数据访问对象
+  3) BO ： 业务对象
+</code></pre>
+<ol start="4">
+<li>区分业务对象和数据访问对象：</li>
+</ol>
+<pre><code>1） DAO中的方法都是单精度方法或者称之为细粒度方法。什么叫单精度？一个方法只考虑一个操作，比如添加，那就是insert操作、查询那就是select操作....
+2） BO中的方法属于业务方法，也实际的业务是比较复杂的，因此业务方法的粒度是比较粗的
+  注册这个功能属于业务功能，也就是说注册这个方法属于业务方法。
+  那么这个业务方法中包含了多个DAO方法。也就是说注册这个业务功能需要通过多个DAO方法的组合调用，从而完成注册功能的开发。
+  注册：
+        1. 检查用户名是否已经被注册 - DAO中的select操作
+        2. 向用户表新增一条新用户记录 - DAO中的insert操作
+        3. 向用户积分表新增一条记录（新用户默认初始化积分100分） - DAO中的insert操作
+        4. 向系统消息表新增一条记录（某某某新用户注册了，需要根据通讯录信息向他的联系人推送消息） - DAO中的insert操作
+        5. 向系统日志表新增一条记录（某用户在某IP在某年某月某日某时某分某秒某毫秒注册） - DAO中的insert操作
+        6. ....
+</code></pre>
+<ol start="5">
+<li>在库存系统中添加业务层组件</li>
+</ol>
+<h2 id="3-IOC"><a href="#3-IOC" class="headerlink" title="3 IOC"></a>3 IOC</h2><ol>
+<li><p>耦合&#x2F;依赖<br> 依赖指的是某某某离不开某某某<br> 在软件系统中，层与层之间是存在依赖的。我们也称之为耦合。<br> 我们系统架构或者是设计的一个原则是： 高内聚低耦合。<br> 层内部的组成应该是高度聚合的，而层与层之间的关系应该是低耦合的，最理想的情况0耦合（就是没有耦合）</p>
+</li>
+<li><p>IOC - 控制反转 &#x2F; DI - 依赖注入</p>
+<p> 控制反转：</p>
+<ol>
+<li>之前在Servlet中，我们创建service对象 ， FruitService fruitService &#x3D; new FruitServiceImpl();<br>这句话如果出现在servlet中的某个方法内部，那么这个fruitService的作用域（生命周期）应该就是这个方法级别；<br>如果这句话出现在servlet的类中，也就是说fruitService是一个成员变量，那么这个fruitService的作用域（生命周期）应该就是这个servlet实例级别</li>
+<li>之后我们在applicationContext.xml中定义了这个fruitService。然后通过解析XML，产生fruitService实例，存放在beanMap中，这个beanMap在一个BeanFactory中<br>因此，我们转移（改变）了之前的service实例、dao实例等等他们的生命周期。控制权从程序员转移到BeanFactory。这个现象我们称之为控制反转</li>
+</ol>
+<p> 依赖注入：</p>
+<ol>
+<li>之前我们在控制层出现代码：FruitService fruitService &#x3D; new FruitServiceImpl()；<br>那么，控制层和service层存在耦合。</li>
+<li>之后，我们将代码修改成FruitService fruitService &#x3D; null ;<br>然后，在配置文件中配置:<bean id="fruit" class="FruitController">
+     <property name="fruitService" ref="fruitService">
+</property></bean></li>
+</ol>
+</li>
+</ol>
+<p>通过IOC，DI，反射技术，我们实现了完全意义上的<strong>依赖倒置原则</strong>。高层与低层模块都依赖接口，互相不认识对方。</p>
+<ol start="5">
+<li>过滤器Filter</li>
+<li>事务管理</li>
+<li>TransActionManager、ThreadLocal、OpenSessionInViewFilter</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://lowols.github.io">Leon Walon</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://lowols.github.io/2024/06/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_servlet%E4%BD%BF%E7%94%A8%E4%B8%8E%E6%89%8B%E6%92%95MVC%E6%A1%86%E6%9E%B6_03_MVC%E4%B8%8EIOC/">https://lowols.github.io/2024/06/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_servlet%E4%BD%BF%E7%94%A8%E4%B8%8E%E6%89%8B%E6%92%95MVC%E6%A1%86%E6%9E%B6_03_MVC%E4%B8%8EIOC/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://lowols.github.io" target="_blank">Walon的技术博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JavaWeb/">JavaWeb</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/06/16/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_servlet%E4%BD%BF%E7%94%A8%E4%B8%8E%E6%89%8B%E6%92%95MVC%E6%A1%86%E6%9E%B6_04_Filter-Transaction-Listener/" title="JavaWeb_servlet使用与手撕MVC框架_04_Filter-Transaction-Listener"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">JavaWeb_servlet使用与手撕MVC框架_04_Filter-Transaction-Listener</div></div></a></div><div class="next-post pull-right"><a href="/2024/06/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_servlet%E4%BD%BF%E7%94%A8%E4%B8%8E%E6%89%8B%E6%92%95MVC%E6%A1%86%E6%9E%B6_02_%E6%89%8B%E6%92%95MVC/" title="JavaWeb_servlet使用与手撕MVC框架_02_手撕MVC"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">JavaWeb_servlet使用与手撕MVC框架_02_手撕MVC</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/05/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_01_%E7%AC%AC%E4%B8%80%E7%AB%A0_%E6%A6%82%E8%BF%B0/" title="JavaWeb_01_第一章_概述"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-15</div><div class="title">JavaWeb_01_第一章_概述</div></div></a></div><div><a href="/2024/05/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_02_%E7%AC%AC%E4%BA%8C%E7%AB%A0_HTML%E4%B8%8ECSS/" title="JavaWeb_02_第二章_HTML与CSS"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-15</div><div class="title">JavaWeb_02_第二章_HTML与CSS</div></div></a></div><div><a href="/2024/05/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_04_%E7%AC%AC%E5%9B%9B%E7%AB%A0_XML_Tomcat_HTTP/" title="JavaWeb_04_第四章_XML_Tomcat_HTTP"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-15</div><div class="title">JavaWeb_04_第四章_XML_Tomcat_HTTP</div></div></a></div><div><a href="/2024/05/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_05_%E7%AC%AC%E4%BA%94%E7%AB%A0_Servlet/" title="JavaWeb_05_第五章_Servlet"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-15</div><div class="title">JavaWeb_05_第五章_Servlet</div></div></a></div><div><a href="/2024/05/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_06_%E7%AC%AC%E5%85%AD%E7%AB%A0_%E4%BC%9A%E8%AF%9D_%E8%BF%87%E6%BB%A4%E5%99%A8_%E7%9B%91%E5%90%AC%E5%99%A8/" title="JavaWeb_06_第六章_会话_过滤器_监听器"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-15</div><div class="title">JavaWeb_06_第六章_会话_过滤器_监听器</div></div></a></div><div><a href="/2024/05/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_03_%E7%AC%AC%E4%B8%89%E7%AB%A0_JavaScript/" title="JavaWeb_03_第三章_JavaScript"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-15</div><div class="title">JavaWeb_03_第三章_JavaScript</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Leon Walon</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%86%8D%E6%AC%A1%E5%AD%A6%E4%B9%A0Servlet%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B9%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">1 再次学习Servlet的初始化方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Servlet%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%EF%BC%9A%E5%AE%9E%E4%BE%8B%E5%8C%96%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E3%80%81%E6%9C%8D%E5%8A%A1%E3%80%81%E9%94%80%E6%AF%81"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 Servlet生命周期：实例化、初始化、服务、销毁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E7%BB%84%E4%BB%B6%E9%85%8D%E7%BD%AE%EF%BC%9AServletConfig"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 组件配置：ServletConfig</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1-%E4%BD%BF%E7%94%A8%E9%85%8D%E7%BD%AE"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.2.1 使用配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2-%E6%B7%BB%E5%8A%A0%E9%85%8D%E7%BD%AE"><span class="toc-number">1.2.2.</span> <span class="toc-text">1.2.2 添加配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E5%BA%94%E7%94%A8%E4%B8%8A%E4%B8%8B%E6%96%87%E9%85%8D%E7%BD%AE%EF%BC%9AServletContext"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 应用上下文配置：ServletContext</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%BB%80%E4%B9%88%E6%98%AFMVC"><span class="toc-number">2.</span> <span class="toc-text">2 什么是MVC</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E8%83%8C%E6%99%AF"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 背景</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-%E7%B9%81%E9%87%8D%E7%9A%84Controller"><span class="toc-number">2.1.1.</span> <span class="toc-text">2.1.1 繁重的Controller</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-Model1%E5%92%8CModel2"><span class="toc-number">2.1.2.</span> <span class="toc-text">2.1.2 Model1和Model2</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E8%AE%A4%E8%AF%86MVC"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 认识MVC</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-IOC"><span class="toc-number">3.</span> <span class="toc-text">3 IOC</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/09/24/%E5%89%8D%E7%AB%AF/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A0%B8%E5%BF%83%E6%80%BB%E7%BB%93/" title="无题">无题</a><time datetime="2024-09-24T01:17:13.475Z" title="发表于 2024-09-24 09:17:13">2024-09-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/06/16/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_servlet%E4%BD%BF%E7%94%A8%E4%B8%8E%E6%89%8B%E6%92%95MVC%E6%A1%86%E6%9E%B6_04_Filter-Transaction-Listener/" title="JavaWeb_servlet使用与手撕MVC框架_04_Filter-Transaction-Listener">JavaWeb_servlet使用与手撕MVC框架_04_Filter-Transaction-Listener</a><time datetime="2024-06-16T09:49:00.000Z" title="发表于 2024-06-16 17:49:00">2024-06-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/06/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_servlet%E4%BD%BF%E7%94%A8%E4%B8%8E%E6%89%8B%E6%92%95MVC%E6%A1%86%E6%9E%B6_03_MVC%E4%B8%8EIOC/" title="JavaWeb_servlet使用与手撕MVC框架_03_MVC与IOC">JavaWeb_servlet使用与手撕MVC框架_03_MVC与IOC</a><time datetime="2024-06-15T09:52:00.000Z" title="发表于 2024-06-15 17:52:00">2024-06-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/06/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_servlet%E4%BD%BF%E7%94%A8%E4%B8%8E%E6%89%8B%E6%92%95MVC%E6%A1%86%E6%9E%B6_02_%E6%89%8B%E6%92%95MVC/" title="JavaWeb_servlet使用与手撕MVC框架_02_手撕MVC">JavaWeb_servlet使用与手撕MVC框架_02_手撕MVC</a><time datetime="2024-06-15T09:51:00.000Z" title="发表于 2024-06-15 17:51:00">2024-06-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/06/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_servlet%E4%BD%BF%E7%94%A8%E4%B8%8E%E6%89%8B%E6%92%95MVC%E6%A1%86%E6%9E%B6_01_tomcat%E4%B8%8Eservlet/" title="JavaWeb_servlet使用与手撕MVC框架_01_tomcat与servlet">JavaWeb_servlet使用与手撕MVC框架_01_tomcat与servlet</a><time datetime="2024-06-15T09:48:00.000Z" title="发表于 2024-06-15 17:48:00">2024-06-15</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Leon Walon</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
