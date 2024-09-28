@@ -28,7 +28,7 @@
     const CDN = {
       "js": {
         "d3": "https://fastly.jsdelivr.net/npm/d3@6",
-        "markmap_view": "https://fastly.jsdelivr.net/npm/markmap-view@0.2.7",
+        "markmap_view": "https://fastly.jsdelivr.net/npm/markmap-view@0.15.4",
       },
       "css": [],
     }
