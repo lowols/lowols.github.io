@@ -51,7 +51,7 @@
   isHome: true,
   isHighlightShrink: false,
   isToc: false,
-  postUpdate: '2024-09-29 14:18:30'
+  postUpdate: '2024-09-29 14:23:28'
 }</script><script>(win=>{
       win.saveToLocal = {
         set: (key, value, ttl) => {
@@ -148,7 +148,7 @@
         }
       }
       detectApple()
-    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><hr class="custom-hr"/></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('/images/bg.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Walon的技术博客"><span class="site-name">Walon的技术博客</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">Walon的技术博客</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/05/26/%E6%95%B0%E6%8D%AE%E5%BA%93/Redis/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_03_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" title="Redis入门到实战_03_高级篇-分布式缓存">Redis入门到实战_03_高级篇-分布式缓存</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-05-26T09:48:00.000Z" title="发表于 2024-05-26 17:48:00">2024-05-26</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%90%8E%E7%AB%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></span></div><div class="content">分布式缓存– 基于Redis集群解决单机Redis存在的问题
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><hr class="custom-hr"/></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Walon的技术博客"><span class="site-name">Walon的技术博客</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">Walon的技术博客</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/05/26/%E6%95%B0%E6%8D%AE%E5%BA%93/Redis/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_03_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98/" title="Redis入门到实战_03_高级篇-分布式缓存">Redis入门到实战_03_高级篇-分布式缓存</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-05-26T09:48:00.000Z" title="发表于 2024-05-26 17:48:00">2024-05-26</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%90%8E%E7%AB%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></span></div><div class="content">分布式缓存– 基于Redis集群解决单机Redis存在的问题
 单机的Redis存在四大问题：
 
 0.学习目标1.Redis持久化Redis有两种持久化方案：
@@ -255,55 +255,7 @@ VUE3                   优秀的渐进式前端框架
 router                 通过路由实现页面切换
 pinia                   通过状态管理实现组件数据传递
 axios                   ajax异步请求封装技术实现前后端数据交互
-Element-plus     可以提供丰 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/05/15/%E5%85%B6%E4%BB%96/%E5%81%9A%E9%A5%AD/%E8%8F%9C%E8%B0%B1/" title="菜谱">菜谱</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-05-15T09:48:00.000Z" title="发表于 2024-05-15 17:48:00">2024-05-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%94%9F%E6%B4%BB%E6%8A%80%E8%83%BD/">生活技能</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%94%9F%E6%B4%BB%E6%8A%80%E8%83%BD/%E5%81%9A%E9%A5%AD/">做饭</a></span></div><div class="content">烙饼蔬菜饼原料
-
-蔬菜丝：比如南瓜、菠菜、韭菜等
-
-葱花
-
-鸡蛋+十三香+少许盐
-
-少许面粉【可加可不加】
-
-
-操作
-
-加工食材
-少量多次加面，搅拌成面糊，避免有面快。加面多了，可根据稠度加少量水
-
-烹饪
-
-热锅润油
-重新加少许凉油
-开小火，加入面糊，马上摊成饼。加盖焖三分钟
-底面定型，烙至金黄后，翻面
-两面金黄，出锅
-
-拌黄瓜原料
-
-两根黄瓜、花生、洋葱
-葱碎、蒜末、辣椒面、白糖、盐、白芝麻、生抽、醋、花椒、食用油
-
- 操作
-
-黄瓜重拍几下，切长条，然后切成滚刀块。
-洋葱切丝，和黄瓜、花生一起盛盘
-葱碎、蒜末、辣椒面、白糖、盐，白芝麻、加入调料碗备用
-花椒热油，浇给上面调料碗
-加入生抽、少许醋，搅拌好，浇给菜盘
-搅拌成型
-
-可乐鸡块原料
-鸡块&#x2F;鸡翅，葱、姜、白芝麻、生抽
-操作
-
-鸡块焯姜水去味
-热锅冷油、煎至金黄
-倒入可乐半瓶，开后，加入生抽，少许盐，小火焖15分钟
-大火收汁，撒葱碎，白芝麻，出锅
-
-铁锅保养能擦干净，尽量不用洗洁剂。有油膜，可以避免粘锅
-</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/05/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_01_%E7%AC%AC%E4%B8%80%E7%AB%A0_%E6%A6%82%E8%BF%B0/" title="JavaWeb_01_第一章_概述">JavaWeb_01_第一章_概述</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-05-15T09:48:00.000Z" title="发表于 2024-05-15 17:48:00">2024-05-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a></span></div><div class="content">第一章 WEB概述配套视频-尚硅谷【https://www.bilibili.com/video/BV1UN411x7xe/】
+Element-plus     可以提供丰 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/05/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_01_%E7%AC%AC%E4%B8%80%E7%AB%A0_%E6%A6%82%E8%BF%B0/" title="JavaWeb_01_第一章_概述">JavaWeb_01_第一章_概述</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-05-15T09:48:00.000Z" title="发表于 2024-05-15 17:48:00">2024-05-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a></span></div><div class="content">第一章 WEB概述配套视频-尚硅谷【https://www.bilibili.com/video/BV1UN411x7xe/】
 1.1 JAVAWEB简介
 用Java技术来解决相关web互联网领域的技术栈.使用JAVAEE技术体系开发企业级互联网项目. 项目规模和架构模式与JAVASE阶段有着很大的差别. 在互联网项目下,首先需要明白客户端和服务器的概念
 
@@ -371,7 +323,30 @@ YAML文件,例如SpringBoot就是使用YAML作为配置文件
 json文件,通常用来做文件传输，也可以用来做前端或者移动端的配置文件
 等等…
 
-1. ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/05/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_05_%E7%AC%AC%E4%BA%94%E7%AB%A0_Servlet/" title="JavaWeb_05_第五章_Servlet">JavaWeb_05_第五章_Servlet</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-05-15T09:48:00.000Z" title="发表于 2024-05-15 17:48:00">2024-05-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a></span></div><div class="content">第五章 Servlet一 Servlet简介1.1 动态资源和静态资源
+1. ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/05/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_06_%E7%AC%AC%E5%85%AD%E7%AB%A0_%E4%BC%9A%E8%AF%9D_%E8%BF%87%E6%BB%A4%E5%99%A8_%E7%9B%91%E5%90%AC%E5%99%A8/" title="JavaWeb_06_第六章_会话_过滤器_监听器">JavaWeb_06_第六章_会话_过滤器_监听器</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-05-15T09:48:00.000Z" title="发表于 2024-05-15 17:48:00">2024-05-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a></span></div><div class="content">第六章 会话_过滤器_监听器一  会话1.1 会话管理概述1.1.1 为什么需要会话管理
+HTTP是无状态协议
+
+
+无状态就是不保存状态,即无状态协议(stateless),HTTP协议自身不对请求和响应之间的通信状态进行保存,也就是说,在HTTP协议这个级别,协议对于发送过的请求或者响应都不做持久化处理
+简单理解:浏览器发送请求,服务器接收并响应,但是服务器不记录请求是否来自哪个浏览器,服务器没记录浏览器的特征,就是客户端的状态
+
+
+举例: 张三去一家饭馆点了几道菜,觉得味道不错,第二天又去了,对老板说,还点上次的那几道菜
+
+
+无状态: 老板没有记录张三是否来过,更没有记录上次他点了那些菜,张三只能重新再点一遍
+有状态: 老板把每次来吃饭的用户都做好记录,查阅一下之前的记录,查到了张三之前的菜单,直接下单
+
+1.1.2 会话管理实现的手段
+Cookie和Session配合解决
+
+
+cookie是在客户端保留少量数据的技术,主要通过响应头向客户端响应一些客户端要保留的信息
+session是在服务端保留更多数据的技术,主要通过HttpSession对象保存一些和客户端相关的信息
+cook ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/05/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_03_%E7%AC%AC%E4%B8%89%E7%AB%A0_JavaScript/" title="JavaWeb_03_第三章_JavaScript">JavaWeb_03_第三章_JavaScript</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-05-15T09:48:00.000Z" title="发表于 2024-05-15 17:48:00">2024-05-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a></span></div><div class="content">第三章 JavaScript一 JS简介1.1 JS起源
+
+
+Javascript是一种由Netscape(网景)的LiveScript发展而来的原型化继承的面向对象的动态类型的区分大小写的客户端脚本语言，主要目的是为了解决服务器端语言，遗留的速度问题，为客户提供更流畅的浏览效果。当时服务端需要对数据进行验证，由于网络速度相当缓慢,只有28.8kbps，验证步骤浪费的时间太多。于是Netscape的浏览器Navigator加入了Javascript，提供了数据验证的基本功能。ECMA-262 是正式的 JavaScript 标准。这个标准基于 JavaScript (Netscape) 和 JScript (Microsoft)。ECMA-262 的开发始于 1996 年，在 1997 年 7 月，ECMA 会员大会采纳了它的首个版本。这个标准由 ECMA 组织发展和维护。JavaScript 的正式名称是 “ECMAScript”。JavaScript的组成包含ECMAScript、DOM、BOM。JS是一种运行于浏览器端上的小脚本语句,可以实现网页如文本内容动,数据动态变化和动画特 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/05/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_05_%E7%AC%AC%E4%BA%94%E7%AB%A0_Servlet/" title="JavaWeb_05_第五章_Servlet">JavaWeb_05_第五章_Servlet</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-05-15T09:48:00.000Z" title="发表于 2024-05-15 17:48:00">2024-05-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a></span></div><div class="content">第五章 Servlet一 Servlet简介1.1 动态资源和静态资源
 静态资源
 
 
@@ -403,34 +378,59 @@ Servlet  (server applet) 是运行在服务端(tomcat)的Java小程序，是sun�
 
 
 
-不是所有的JAVA类都能用于处理客户端请求,能处 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/05/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_03_%E7%AC%AC%E4%B8%89%E7%AB%A0_JavaScript/" title="JavaWeb_03_第三章_JavaScript">JavaWeb_03_第三章_JavaScript</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-05-15T09:48:00.000Z" title="发表于 2024-05-15 17:48:00">2024-05-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a></span></div><div class="content">第三章 JavaScript一 JS简介1.1 JS起源
+不是所有的JAVA类都能用于处理客户端请求,能处 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/05/15/%E5%85%B6%E4%BB%96/%E5%81%9A%E9%A5%AD/%E8%8F%9C%E8%B0%B1/" title="菜谱">菜谱</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-05-15T09:48:00.000Z" title="发表于 2024-05-15 17:48:00">2024-05-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%94%9F%E6%B4%BB%E6%8A%80%E8%83%BD/">生活技能</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%94%9F%E6%B4%BB%E6%8A%80%E8%83%BD/%E5%81%9A%E9%A5%AD/">做饭</a></span></div><div class="content">烙饼蔬菜饼原料
+
+蔬菜丝：比如南瓜、菠菜、韭菜等
+
+葱花
+
+鸡蛋+十三香+少许盐
+
+少许面粉【可加可不加】
 
 
-Javascript是一种由Netscape(网景)的LiveScript发展而来的原型化继承的面向对象的动态类型的区分大小写的客户端脚本语言，主要目的是为了解决服务器端语言，遗留的速度问题，为客户提供更流畅的浏览效果。当时服务端需要对数据进行验证，由于网络速度相当缓慢,只有28.8kbps，验证步骤浪费的时间太多。于是Netscape的浏览器Navigator加入了Javascript，提供了数据验证的基本功能。ECMA-262 是正式的 JavaScript 标准。这个标准基于 JavaScript (Netscape) 和 JScript (Microsoft)。ECMA-262 的开发始于 1996 年，在 1997 年 7 月，ECMA 会员大会采纳了它的首个版本。这个标准由 ECMA 组织发展和维护。JavaScript 的正式名称是 “ECMAScript”。JavaScript的组成包含ECMAScript、DOM、BOM。JS是一种运行于浏览器端上的小脚本语句,可以实现网页如文本内容动,数据动态变化和动画特 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/05/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_06_%E7%AC%AC%E5%85%AD%E7%AB%A0_%E4%BC%9A%E8%AF%9D_%E8%BF%87%E6%BB%A4%E5%99%A8_%E7%9B%91%E5%90%AC%E5%99%A8/" title="JavaWeb_06_第六章_会话_过滤器_监听器">JavaWeb_06_第六章_会话_过滤器_监听器</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-05-15T09:48:00.000Z" title="发表于 2024-05-15 17:48:00">2024-05-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a></span></div><div class="content">第六章 会话_过滤器_监听器一  会话1.1 会话管理概述1.1.1 为什么需要会话管理
-HTTP是无状态协议
+操作
 
+加工食材
+少量多次加面，搅拌成面糊，避免有面快。加面多了，可根据稠度加少量水
 
-无状态就是不保存状态,即无状态协议(stateless),HTTP协议自身不对请求和响应之间的通信状态进行保存,也就是说,在HTTP协议这个级别,协议对于发送过的请求或者响应都不做持久化处理
-简单理解:浏览器发送请求,服务器接收并响应,但是服务器不记录请求是否来自哪个浏览器,服务器没记录浏览器的特征,就是客户端的状态
+烹饪
 
+热锅润油
+重新加少许凉油
+开小火，加入面糊，马上摊成饼。加盖焖三分钟
+底面定型，烙至金黄后，翻面
+两面金黄，出锅
 
-举例: 张三去一家饭馆点了几道菜,觉得味道不错,第二天又去了,对老板说,还点上次的那几道菜
+拌黄瓜原料
 
+两根黄瓜、花生、洋葱
+葱碎、蒜末、辣椒面、白糖、盐、白芝麻、生抽、醋、花椒、食用油
 
-无状态: 老板没有记录张三是否来过,更没有记录上次他点了那些菜,张三只能重新再点一遍
-有状态: 老板把每次来吃饭的用户都做好记录,查阅一下之前的记录,查到了张三之前的菜单,直接下单
+ 操作
 
-1.1.2 会话管理实现的手段
-Cookie和Session配合解决
+黄瓜重拍几下，切长条，然后切成滚刀块。
+洋葱切丝，和黄瓜、花生一起盛盘
+葱碎、蒜末、辣椒面、白糖、盐，白芝麻、加入调料碗备用
+花椒热油，浇给上面调料碗
+加入生抽、少许醋，搅拌好，浇给菜盘
+搅拌成型
 
+可乐鸡块原料
+鸡块&#x2F;鸡翅，葱、姜、白芝麻、生抽
+操作
 
-cookie是在客户端保留少量数据的技术,主要通过响应头向客户端响应一些客户端要保留的信息
-session是在服务端保留更多数据的技术,主要通过HttpSession对象保存一些和客户端相关的信息
-cook ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#content-inner">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/#content-inner">5</a><a class="extend next" rel="next" href="/page/3/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Leon Walon</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/09/24/%E5%89%8D%E7%AB%AF/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A0%B8%E5%BF%83%E6%80%BB%E7%BB%93/" title="无题">无题</a><time datetime="2024-09-24T01:17:13.475Z" title="发表于 2024-09-24 09:17:13">2024-09-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/06/16/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_servlet%E4%BD%BF%E7%94%A8%E4%B8%8E%E6%89%8B%E6%92%95MVC%E6%A1%86%E6%9E%B6_04_Filter-Transaction-Listener/" title="JavaWeb_servlet使用与手撕MVC框架_04_Filter-Transaction-Listener">JavaWeb_servlet使用与手撕MVC框架_04_Filter-Transaction-Listener</a><time datetime="2024-06-16T09:49:00.000Z" title="发表于 2024-06-16 17:49:00">2024-06-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/06/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_servlet%E4%BD%BF%E7%94%A8%E4%B8%8E%E6%89%8B%E6%92%95MVC%E6%A1%86%E6%9E%B6_03_MVC%E4%B8%8EIOC/" title="JavaWeb_servlet使用与手撕MVC框架_03_MVC与IOC">JavaWeb_servlet使用与手撕MVC框架_03_MVC与IOC</a><time datetime="2024-06-15T09:52:00.000Z" title="发表于 2024-06-15 17:52:00">2024-06-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/06/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_servlet%E4%BD%BF%E7%94%A8%E4%B8%8E%E6%89%8B%E6%92%95MVC%E6%A1%86%E6%9E%B6_02_%E6%89%8B%E6%92%95MVC/" title="JavaWeb_servlet使用与手撕MVC框架_02_手撕MVC">JavaWeb_servlet使用与手撕MVC框架_02_手撕MVC</a><time datetime="2024-06-15T09:51:00.000Z" title="发表于 2024-06-15 17:51:00">2024-06-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/06/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_servlet%E4%BD%BF%E7%94%A8%E4%B8%8E%E6%89%8B%E6%92%95MVC%E6%A1%86%E6%9E%B6_01_tomcat%E4%B8%8Eservlet/" title="JavaWeb_servlet使用与手撕MVC框架_01_tomcat与servlet">JavaWeb_servlet使用与手撕MVC框架_01_tomcat与servlet</a><time datetime="2024-06-15T09:48:00.000Z" title="发表于 2024-06-15 17:48:00">2024-06-15</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+鸡块焯姜水去味
+热锅冷油、煎至金黄
+倒入可乐半瓶，开后，加入生抽，少许盐，小火焖15分钟
+大火收汁，撒葱碎，白芝麻，出锅
+
+铁锅保养能擦干净，尽量不用洗洁剂。有油膜，可以避免粘锅
+</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#content-inner">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/#content-inner">5</a><a class="extend next" rel="next" href="/page/3/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Leon Walon</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/09/24/%E5%89%8D%E7%AB%AF/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A0%B8%E5%BF%83%E6%80%BB%E7%BB%93/" title="无题">无题</a><time datetime="2024-09-24T01:17:13.475Z" title="发表于 2024-09-24 09:17:13">2024-09-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/06/16/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_servlet%E4%BD%BF%E7%94%A8%E4%B8%8E%E6%89%8B%E6%92%95MVC%E6%A1%86%E6%9E%B6_04_Filter-Transaction-Listener/" title="JavaWeb_servlet使用与手撕MVC框架_04_Filter-Transaction-Listener">JavaWeb_servlet使用与手撕MVC框架_04_Filter-Transaction-Listener</a><time datetime="2024-06-16T09:49:00.000Z" title="发表于 2024-06-16 17:49:00">2024-06-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/06/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_servlet%E4%BD%BF%E7%94%A8%E4%B8%8E%E6%89%8B%E6%92%95MVC%E6%A1%86%E6%9E%B6_03_MVC%E4%B8%8EIOC/" title="JavaWeb_servlet使用与手撕MVC框架_03_MVC与IOC">JavaWeb_servlet使用与手撕MVC框架_03_MVC与IOC</a><time datetime="2024-06-15T09:52:00.000Z" title="发表于 2024-06-15 17:52:00">2024-06-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/06/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_servlet%E4%BD%BF%E7%94%A8%E4%B8%8E%E6%89%8B%E6%92%95MVC%E6%A1%86%E6%9E%B6_02_%E6%89%8B%E6%92%95MVC/" title="JavaWeb_servlet使用与手撕MVC框架_02_手撕MVC">JavaWeb_servlet使用与手撕MVC框架_02_手撕MVC</a><time datetime="2024-06-15T09:51:00.000Z" title="发表于 2024-06-15 17:51:00">2024-06-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/06/15/Java%E7%BC%96%E7%A8%8B/JavaWeb/JavaWeb_servlet%E4%BD%BF%E7%94%A8%E4%B8%8E%E6%89%8B%E6%92%95MVC%E6%A1%86%E6%9E%B6_01_tomcat%E4%B8%8Eservlet/" title="JavaWeb_servlet使用与手撕MVC框架_01_tomcat与servlet">JavaWeb_servlet使用与手撕MVC框架_01_tomcat与servlet</a><time datetime="2024-06-15T09:48:00.000Z" title="发表于 2024-06-15 17:48:00">2024-06-15</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
             <i class="fas fa-folder-open"></i>
             <span>分类</span>
             
             </div>
             <ul class="card-category-list" id="aside-cat-list">
             <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Java/"><span class="card-category-list-name">Java</span><span class="card-category-list-count">21</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/"><span class="card-category-list-name">后端</span><span class="card-category-list-count">16</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%90%8E%E7%AB%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="card-category-list-name">数据库</span><span class="card-category-list-count">7</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%B0%E5%AD%A6/"><span class="card-category-list-name">数学</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%94%9F%E6%B4%BB%E6%8A%80%E8%83%BD/"><span class="card-category-list-name">生活技能</span><span class="card-category-list-count">1</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%94%9F%E6%B4%BB%E6%8A%80%E8%83%BD/%E5%81%9A%E9%A5%AD/"><span class="card-category-list-name">做饭</span><span class="card-category-list-count">1</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%94%B5%E8%84%91%E8%BD%AF%E4%BB%B6/"><span class="card-category-list-name">电脑软件</span><span class="card-category-list-count">2</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%94%B5%E8%84%91%E8%BD%AF%E4%BB%B6/%E6%96%87%E6%A1%A3%E7%BC%96%E8%BE%91/"><span class="card-category-list-name">文档编辑</span><span class="card-category-list-count">2</span></a></li></ul></li>
-            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/Java/" style="font-size: 1.26em; color: #999fa8">Java</a> <a href="/tags/%E5%81%9A%E9%A5%AD/" style="font-size: 1.1em; color: #999">做饭</a> <a href="/tags/Web/" style="font-size: 1.1em; color: #999">Web</a> <a href="/tags/MySQL/" style="font-size: 1.18em; color: #999ca1">MySQL</a> <a href="/tags/Redis/" style="font-size: 1.42em; color: #99a6b7">Redis</a> <a href="/tags/Mybatis/" style="font-size: 1.1em; color: #999">Mybatis</a> <a href="/tags/%E5%AE%B9%E5%99%A8/" style="font-size: 1.1em; color: #999">容器</a> <a href="/tags/JDBC/" style="font-size: 1.1em; color: #999">JDBC</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 1.1em; color: #999">数学</a> <a href="/tags/JavaWeb/" style="font-size: 1.5em; color: #99a9bf">JavaWeb</a> <a href="/tags/SpringMVC/" style="font-size: 1.26em; color: #999fa8">SpringMVC</a> <a href="/tags/Spring/" style="font-size: 1.26em; color: #999fa8">Spring</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 1.34em; color: #99a3b0">微服务</a> <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" style="font-size: 1.18em; color: #999ca1">消息队列</a> <a href="/tags/%E6%96%87%E6%A1%A3%E7%BC%96%E8%BE%91/" style="font-size: 1.18em; color: #999ca1">文档编辑</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 1.34em; color: #99a3b0">数据库</a> <a href="/tags/ES/" style="font-size: 1.18em; color: #999ca1">ES</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/09/"><span class="card-archive-list-date">九月 2024</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/06/"><span class="card-archive-list-date">六月 2024</span><span class="card-archive-list-count">4</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/05/"><span class="card-archive-list-date">五月 2024</span><span class="card-archive-list-count">37</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/04/"><span class="card-archive-list-date">四月 2024</span><span class="card-archive-list-count">4</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">46</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2024-09-29T06:18:29.839Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Leon Walon</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/Redis/" style="font-size: 1.42em; color: #99a6b7">Redis</a> <a href="/tags/JavaWeb/" style="font-size: 1.5em; color: #99a9bf">JavaWeb</a> <a href="/tags/%E5%81%9A%E9%A5%AD/" style="font-size: 1.1em; color: #999">做饭</a> <a href="/tags/Java/" style="font-size: 1.26em; color: #999fa8">Java</a> <a href="/tags/%E5%AE%B9%E5%99%A8/" style="font-size: 1.1em; color: #999">容器</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 1.1em; color: #999">数学</a> <a href="/tags/Web/" style="font-size: 1.1em; color: #999">Web</a> <a href="/tags/Spring/" style="font-size: 1.26em; color: #999fa8">Spring</a> <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" style="font-size: 1.18em; color: #999ca1">消息队列</a> <a href="/tags/MySQL/" style="font-size: 1.18em; color: #999ca1">MySQL</a> <a href="/tags/Mybatis/" style="font-size: 1.1em; color: #999">Mybatis</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 1.34em; color: #99a3b0">数据库</a> <a href="/tags/SpringMVC/" style="font-size: 1.26em; color: #999fa8">SpringMVC</a> <a href="/tags/ES/" style="font-size: 1.18em; color: #999ca1">ES</a> <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" style="font-size: 1.34em; color: #99a3b0">微服务</a> <a href="/tags/%E6%96%87%E6%A1%A3%E7%BC%96%E8%BE%91/" style="font-size: 1.18em; color: #999ca1">文档编辑</a> <a href="/tags/JDBC/" style="font-size: 1.1em; color: #999">JDBC</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/09/"><span class="card-archive-list-date">九月 2024</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/06/"><span class="card-archive-list-date">六月 2024</span><span class="card-archive-list-count">4</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/05/"><span class="card-archive-list-date">五月 2024</span><span class="card-archive-list-count">37</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/04/"><span class="card-archive-list-date">四月 2024</span><span class="card-archive-list-count">4</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">46</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2024-09-29T06:23:27.777Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Leon Walon</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
