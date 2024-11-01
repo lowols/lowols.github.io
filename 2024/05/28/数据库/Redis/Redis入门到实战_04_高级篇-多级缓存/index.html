@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
 <meta property="article:published_time" content="2024-05-28T09:48:00.000Z">
-<meta property="article:modified_time" content="2024-09-25T02:50:30.172Z">
+<meta property="article:modified_time" content="2024-10-28T00:22:14.286Z">
 <meta property="article:author" content="Leon Walon">
 <meta property="article:tag" content="Redis">
 <meta name="twitter:card" content="summary">
@@ -56,7 +56,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2024-09-25 10:50:30'
+  postUpdate: '2024-10-28 08:22:14'
 }</script><script>(win=>{
       win.saveToLocal = {
         set: (key, value, ttl) => {
@@ -153,9 +153,9 @@
         }
       }
       detectApple()
-    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/top.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Walon的技术博客"><span class="site-name">Walon的技术博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Redis入门到实战_04_高级篇-多级缓存</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-05-28T09:48:00.000Z" title="发表于 2024-05-28 17:48:00">2024-05-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-25T02:50:30.172Z" title="更新于 2024-09-25 10:50:30">2024-09-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Redis入门到实战_04_高级篇-多级缓存"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="多级缓存"><a href="#多级缓存" class="headerlink" title="多级缓存"></a>多级缓存</h1><p>亿级流量的缓存方案。淘宝，京东等网站一天可能面临亿级流量的冲击。传统的缓存方案不满足需要，这时候就需要多级缓存。</p>
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/top.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Walon的技术博客"><span class="site-name">Walon的技术博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Redis入门到实战_04_高级篇-多级缓存</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-05-28T09:48:00.000Z" title="发表于 2024-05-28 17:48:00">2024-05-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-10-28T00:22:14.286Z" title="更新于 2024-10-28 08:22:14">2024-10-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Redis入门到实战_04_高级篇-多级缓存"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="多级缓存"><a href="#多级缓存" class="headerlink" title="多级缓存"></a>多级缓存</h1><p>亿级流量的缓存方案。淘宝，京东等网站一天可能面临亿级流量的冲击。传统的缓存方案不满足需要，这时候就需要多级缓存。</p>
 <h1 id="1-什么是多级缓存"><a href="#1-什么是多级缓存" class="headerlink" title="1.什么是多级缓存"></a>1.什么是多级缓存</h1><p>传统的缓存策略一般是请求到达Tomcat后，先查询Redis，如果未命中则查询数据库，如图：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821075259137.png" alt="image-20210821075259137"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821075259137.png" alt="image-20210821075259137"></p>
 <p>存在下面的问题：</p>
 <p>•我们知道Tomcat的并发能力不如redis，请求要经过Tomcat处理，Tomcat的性能成为整个系统的瓶颈。</p>
 <p>•Redis缓存失效时，会对数据库产生冲击</p>
@@ -169,12 +169,12 @@
 <li>请求进入Tomcat后，优先查询JVM进程缓存</li>
 <li>如果JVM进程缓存未命中，则查询数据库</li>
 </ul>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821075558137.png" alt="image-20210821075558137"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821075558137.png" alt="image-20210821075558137"></p>
 <p>在多级缓存架构中，Nginx内部需要编写本地缓存查询、Redis查询、Tomcat查询的业务逻辑，因此这样的nginx服务不再是一个<strong>反向代理服务器</strong>，而是一个编写<strong>业务的Web服务器了</strong>。</p>
 <p>因此这样的业务Nginx服务也需要搭建集群来提高并发，再有专门的nginx服务来做反向代理，如图：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821080511581.png" alt="image-20210821080511581"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821080511581.png" alt="image-20210821080511581"></p>
 <p>另外，我们的Tomcat服务将来也会部署为集群模式：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821080954947.png" alt="image-20210821080954947"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821080954947.png" alt="image-20210821080954947"></p>
 <p>可见，多级缓存的关键有两个：</p>
 <ul>
 <li><p>一个是在nginx中编写业务，实现nginx本地缓存、Redis、Tomcat的查询</p>
@@ -186,7 +186,7 @@
 <p>这也是今天课程的难点和重点。</p>
 <h1 id="2-JVM进程缓存"><a href="#2-JVM进程缓存" class="headerlink" title="2.JVM进程缓存"></a>2.JVM进程缓存</h1><p>为了演示多级缓存的案例，我们先准备一个商品查询的业务。</p>
 <h2 id="2-1-导入案例"><a href="#2-1-导入案例" class="headerlink" title="2.1.导入案例"></a>2.1.导入案例</h2><p>参考课前资料的：《案例导入说明.md》</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821081418456.png" alt="image-20210821081418456"> </p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821081418456.png" alt="image-20210821081418456"> </p>
 <h2 id="2-2-初识Caffeine"><a href="#2-2-初识Caffeine" class="headerlink" title="2.2.初识Caffeine"></a>2.2.初识Caffeine</h2><p>缓存在日常开发中启动至关重要的作用，由于是存储在内存中，数据的读取速度是非常快的，能大量减少对数据库的访问，减少数据库的压力。我们把缓存分为两类：</p>
 <ul>
 <li>分布式缓存，例如Redis：<ul>
@@ -205,7 +205,7 @@
 <p>我们今天会利用Caffeine框架来实现JVM进程缓存。</p>
 <p><strong>Caffeine</strong>是一个基于Java8开发的，提供了近乎最佳命中率的高性能的本地缓存库。目前Spring内部的缓存使用的就是Caffeine。GitHub地址：<a target="_blank" rel="noopener" href="https://github.com/ben-manes/caffeine">https://github.com/ben-manes/caffeine</a></p>
 <p>Caffeine的性能非常好，下图是官方给出的性能对比：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821081826399.png" alt="image-20210821081826399"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821081826399.png" alt="image-20210821081826399"></p>
 <p>可以看到Caffeine的性能遥遥领先！</p>
 <p>缓存使用的基本API：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">testBasicOps</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 构建cache对象</span></span><br><span class="line">    Cache&lt;String, String&gt; cache = Caffeine.newBuilder().build();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 存数据</span></span><br><span class="line">    cache.put(<span class="string">&quot;gf&quot;</span>, <span class="string">&quot;迪丽热巴&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 取数据</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">gf</span> <span class="operator">=</span> cache.getIfPresent(<span class="string">&quot;gf&quot;</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;gf = &quot;</span> + gf);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 取数据，包含两个参数：</span></span><br><span class="line">    <span class="comment">// 参数一：缓存的key</span></span><br><span class="line">    <span class="comment">// 参数二：Lambda表达式，表达式参数就是缓存的key，方法体是查询数据库的逻辑</span></span><br><span class="line">    <span class="comment">// 优先根据key查询JVM缓存，如果未命中，则执行参数二的Lambda表达式</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">defaultGF</span> <span class="operator">=</span> cache.get(<span class="string">&quot;defaultGF&quot;</span>, key -&gt; &#123;</span><br><span class="line">        <span class="comment">// 根据key去数据库查询数据</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;柳岩&quot;</span>;</span><br><span class="line">    &#125;);</span><br><span class="line">    System.out.println(<span class="string">&quot;defaultGF = &quot;</span> + defaultGF);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -251,24 +251,24 @@
 
 <h1 id="3-Lua语法入门"><a href="#3-Lua语法入门" class="headerlink" title="3.Lua语法入门"></a>3.Lua语法入门</h1><p>Nginx编程需要用到Lua语言，因此我们必须先入门Lua的基本语法。</p>
 <h2 id="3-1-初识Lua"><a href="#3-1-初识Lua" class="headerlink" title="3.1.初识Lua"></a>3.1.初识Lua</h2><p>Lua 是一种轻量小巧的脚本语言，用标准C语言编写并以源代码形式开放， 其设计目的是为了嵌入应用程序中，从而为应用程序提供灵活的扩展和定制功能。官网：<a target="_blank" rel="noopener" href="https://www.lua.org/">https://www.lua.org/</a></p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821091437975.png" alt="image-20210821091437975"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821091437975.png" alt="image-20210821091437975"></p>
 <p>Lua经常嵌入到C语言开发的程序中，例如游戏开发、游戏插件等。</p>
 <p>Nginx本身也是C语言开发，因此也允许基于Lua做拓展。</p>
 <h2 id="3-1-HelloWorld"><a href="#3-1-HelloWorld" class="headerlink" title="3.1.HelloWorld"></a>3.1.HelloWorld</h2><p>CentOS7默认已经安装了Lua语言环境，所以可以直接运行Lua代码。</p>
 <p>1）在Linux虚拟机的任意目录下，新建一个hello.lua文件</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821091621308.png" alt="image-20210821091621308"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821091621308.png" alt="image-20210821091621308"></p>
 <p>2）添加下面的内容</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello World!&quot;</span>)  </span><br></pre></td></tr></table></figure>
 
 
 
 <p>3）运行</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821091638140.png" alt="image-20210821091638140"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821091638140.png" alt="image-20210821091638140"></p>
 <h2 id="3-2-变量和循环"><a href="#3-2-变量和循环" class="headerlink" title="3.2.变量和循环"></a>3.2.变量和循环</h2><p>学习任何语言必然离不开变量，而变量的声明必须先知道数据的类型。</p>
 <h3 id="3-2-1-Lua的数据类型"><a href="#3-2-1-Lua的数据类型" class="headerlink" title="3.2.1.Lua的数据类型"></a>3.2.1.Lua的数据类型</h3><p>Lua中支持的常见数据类型包括：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821091835406.png" alt="image-20210821091835406"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821091835406.png" alt="image-20210821091835406"></p>
 <p>另外，Lua提供了type()函数来判断一个变量的数据类型：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821091904332.png" alt="image-20210821091904332"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821091904332.png" alt="image-20210821091904332"></p>
 <h3 id="3-2-2-声明变量"><a href="#3-2-2-声明变量" class="headerlink" title="3.2.2.声明变量"></a>3.2.2.声明变量</h3><p>Lua声明变量的时候无需指定数据类型，而是用local来声明变量为局部变量：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 声明字符串，可以用单引号或双引号，</span></span><br><span class="line"><span class="keyword">local</span> str = <span class="string">&#x27;hello&#x27;</span></span><br><span class="line"><span class="comment">-- 字符串拼接可以使用 ..</span></span><br><span class="line"><span class="keyword">local</span> str2 = <span class="string">&#x27;hello&#x27;</span> .. <span class="string">&#x27;world&#x27;</span></span><br><span class="line"><span class="comment">-- 声明数字</span></span><br><span class="line"><span class="keyword">local</span> num = <span class="number">21</span></span><br><span class="line"><span class="comment">-- 声明布尔类型</span></span><br><span class="line"><span class="keyword">local</span> flag = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 
@@ -315,7 +315,7 @@
 
 
 <p>与java不同，布尔表达式中的逻辑运算是基于英文单词：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821092657918.png" alt="image-20210821092657918"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821092657918.png" alt="image-20210821092657918"></p>
 <h3 id="3-3-3-案例"><a href="#3-3-3-案例" class="headerlink" title="3.3.3.案例"></a>3.3.3.案例</h3><p>需求：自定义一个函数，可以打印table，当参数为nil时，打印错误信息</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printArr</span><span class="params">(arr)</span></span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> arr <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;数组不能为空！&#x27;</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">for</span> index, value <span class="keyword">in</span> <span class="built_in">ipairs</span>(arr) <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">print</span>(value)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 
@@ -331,11 +331,11 @@
 <li>允许使用Lua<strong>自定义业务逻辑</strong>、<strong>自定义库</strong></li>
 </ul>
 <p>官方网站： <a target="_blank" rel="noopener" href="https://openresty.org/cn/">https://openresty.org/cn/</a></p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821092902946.png" alt="image-20210821092902946"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821092902946.png" alt="image-20210821092902946"></p>
 <p>安装Lua可以参考课前资料提供的《安装OpenResty.md》：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821092941139.png" alt="image-20210821092941139"> </p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821092941139.png" alt="image-20210821092941139"> </p>
 <h2 id="4-2-OpenResty快速入门"><a href="#4-2-OpenResty快速入门" class="headerlink" title="4.2.OpenResty快速入门"></a>4.2.OpenResty快速入门</h2><p>我们希望达到的多级缓存架构如图：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/yeVDlwtfMx.png" alt="yeVDlwtfMx"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/yeVDlwtfMx.png" alt="yeVDlwtfMx"></p>
 <p>其中：</p>
 <ul>
 <li><p>windows上的nginx用来做反向代理服务，将前端的查询商品的ajax请求代理到OpenResty集群</p>
@@ -345,9 +345,9 @@
 </ul>
 <h3 id="4-2-1-反向代理流程"><a href="#4-2-1-反向代理流程" class="headerlink" title="4.2.1.反向代理流程"></a>4.2.1.反向代理流程</h3><p>现在，商品详情页使用的是假的商品数据。不过在浏览器中，可以看到页面有发起ajax请求查询真实商品数据。</p>
 <p>这个请求如下：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821093144700.png" alt="image-20210821093144700"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821093144700.png" alt="image-20210821093144700"></p>
 <p>请求地址是localhost，端口是80，就被windows上安装的Nginx服务给接收到了。然后代理给了OpenResty集群：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821094447709.png" alt="image-20210821094447709"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821094447709.png" alt="image-20210821094447709"></p>
 <p>我们需要在OpenResty中编写业务，查询商品数据并返回到浏览器。</p>
 <p>但是这次，我们先在OpenResty接收请求，返回假的商品数据。</p>
 <h3 id="4-2-2-OpenResty监听请求"><a href="#4-2-2-OpenResty监听请求" class="headerlink" title="4.2.2.OpenResty监听请求"></a>4.2.2.OpenResty监听请求</h3><p>OpenResty的很多功能都依赖于其目录下的Lua库，需要在nginx.conf中指定依赖库的目录，并导入依赖：</p>
@@ -366,9 +366,9 @@
 <p>这个监听，就类似于SpringMVC中的<code>@GetMapping(&quot;/api/item&quot;)</code>做路径映射。</p>
 <p>而<code>content_by_lua_file lua/item.lua</code>则相当于调用item.lua这个文件，执行其中的业务，把结果返回给用户。相当于java中调用service。</p>
 <h3 id="4-2-3-编写item-lua"><a href="#4-2-3-编写item-lua" class="headerlink" title="4.2.3.编写item.lua"></a>4.2.3.编写item.lua</h3><p>1）在<code>/usr/loca/openresty/nginx</code>目录创建文件夹：lua</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821100755080.png" alt="image-20210821100755080"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821100755080.png" alt="image-20210821100755080"></p>
 <p>2）在<code>/usr/loca/openresty/nginx/lua</code>文件夹下，新建文件：item.lua</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821100801756.png" alt="image-20210821100801756"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821100801756.png" alt="image-20210821100801756"></p>
 <p>3）编写item.lua，返回假数据</p>
 <p>item.lua中，利用ngx.say()函数返回数据到Response中</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ngx.say(<span class="string">&#x27;&#123;&quot;id&quot;:10001,&quot;name&quot;:&quot;SALSA AIR&quot;,&quot;title&quot;:&quot;RIMOWA 21寸托运箱拉杆箱 SALSA AIR系列果绿色 820.70.36.4&quot;,&quot;price&quot;:17900,&quot;image&quot;:&quot;https://m.360buyimg.com/mobilecms/s720x720_jfs/t6934/364/1195375010/84676/e9f2c55f/597ece38N0ddcbc77.jpg!q70.jpg.webp&quot;,&quot;category&quot;:&quot;拉杆箱&quot;,&quot;brand&quot;:&quot;RIMOWA&quot;,&quot;spec&quot;:&quot;&quot;,&quot;status&quot;:1,&quot;createTime&quot;:&quot;2019-04-30T16:00:00.000+00:00&quot;,&quot;updateTime&quot;:&quot;2019-04-30T16:00:00.000+00:00&quot;,&quot;stock&quot;:2999,&quot;sold&quot;:31290&#125;&#x27;</span>)</span><br></pre></td></tr></table></figure>
@@ -381,14 +381,14 @@
 
 
 <p>刷新商品页面：<a target="_blank" rel="noopener" href="http://localhost/item.html?id=1001%EF%BC%8C%E5%8D%B3%E5%8F%AF%E7%9C%8B%E5%88%B0%E6%95%88%E6%9E%9C%EF%BC%9A">http://localhost/item.html?id=1001，即可看到效果：</a></p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821101217089.png" alt="image-20210821101217089"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821101217089.png" alt="image-20210821101217089"></p>
 <h2 id="4-3-请求参数处理"><a href="#4-3-请求参数处理" class="headerlink" title="4.3.请求参数处理"></a>4.3.请求参数处理</h2><p>上一节中，我们在OpenResty接收前端请求，但是返回的是假数据。</p>
 <p>要返回真实数据，必须根据前端传递来的商品id，查询商品信息才可以。</p>
 <p>那么如何获取前端传递的商品参数呢？</p>
 <h3 id="4-3-1-获取参数的API"><a href="#4-3-1-获取参数的API" class="headerlink" title="4.3.1.获取参数的API"></a>4.3.1.获取参数的API</h3><p>OpenResty中提供了一些API用来获取不同类型的前端请求参数：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821101433528.png" alt="image-20210821101433528"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821101433528.png" alt="image-20210821101433528"></p>
 <h3 id="4-3-2-获取参数并返回"><a href="#4-3-2-获取参数并返回" class="headerlink" title="4.3.2.获取参数并返回"></a>4.3.2.获取参数并返回</h3><p>在前端发起的ajax请求如图：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821101721649.png" alt="image-20210821101721649"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821101721649.png" alt="image-20210821101721649"></p>
 <p>可以看到商品id是以路径占位符方式传递的，因此可以利用正则表达式匹配的方式来获取ID</p>
 <p>1）获取商品id</p>
 <p>修改<code>/usr/loca/openresty/nginx/nginx.conf</code>文件中监听&#x2F;api&#x2F;item的代码，利用正则表达式获取ID：</p>
@@ -409,11 +409,11 @@
 
 
 <p>刷新页面可以看到结果中已经带上了ID：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821102235467.png" alt="image-20210821102235467"> </p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821102235467.png" alt="image-20210821102235467"> </p>
 <h2 id="4-4-查询Tomcat"><a href="#4-4-查询Tomcat" class="headerlink" title="4.4.查询Tomcat"></a>4.4.查询Tomcat</h2><p>拿到商品ID后，本应去缓存中查询商品信息，不过目前我们还未建立nginx、redis缓存。因此，这里我们先根据商品id去tomcat查询商品信息。我们实现如图部分：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821102610167.png" alt="image-20210821102610167"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821102610167.png" alt="image-20210821102610167"></p>
 <p>需要注意的是，我们的OpenResty是在虚拟机，Tomcat是在Windows电脑上。两者IP一定不要搞错了。</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821102959829.png" alt="image-20210821102959829"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821102959829.png" alt="image-20210821102959829"></p>
 <h3 id="4-4-1-发送http请求的API"><a href="#4-4-1-发送http请求的API" class="headerlink" title="4.4.1.发送http请求的API"></a>4.4.1.发送http请求的API</h3><p>nginx提供了内部API用以发送http请求：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> resp = ngx.location.capture(<span class="string">&quot;/path&quot;</span>,&#123;</span><br><span class="line">    method = ngx.HTTP_GET,   <span class="comment">-- 请求方式</span></span><br><span class="line">    args = &#123;a=<span class="number">1</span>,b=<span class="number">2</span>&#125;,  <span class="comment">-- get方式传参数</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
@@ -430,7 +430,7 @@
 
 
 <p>原理如图：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821104149061.png" alt="image-20210821104149061"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821104149061.png" alt="image-20210821104149061"></p>
 <h3 id="4-4-2-封装http工具"><a href="#4-4-2-封装http工具" class="headerlink" title="4.4.2.封装http工具"></a>4.4.2.封装http工具</h3><p>下面，我们封装一个发送Http请求的工具，基于ngx.location.capture来实现查询tomcat。</p>
 <p>1）添加反向代理，到windows的Java服务</p>
 <p>因为item-service中的接口都是&#x2F;item开头，所以我们监听&#x2F;item路径，代理到windows上的tomcat服务。</p>
@@ -442,7 +442,7 @@
 <p>以后，只要我们调用<code>ngx.location.capture(&quot;/item&quot;)</code>，就一定能发送请求到windows的tomcat服务。</p>
 <p>2）封装工具类</p>
 <p>之前我们说过，OpenResty启动时会加载以下两个目录中的工具文件：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821104857413.png" alt="image-20210821104857413"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821104857413.png" alt="image-20210821104857413"></p>
 <p>所以，自定义的http工具也需要放到这个目录下。</p>
 <p>在<code>/usr/local/openresty/lualib</code>目录下，新建一个common.lua文件：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/local/openresty/lualib/common.lua</span><br></pre></td></tr></table></figure>
@@ -461,7 +461,7 @@
 
 
 <p>这里查询到的结果是json字符串，并且包含商品、库存两个json字符串，页面最终需要的是把两个json拼接为一个json：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821110441222.png" alt="image-20210821110441222"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821110441222.png" alt="image-20210821110441222"></p>
 <p>这就需要我们先把JSON变为lua的table，完成数据整合后，再转为JSON。</p>
 <h3 id="4-4-3-CJSON工具类"><a href="#4-4-3-CJSON工具类" class="headerlink" title="4.4.3.CJSON工具类"></a>4.4.3.CJSON工具类</h3><p>OpenResty提供了一个cjson的模块用来处理JSON的序列化和反序列化。</p>
 <p>官方地址： <a target="_blank" rel="noopener" href="https://github.com/openresty/lua-cjson/">https://github.com/openresty/lua-cjson/</a></p>
@@ -488,7 +488,7 @@
 
 
 <h3 id="4-4-5-基于ID负载均衡"><a href="#4-4-5-基于ID负载均衡" class="headerlink" title="4.4.5.基于ID负载均衡"></a>4.4.5.基于ID负载均衡</h3><p>刚才的代码中，我们的tomcat是单机部署。而实际开发中，tomcat一定是集群模式：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821111023255.png" alt="image-20210821111023255"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821111023255.png" alt="image-20210821111023255"></p>
 <p>因此，OpenResty需要对tomcat集群做负载均衡。</p>
 <p>而默认的负载均衡规则是轮询模式，当我们查询&#x2F;item&#x2F;10001时：</p>
 <ul>
@@ -525,12 +525,12 @@
 
 
 <h4 id="3）测试"><a href="#3）测试" class="headerlink" title="3）测试"></a>3）测试</h4><p>启动两台tomcat服务：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821112420464.png" alt="image-20210821112420464"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821112420464.png" alt="image-20210821112420464"></p>
 <p>同时启动：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821112444482.png" alt="image-20210821112444482"> </p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821112444482.png" alt="image-20210821112444482"> </p>
 <p>清空日志后，再次访问页面，可以看到不同id的商品，访问到了不同的tomcat服务：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821112559965.png" alt="image-20210821112559965"></p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821112637430.png" alt="image-20210821112637430"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821112559965.png" alt="image-20210821112559965"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821112637430.png" alt="image-20210821112637430"></p>
 <h2 id="4-5-Redis缓存预热"><a href="#4-5-Redis缓存预热" class="headerlink" title="4.5.Redis缓存预热"></a>4.5.Redis缓存预热</h2><p>Redis缓存会面临冷启动问题：</p>
 <p><strong>冷启动</strong>：服务刚刚启动时，Redis中并没有缓存，如果所有商品数据都在第一次查询时添加缓存，可能会给数据库带来较大压力。</p>
 <p><strong>缓存预热</strong>：在实际开发中，我们可以利用大数据统计用户访问的热点数据，在项目启动时将这些热点数据提前查询并保存到Redis中。</p>
@@ -560,7 +560,7 @@
 
 
 <h2 id="4-6-查询Redis缓存"><a href="#4-6-查询Redis缓存" class="headerlink" title="4.6.查询Redis缓存"></a>4.6.查询Redis缓存</h2><p>现在，Redis缓存已经准备就绪，我们可以再OpenResty中实现查询Redis的逻辑了。如下图红框所示：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821113340111.png" alt="image-20210821113340111"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821113340111.png" alt="image-20210821113340111"></p>
 <p>当请求进入OpenResty之后：</p>
 <ul>
 <li>优先查询Redis缓存</li>
@@ -608,7 +608,7 @@
 
 
 <p>2）而后修改商品查询、库存查询的业务：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821114528954.png" alt="image-20210821114528954"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821114528954.png" alt="image-20210821114528954"></p>
 <p>3）完整的item.lua代码：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 导入common函数库</span></span><br><span class="line"><span class="keyword">local</span> common = <span class="built_in">require</span>(<span class="string">&#x27;common&#x27;</span>)</span><br><span class="line"><span class="keyword">local</span> read_http = common.read_http</span><br><span class="line"><span class="keyword">local</span> read_redis = common.read_redis</span><br><span class="line"><span class="comment">-- 导入cjson库</span></span><br><span class="line"><span class="keyword">local</span> cjson = <span class="built_in">require</span>(<span class="string">&#x27;cjson&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 封装查询函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">read_data</span><span class="params">(key, path, params)</span></span></span><br><span class="line">    <span class="comment">-- 查询本地缓存</span></span><br><span class="line">    <span class="keyword">local</span> val = read_redis(<span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">6379</span>, key)</span><br><span class="line">    <span class="comment">-- 判断查询结果</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> val <span class="keyword">then</span></span><br><span class="line">        ngx.<span class="built_in">log</span>(ngx.ERR, <span class="string">&quot;redis查询失败，尝试查询http， key: &quot;</span>, key)</span><br><span class="line">        <span class="comment">-- redis查询失败，去查询http</span></span><br><span class="line">        val = read_http(<span class="built_in">path</span>, params)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="comment">-- 返回数据</span></span><br><span class="line">    <span class="keyword">return</span> val</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 获取路径参数</span></span><br><span class="line"><span class="keyword">local</span> id = ngx.var[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询商品信息</span></span><br><span class="line"><span class="keyword">local</span> itemJSON = read_data(<span class="string">&quot;item:id:&quot;</span> .. id,  <span class="string">&quot;/item/&quot;</span> .. id, <span class="literal">nil</span>)</span><br><span class="line"><span class="comment">-- 查询库存信息</span></span><br><span class="line"><span class="keyword">local</span> stockJSON = read_data(<span class="string">&quot;item:stock:id:&quot;</span> .. id, <span class="string">&quot;/item/stock/&quot;</span> .. id, <span class="literal">nil</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- JSON转化为lua的table</span></span><br><span class="line"><span class="keyword">local</span> item = cjson.decode(itemJSON)</span><br><span class="line"><span class="keyword">local</span> stock = cjson.decode(stockJSON)</span><br><span class="line"><span class="comment">-- 组合数据</span></span><br><span class="line">item.stock = stock.stock</span><br><span class="line">item.sold = stock.sold</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 把item序列化为json 返回结果</span></span><br><span class="line">ngx.say(cjson.encode(item))</span><br></pre></td></tr></table></figure>
 
@@ -617,7 +617,7 @@
 
 
 <h2 id="4-7-Nginx本地缓存"><a href="#4-7-Nginx本地缓存" class="headerlink" title="4.7.Nginx本地缓存"></a>4.7.Nginx本地缓存</h2><p>现在，整个多级缓存中只差最后一环，也就是nginx的本地缓存了。如图：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821114742950.png" alt="image-20210821114742950"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821114742950.png" alt="image-20210821114742950"></p>
 <h3 id="4-7-1-本地缓存API"><a href="#4-7-1-本地缓存API" class="headerlink" title="4.7.1.本地缓存API"></a>4.7.1.本地缓存API</h3><p>OpenResty为Nginx提供了<strong>shard dict</strong>的功能，可以在nginx的多个worker之间共享数据，实现缓存功能。</p>
 <p>1）开启共享字典，在nginx.conf的http下添加配置：</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 共享字典，也就是本地缓存，名称叫做：item_cache，大小150m</span></span><br><span class="line"><span class="attribute">lua_shared_dict</span> item_cache <span class="number">150m</span>; </span><br></pre></td></tr></table></figure>
@@ -637,7 +637,7 @@
 
 
 <p>2）修改item.lua中查询商品和库存的业务，实现最新的read_data函数：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821115108528.png" alt="image-20210821115108528"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821115108528.png" alt="image-20210821115108528"></p>
 <p>其实就是多了缓存时间参数，过期后nginx缓存会自动删除，下次访问即可更新缓存。</p>
 <p>这里给商品基本信息设置超时时间为30分钟，库存为1分钟。</p>
 <p>因为库存更新频率较高，如果缓存时间过长，可能与数据库差异较大。</p>
@@ -671,7 +671,7 @@
 </ul>
 <p>而异步实现又可以基于MQ或者Canal来实现：</p>
 <p>1）基于MQ的异步通知：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821115552327.png" alt="image-20210821115552327"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821115552327.png" alt="image-20210821115552327"></p>
 <p>解读：</p>
 <ul>
 <li>商品服务完成对数据的修改后，只需要发送一条消息到MQ中。</li>
@@ -679,7 +679,7 @@
 </ul>
 <p>依然有少量的代码侵入。</p>
 <p>2）基于Canal的通知</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821115719363.png" alt="image-20210821115719363"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821115719363.png" alt="image-20210821115719363"></p>
 <p>解读：</p>
 <ul>
 <li>商品服务完成商品修改后，业务直接结束，没有任何代码侵入</li>
@@ -689,18 +689,18 @@
 <p>代码零侵入</p>
 <h2 id="5-2-安装Canal"><a href="#5-2-安装Canal" class="headerlink" title="5.2.安装Canal"></a>5.2.安装Canal</h2><h3 id="5-2-1-认识Canal"><a href="#5-2-1-认识Canal" class="headerlink" title="5.2.1.认识Canal"></a>5.2.1.认识Canal</h3><p>**Canal [kə’næl]**，译意为水道&#x2F;管道&#x2F;沟渠，canal是阿里巴巴旗下的一款开源项目，基于Java开发。基于数据库增量日志解析，提供增量数据订阅&amp;消费。GitHub的地址：<a target="_blank" rel="noopener" href="https://github.com/alibaba/canal">https://github.com/alibaba/canal</a></p>
 <p>Canal是基于mysql的主从同步来实现的，MySQL主从同步的原理如下：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821115914748.png" alt="image-20210821115914748"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821115914748.png" alt="image-20210821115914748"></p>
 <ul>
 <li>1）MySQL master 将数据变更写入二进制日志( binary log），其中记录的数据叫做binary log events</li>
 <li>2）MySQL slave 将 master 的 binary log events拷贝到它的中继日志(relay log)</li>
 <li>3）MySQL slave 重放 relay log 中事件，将数据变更反映它自己的数据</li>
 </ul>
 <p>而Canal就是把自己伪装成MySQL的一个slave节点，从而监听master的binary log变化。再把得到的变化信息通知给Canal的客户端，进而完成对其它数据库的同步。</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821115948395.png" alt="image-20210821115948395"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821115948395.png" alt="image-20210821115948395"></p>
 <h3 id="5-2-2-安装Canal"><a href="#5-2-2-安装Canal" class="headerlink" title="5.2.2.安装Canal"></a>5.2.2.安装Canal</h3><p>安装和配置Canal参考课前资料文档：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821120017324.png" alt="image-20210821120017324"> </p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821120017324.png" alt="image-20210821120017324"> </p>
 <h2 id="5-3-监听Canal"><a href="#5-3-监听Canal" class="headerlink" title="5.3.监听Canal"></a>5.3.监听Canal</h2><p>Canal提供了各种语言的客户端，当Canal监听到binlog变化时，会通知Canal的客户端。</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821120049024.png" alt="image-20210821120049024"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/Redis%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98_04_%E9%AB%98%E7%BA%A7%E7%AF%87-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98_Img/image-20210821120049024.png" alt="image-20210821120049024"></p>
 <p>我们可以利用Canal提供的Java客户端，监听Canal通知消息。当收到变化的消息时，完成对缓存的更新。</p>
 <p>不过这里我们会使用GitHub上的第三方开源的canal-starter客户端。地址：<a target="_blank" rel="noopener" href="https://github.com/NormanGyllenhaal/canal-client">https://github.com/NormanGyllenhaal/canal-client</a></p>
 <p>与SpringBoot完美整合，自动装配，比官方客户端要简单好用很多。</p>

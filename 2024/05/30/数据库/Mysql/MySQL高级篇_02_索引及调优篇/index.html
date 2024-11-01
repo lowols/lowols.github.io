@@ -1,13 +1,13 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>MySQL高级篇_02_索引及调优篇 | Walon的技术博客</title><meta name="author" content="Leon Walon"><meta name="copyright" content="Leon Walon"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="MySQL高级篇_02_索引及调优篇第06章_索引的数据结构1. 为什么使用索引全表扫描与磁盘IO索引是存储引擎用于快速找到数据记录的一种数据结构，就好比一本教科书的目录部分，通过目录中找到对应文章的页码，便可快速定位到需要的文章。MySQL中也是一样的道理，进行数据查找时，首先查看查询条件是否命中某条索引，符合则通过索引查找相关数据，如果不符合则需要全表扫描，即需要一条一条地查找记录，直到找到与">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>MySQL高级篇_02_索引及调优篇 | Walon的技术博客</title><meta name="author" content="Leon Walon"><meta name="copyright" content="Leon Walon"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="MySQL高级篇_02_索引及调优篇第06章_索引的数据结构1. 为什么使用索引全表扫描与磁盘IO以图中表为例，如果Col 2 没有索引，我们查找 Col 2 &#x3D; 89 这条记录，就要逐行去查找、去比较。如果表很大的话，有上千万条数据，数据分布在硬盘不同的位置上面，摆臂需要前后摆动查询数据，读就意味着要做很多很多次硬盘I&#x2F;0才能找到。最耗时间就是磁盘I&#x2F;O（涉及到磁盘的旋转时间">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL高级篇_02_索引及调优篇">
 <meta property="og:url" content="https://lowols.github.io/2024/05/30/%E6%95%B0%E6%8D%AE%E5%BA%93/Mysql/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87/index.html">
 <meta property="og:site_name" content="Walon的技术博客">
-<meta property="og:description" content="MySQL高级篇_02_索引及调优篇第06章_索引的数据结构1. 为什么使用索引全表扫描与磁盘IO索引是存储引擎用于快速找到数据记录的一种数据结构，就好比一本教科书的目录部分，通过目录中找到对应文章的页码，便可快速定位到需要的文章。MySQL中也是一样的道理，进行数据查找时，首先查看查询条件是否命中某条索引，符合则通过索引查找相关数据，如果不符合则需要全表扫描，即需要一条一条地查找记录，直到找到与">
+<meta property="og:description" content="MySQL高级篇_02_索引及调优篇第06章_索引的数据结构1. 为什么使用索引全表扫描与磁盘IO以图中表为例，如果Col 2 没有索引，我们查找 Col 2 &#x3D; 89 这条记录，就要逐行去查找、去比较。如果表很大的话，有上千万条数据，数据分布在硬盘不同的位置上面，摆臂需要前后摆动查询数据，读就意味着要做很多很多次硬盘I&#x2F;0才能找到。最耗时间就是磁盘I&#x2F;O（涉及到磁盘的旋转时间">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
 <meta property="article:published_time" content="2024-05-30T06:19:00.000Z">
-<meta property="article:modified_time" content="2024-09-23T14:48:21.140Z">
+<meta property="article:modified_time" content="2024-11-01T01:06:19.322Z">
 <meta property="article:author" content="Leon Walon">
 <meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
@@ -56,7 +56,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2024-09-23 22:48:21'
+  postUpdate: '2024-11-01 09:06:19'
 }</script><script>(win=>{
       win.saveToLocal = {
         set: (key, value, ttl) => {
@@ -153,59 +153,49 @@
         }
       }
       detectApple()
-    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/top.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Walon的技术博客"><span class="site-name">Walon的技术博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">MySQL高级篇_02_索引及调优篇</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-05-30T06:19:00.000Z" title="发表于 2024-05-30 14:19:00">2024-05-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-23T14:48:21.140Z" title="更新于 2024-09-23 22:48:21">2024-09-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="MySQL高级篇_02_索引及调优篇"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="MySQL高级篇-02-索引及调优篇"><a href="#MySQL高级篇-02-索引及调优篇" class="headerlink" title="MySQL高级篇_02_索引及调优篇"></a>MySQL高级篇_02_索引及调优篇</h1><h1 id="第06章-索引的数据结构"><a href="#第06章-索引的数据结构" class="headerlink" title="第06章_索引的数据结构"></a>第06章_索引的数据结构</h1><h2 id="1-为什么使用索引"><a href="#1-为什么使用索引" class="headerlink" title="1. 为什么使用索引"></a>1. 为什么使用索引</h2><h4 id="全表扫描与磁盘IO"><a href="#全表扫描与磁盘IO" class="headerlink" title="全表扫描与磁盘IO"></a>全表扫描与磁盘IO</h4><p>索引是存储引擎用于快速找到数据记录的一种数据结构，就好比一本教科书的目录部分，通过目录中找到对应文章的页码，便可快速定位到需要的文章。MySQL中也是一样的道理，进行数据查找时，首先查看查询条件是否命中某条索引，符合则<code>通过索引查找</code>相关数据，如果不符合则需要<code>全表扫描</code>，即需要一条一条地查找记录，直到找到与条件符合的记录。</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616141351236.png" alt="image-20220616141351236"></p>
-<p>Col 2 没有索引，我们查找 Col 2 &#x3D; 89 这条记录，就要逐行去查找、去比较。如果表很大的话，有<code>上千万条数据</code>，数据<code>分布在硬盘不同的位置上面</code>，摆臂需要前后摆动查询数据，读就意味着要做<code>很多很多次硬盘I/0</code>才能找到。最耗时间就是磁盘I&#x2F;O（涉及到磁盘的旋转时间（速度较快），磁头的寻道时间(速度慢、费时)）</p>
-<h4 id="索引的原理"><a href="#索引的原理" class="headerlink" title="索引的原理"></a>索引的原理</h4><p>假如给数据使用 <code>二叉树</code> 这样的数据结构进行存储，如下图所示</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616142723266.png" alt="image-20220616142723266"></p>
-<p>对字段 Col 2 添加了索引，就相当于在硬盘上为 Col 2 维护了一个索引的数据结构，即这个 <code>二叉搜索树</code>。二叉搜索树的每个结点存储的是 <code>(K, V) 结构</code>，key 是 Col 2，value 是该 key 所在行的文件指针（地址）。比如：该二叉搜索树的根节点就是：<code>(34, 0x07)</code>。现在对 Col 2 添加了索引，这时再去查找 Col 2 &#x3D; 89 这条记录的时候会先去查找该二叉搜索树（二叉树的遍历查找）。读 34 到内存，89 &gt; 34; 继续右侧数据，读 89 到内存，89&#x3D;&#x3D;89；找到数据返回。找到之后就根据当前结点的 value 快速定位到要查找的记录对应的地址。我们可以发现，只需要 <code>查找两次</code> 就可以定位到记录的地址，查询速度就提高了。</p>
-<p>这就是我们为什么要建索引，目的就是为了 <code>减少磁盘I/O的次数</code>，加快查询速率。</p>
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">46</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/top.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Walon的技术博客"><span class="site-name">Walon的技术博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">MySQL高级篇_02_索引及调优篇</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-05-30T06:19:00.000Z" title="发表于 2024-05-30 14:19:00">2024-05-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-11-01T01:06:19.322Z" title="更新于 2024-11-01 09:06:19">2024-11-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="MySQL高级篇_02_索引及调优篇"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="MySQL高级篇-02-索引及调优篇"><a href="#MySQL高级篇-02-索引及调优篇" class="headerlink" title="MySQL高级篇_02_索引及调优篇"></a>MySQL高级篇_02_索引及调优篇</h1><h1 id="第06章-索引的数据结构"><a href="#第06章-索引的数据结构" class="headerlink" title="第06章_索引的数据结构"></a>第06章_索引的数据结构</h1><h2 id="1-为什么使用索引"><a href="#1-为什么使用索引" class="headerlink" title="1. 为什么使用索引"></a>1. 为什么使用索引</h2><h4 id="全表扫描与磁盘IO"><a href="#全表扫描与磁盘IO" class="headerlink" title="全表扫描与磁盘IO"></a>全表扫描与磁盘IO</h4><p>以图中表为例，如果Col 2 没有索引，我们查找 Col 2 &#x3D; 89 这条记录，就要逐行去查找、去比较。如果表很大的话，有<code>上千万条数据</code>，数据<code>分布在硬盘不同的位置上面</code>，摆臂需要前后摆动查询数据，读就意味着要做<code>很多很多次硬盘I/0</code>才能找到。最耗时间就是磁盘I&#x2F;O（涉及到磁盘的旋转时间（速度较快），磁头的寻道时间(速度慢、费时)）</p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616141351236.png" alt="image-20220616141351236"></p>
+<p>索引是存储引擎用于快速找到数据记录的一种数据结构，就好比一本教科书的目录部分，通过目录中找到对应文章的页码，便可快速定位到需要的文章。MySQL中也是一样的道理，进行数据查找时，首先查看查询条件是否命中某条索引，符合则<code>通过索引查找</code>相关数据，如果不符合则需要<code>全表扫描</code>，即需要一条一条地查找记录，直到找到与条件符合的记录。</p>
+<h4 id="索引的原理"><a href="#索引的原理" class="headerlink" title="索引的原理"></a>索引的原理</h4><p>假如给Col2列建立索引，使用 <code>二叉树</code> 这样的数据结构，如下图所示</p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616142723266.png" alt="image-20220616142723266"></p>
+<p>二叉搜索树的每个结点存储的是 <code>(K, V) 结构</code>，key 是 Col 2，value 是该 key 所在行的文件指针（地址）。比如：该二叉搜索树的根节点就是：<code>(34, 0x07)</code>。现在对 Col 2 添加了索引，这时再去查找 Col 2 &#x3D; 89 这条记录的时候会先去查找该二叉搜索树（二叉树的遍历查找）。读到34 ，89 &gt; 34; 向右侧查找，读到89，89&#x3D;&#x3D;89；找到数据返回。找到之后就根据当前结点的 value 快速定位到要查找的记录对应的地址。我们可以发现，只需要 <code>查找两次</code> 就可以定位到记录的地址，查询速度就提高了。</p>
+<p>这就是我们为什么要建索引，减少查找次数，减少需要加载的数据， 从而<code>减少磁盘I/O的次数</code>，加快查询速率。</p>
 <h2 id="2-索引及其优缺点"><a href="#2-索引及其优缺点" class="headerlink" title="2. 索引及其优缺点"></a>2. 索引及其优缺点</h2><h3 id="2-1-索引概述"><a href="#2-1-索引概述" class="headerlink" title="2.1 索引概述"></a>2.1 索引概述</h3><p>MySQL官方对索引的定义为：索引（Index）是帮助MySQL高效获取数据的数据结构。</p>
 <p><strong>索引的本质</strong>：索引是数据结构。你可以简单理解为“排好序的快速查找数据结构”，满足特定查找算法。 这些数据结构以某种方式指向数据， 这样就可以在这些数据结构的基础上实现 <code>高级查找算法</code> 。</p>
 <p><code>索引是在存储引擎中实现的</code>，因此每种存储引擎的索引不一定完全相同，并且每种存储引擎不一定支持所有索引类型。同时，存储引擎可以定义每个表的 <code>最大索引数</code>和 <code>最大索引长度</code>。所有存储引擎支持每个表至少16个索引，总索引长度至少为256字节。有些存储引擎支持更多的索引数和更大的索引长度。</p>
-<h3 id="2-2-优点"><a href="#2-2-优点" class="headerlink" title="2.2 优点"></a>2.2 优点</h3><p>（1）类似大学图书馆建书目索引，提高数据检索的效率，降低 <strong>数据库的IO成本</strong> ，这也是创建索引最主 要的原因。 【where语句】</p>
-<p>（2）可以 <strong>加速表和表之间的连接</strong> 。换句话说，对于有依赖关系的子表和父表联合查询时， 可以提高查询速度。 【on语句】</p>
-<p>（3）在使用分组和排序子句进行数据查询时，可以显著 <strong>减少查询中分组和排序的时间</strong> ，降低了CPU的消耗。【group，order语句】</p>
-<p>（4）通过创建唯一索引，可以保证数据库表中每一行 <strong>数据的唯一性</strong> 。 【唯一索引】</p>
-<h3 id="2-3-缺点"><a href="#2-3-缺点" class="headerlink" title="2.3 缺点"></a>2.3 缺点</h3><p>增加索引也有许多不利的方面，主要表现在如下几个方面： </p>
-<p>（1）创建索引和维护索引要 <strong>耗费时间</strong> ，并 且随着数据量的增加，所耗费的时间也会增加。 </p>
-<p>（2）索引需要占 <strong>磁盘空间</strong> ，除了数据表占数据空间之 外，每一个索引还要占一定的物理空间， 存储在磁盘上 ，如果有大量的索引，索引文件就可能比数据文件更快达到最大文件尺寸。 </p>
-<p>（3）虽然索引大大提高了查询速度，同时却会 <strong>降低更新表的速度</strong> 。当对表 中的数据进行增加、删除和修改的时候，索引也要动态地维护，这样就降低了数据的维护速度。 因此，选择使用索引时，需要综合考虑索引的优点和缺点。</p>
+<h3 id="2-2-优点"><a href="#2-2-优点" class="headerlink" title="2.2 优点"></a>2.2 优点</h3><p>（1） 提高【where语句】【on语句】【group，order语句】的执行速度。</p>
+<p>（2）通过创建唯一索引，可以保证数据库表中每一行 <strong>数据的唯一性</strong> 。 【唯一索引】</p>
+<h3 id="2-3-缺点"><a href="#2-3-缺点" class="headerlink" title="2.3 缺点"></a>2.3 缺点</h3><p>（1）创建索引和维护索引要 <strong>耗费时间</strong> ，并且随着数据量的增加，所耗费的时间也会增加。 </p>
+<p>（2）索引需要占 <strong>磁盘空间</strong> ，如果有大量的索引，索引文件就可能比数据文件更快达到最大文件尺寸。 </p>
+<p>（3） <strong>降低更新表的速度</strong> 。当对表 中的数据进行增加、删除和修改的时候，索引也要动态地维护，这样就降低了数据的维护速度。 </p>
 <p>因此，选择使用索引时，需要综合考虑索引的优点和缺点。</p>
-<h2 id="3-InnoDB中索引的推演"><a href="#3-InnoDB中索引的推演" class="headerlink" title="3. InnoDB中索引的推演"></a>3. InnoDB中索引的推演</h2><h3 id="3-0-数据页的页目录与槽"><a href="#3-0-数据页的页目录与槽" class="headerlink" title="3.0 数据页的页目录与槽"></a>3.0 数据页的页目录与槽</h3><p>数据记录在底层是以数据页【16k】为单位存储的。</p>
-<p>数据记录之间采用单链表数据结构，仅是逻辑上连续。如果采用数组结构，物理空间上紧密排列，那么变更数据就会涉及大量的数据迁移，性能低下。</p>
+<h2 id="3-InnoDB中索引的推演"><a href="#3-InnoDB中索引的推演" class="headerlink" title="3. InnoDB中索引的推演"></a>3. InnoDB中索引的推演</h2><h3 id="3-0-数据页的页目录与槽"><a href="#3-0-数据页的页目录与槽" class="headerlink" title="3.0 数据页的页目录与槽"></a>3.0 数据页的页目录与槽</h3><p>数据记录在底层是以数据页【16k】为单位存储的。数据记录之间采用单链表数据结构，仅是逻辑上连续。</p>
+<p>数据页中有行记录，页目录，槽。槽里是一个包含多条行记录的分组。每个页目录的元素指向一个槽。</p>
+<p>页目录是一个数组结构的索引，可以使用二分查找。</p>
+<p>先通过页目录找到记录所在的槽，再去该槽读取记录，从而提高查询行记录的速度。</p>
 <blockquote>
 <p>Mysql为什么使用有序链表而不是数组来存储数据记录？</p>
-<p>链表：</p>
+<p>如果采用数组结构，物理空间上紧密排列，那么变更数据就会涉及大量的数据迁移，性能低下。</p>
 <ul>
-<li>优势：1，数据变更方便，删除、插入一条数据只需要变更前后节点的指针，不用迁移后面的元素 2，不需要申请整块空间来存储所有元素</li>
-<li>缺点：不支持二分查找等查询，只能遍历查询</li>
+<li>数组元素变更可能需要频繁的数据迁移，开销大</li>
+<li>需要申请一整块的存储空间来存储所有元素，分配空间成本高</li>
 </ul>
-<p>数组：</p>
-<ul>
-<li>优势：1，支持随机访问，在有序存储的前提下，支持二分查找</li>
-<li>缺点：1，数据变更开销大，可能需要频繁的数据迁移 2，需要整块的存储空间存储所有元素，对资源消耗大</li>
-</ul>
-<p>因为考虑到数据变更操作的性能，申请空间的开销，Mysql选用的数据结构是有序链表。</p>
-<p>利用这个链表节点主键的有序性，Mysql可以构建一个额外的数据结构来提高查询速度，这就是<strong>主键索引</strong>。</p>
-<p>因为数据记录是主键有序的，我们也强烈建议在新增数据时主键是递增的，可以减少页分裂的次数。</p>
+</blockquote>
+<blockquote>
+<p>为什么强烈建议新增数据记录保证<strong>主键递增</strong>？</p>
+<p>因为Mysql是按照主键顺序存储数据记录的，而且每个数据页存储的记录数量有限，主键递增可以减少页分裂的次数。</p>
+<p>新增的数据，通过分配新的数据页来存储。页分裂导致数据迁移，成本高。</p>
 </blockquote>
 <blockquote>
 <p>Mysql的页与槽 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/detectiveHLH/p/14907405.html">https://www.cnblogs.com/detectiveHLH/p/14907405.html</a></p>
 </blockquote>
-<p>一个数据页中如何根据主键快速查找一个行记录？</p>
-<p>数据页中有行记录，页目录，槽。</p>
-<p>页目录是一个数组结构的索引，可以使用二分查找。</p>
-<p>每个页目录的元素指向一个槽。</p>
-<p>槽里是一个包含多条行记录的分组。</p>
-<p>通过这个机制加速根据主键查询行记录的速度。</p>
 <h3 id="3-1-无索引的数据查询方式"><a href="#3-1-无索引的数据查询方式" class="headerlink" title="3.1 无索引的数据查询方式"></a>3.1 无索引的数据查询方式</h3><p>先来看一个精确匹配的例子：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT [列名列表] FROM 表名 WHERE 列名 = xxx;</span><br></pre></td></tr></table></figure>
 
 <h4 id="1-在一个页中的查找"><a href="#1-在一个页中的查找" class="headerlink" title="1. 在一个页中的查找"></a>1. 在一个页中的查找</h4><p>假设目前表中的记录比较少，所有的记录都可以被存放到一个页中，在查找记录的时候可以根据搜索条件的不同分为两种情况：</p>
 <ul>
 <li><p>以主键为搜索条件</p>
-<p>可以在页目录中使用 <code>二分法</code> 快速定位到对应的槽，然后再遍历该槽对用分组中的记录即可快速找到指定记录。</p>
+<p>可以在页目录中使用 <code>二分法</code> 快速定位到对应的槽，然后再遍历该槽对应分组中的记录即可快速找到指定记录。</p>
 </li>
 <li><p>以其他列作为搜索条件</p>
 <p>因为在数据页中并没有对非主键列建立所谓的页目录，所以我们无法通过二分法快速定位相应的槽。这种情况下只能从 <code>最小记录</code> 开始 <code>依次遍历单链表中的每条记录</code>， 然后对比，效率是非常低的。这就是我们常说的<strong>全表扫描</strong>；</p>
@@ -217,13 +207,11 @@
 <li>从所在的页内中查找相应的记录。</li>
 </ol>
 <p>在没有索引的情况下，不论是根据主键列或者其他列的值进行查找，由于我们并不能快速的定位到记录所在的页，所以只能 从第一个页沿着双向链表 一直往下找，在每一个页中根据我们上面的查找方式去查 找指定的记录。因为要遍历所有的数据页，所以这种方式显然是 超级耗时 的。如果一个表有一亿条记录呢？此时 索引 应运而生。</p>
-<img src="/2024/05/30/%E6%95%B0%E6%8D%AE%E5%BA%93/Mysql/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87/image-20240617183004815.png" alt="image-20240617183004815" style="zoom:50%;">
-
 <h3 id="3-2-设计索引"><a href="#3-2-设计索引" class="headerlink" title="3.2 设计索引"></a>3.2 设计索引</h3><p>建一个表：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; CREATE TABLE index_demo(c1 INT, c2 INT, c3 CHAR(1), PRIMARY KEY(c1) ) ROW_FORMAT = Compact;</span><br></pre></td></tr></table></figure>
 
 <p>这个新建的 <strong>index_demo</strong> 表中有2个INT类型的列，1个CHAR(1)类型的列，而且我们规定了c1列为主键， 这个表使用 <strong>Compact</strong> 行格式来实际存储记录的。这里我们简化了index_demo表的行格式示意图：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616152453203.png" alt="image-20220616152453203"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616152453203.png" alt="image-20220616152453203"></p>
 <p>我们只在示意图里展示记录的这几个部分：</p>
 <ul>
 <li>record_type ：记录头信息的一项属性，表示记录的类型， 0 表示普通记录、 2 表示最小记 录、 3 表示最大记录、 1 暂时还没用过，下面讲。 </li>
@@ -232,10 +220,9 @@
 <li>其他信息 ：除了上述3种信息以外的所有信息，包括其他隐藏列的值以及记录的额外信息。</li>
 </ul>
 <p>将记录格式示意图的其他信息项暂时去掉并把它竖起来的效果就是这样：</p>
-<img src="/2024/05/30/%E6%95%B0%E6%8D%AE%E5%BA%93/Mysql/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87/image-20220616152727234.png" alt="image-20220616152727234" style="zoom:80%;">
-
+<p><img src="/2024/05/30/%E6%95%B0%E6%8D%AE%E5%BA%93/Mysql/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87/image-20241026111506435.png" alt="image-20241026111506435"></p>
 <p>把一些记录放到页里的示意图就是：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616152651878.png" alt="image-20220616152651878"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616152651878.png" alt="image-20220616152651878"></p>
 <h4 id="1-一个简单的索引设计方案"><a href="#1-一个简单的索引设计方案" class="headerlink" title="1. 一个简单的索引设计方案"></a>1. 一个简单的索引设计方案</h4><p>不依次遍历所有的数据页，<strong>如何快速的定位到需要查找的记录在哪些数据页</strong> ？我们可以为快速定位记录所在的数据页而建立一个目录 ，建这个目录必须完成下边这些事：</p>
 <ul>
 <li><p><strong>下一个数据页中用户记录的主键值必须大于上一个页中用户记录的主键值。</strong></p>
@@ -243,27 +230,27 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO index_demo VALUES(1, 4, &#x27;u&#x27;), (3, 9, &#x27;d&#x27;), (5, 3, &#x27;y&#x27;);</span><br></pre></td></tr></table></figure></li>
 </ul>
 <p>​       那么这些记录以及按照主键值的大小串联成一个单向链表了，如图所示：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616153518456.png" alt="image-20220616153518456"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616153518456.png" alt="image-20220616153518456"></p>
 <p>​      从图中可以看出来， index_demo 表中的3条记录都被插入到了编号为10的数据页中了。此时我们再来插入一条记录</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO index_demo VALUES(4, 4, &#x27;a&#x27;);</span><br></pre></td></tr></table></figure>
 
 <p>因为 <strong>页10</strong> 最多只能放3条记录，所以我们不得不再分配一个新页：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616155306705.png" alt="image-20220616155306705"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616155306705.png" alt="image-20220616155306705"></p>
 <blockquote>
 <p>一个数据页里的记录之间是单向链表，页与页之间是双向链表</p>
 </blockquote>
 <p>注意：新分配的 <strong>数据页编号可能并不是连续的</strong>。它们只是通过维护者上一个页和下一个页的编号而建立了 <strong>链表</strong> 关系。另外，<strong>页10</strong>中用户记录最大的主键值是5，而<strong>页28</strong>中有一条记录的主键值是4，因为5&gt;4，所以这就不符合下一个数据页中用户记录的主键值必须大于上一个页中用户记录的主键值的要求，所以在插入主键值为4的记录的时候需要伴随着一次 <strong>记录移动</strong>，也就是把主键值为5的记录移动到页28中，然后再把主键值为4的记录插入到页10中，这个过程的示意图如下：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616160216525.png" alt="image-20220616160216525"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616160216525.png" alt="image-20220616160216525"></p>
 <p>这个过程表明了在对页中的记录进行增删改查操作的过程中，我们必须通过一些诸如 <strong>记录移动</strong> 的操作来始终保证这个状态一直成立：下一个数据页中用户记录的主键值必须大于上一个页中用户记录的主键值。</p>
 <ul>
 <li><strong>给所有的页建立一个目录项。</strong></li>
 </ul>
 <p>由于数据页的 <strong>编号可能是不连续</strong> 的，所以在向 index_demo 表中插入许多条记录后，可能是这样的效果：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616160619525.png" alt="image-20220616160619525"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616160619525.png" alt="image-20220616160619525"></p>
 <p>我们需要给它们做个 <strong>目录</strong>，每个页对应一个目录项，每个目录项包括下边两个部分：</p>
 <p>1）页的用户记录中最小的主键值，我们用 <strong>key</strong> 来表示。</p>
 <p>2）页号，我们用 <strong>page_on</strong> 表示。</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616160857381.png" alt="image-20220616160857381"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616160857381.png" alt="image-20220616160857381"></p>
 <p>以 页28 为例，它对应 目录项2 ，这个目录项中包含着该页的页号 28 以及该页中用户记录的最小主键值 5 。我们只需要把几个目录项在物理存储器上连续存储（比如：数组），就可以实现根据主键 值快速查找某条记录的功能了。比如：查找主键值为 20 的记录，具体查找过程分两步：</p>
 <ol>
 <li>先从目录项中根据 二分法 快速确定出主键值为 20 的记录在 目录项3 中（因为 12 &lt; 20 &lt; 209 ），它对应的页是 页9 。 </li>
@@ -284,7 +271,7 @@
 <li>3：最大记录</li>
 </ul>
 <p>我们把前边使用到的目录项放到数据页中的样子就是这样：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616162944404.png" alt="image-20220616162944404"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616162944404.png" alt="image-20220616162944404"></p>
 <p>从图中可以看出来，我们新分配了一个编号为30的页来专门存储目录项记录。这里再次强调 <strong>目录项记录</strong> 和普通的 <strong>用户记录</strong> 的不同点：</p>
 <ul>
 <li><strong>目录项记录</strong> 的 record_type 值是1，而 <strong>普通用户记录</strong> 的 record_type 值是0。 </li>
@@ -297,7 +284,7 @@
 <li>先到存储 目录项记录 的页，也就是页30中通过 二分法 快速定位到对应目录项，因为 12 &lt; 20 &lt; 209 ，所以定位到对应的记录所在的页就是页9。 </li>
 <li>再到存储用户记录的页9中根据 二分法 快速定位到主键值为 20 的用户记录。</li>
 </ol>
-<h5 id="②-迭代2次：多个目录项纪录的页"><a href="#②-迭代2次：多个目录项纪录的页" class="headerlink" title="② 迭代2次：多个目录项纪录的页"></a>② 迭代2次：多个目录项纪录的页</h5><p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616171135082.png" alt="image-20220616171135082"></p>
+<h5 id="②-迭代2次：多个目录项纪录的页"><a href="#②-迭代2次：多个目录项纪录的页" class="headerlink" title="② 迭代2次：多个目录项纪录的页"></a>② 迭代2次：多个目录项纪录的页</h5><p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616171135082.png" alt="image-20220616171135082"></p>
 <p>从图中可以看出，我们插入了一条主键值为320的用户记录之后需要两个新的数据页：</p>
 <ul>
 <li>为存储该用户记录而新生成了 页31 。 </li>
@@ -310,11 +297,14 @@
 <li>在真实存储用户记录的页中定位到具体的记录。</li>
 </ol>
 <h5 id="③-迭代3次：目录项记录页的目录页"><a href="#③-迭代3次：目录项记录页的目录页" class="headerlink" title="③ 迭代3次：目录项记录页的目录页"></a>③ 迭代3次：目录项记录页的目录页</h5><p>如果我们表中的数据非常多则会<code>产生很多存储目录项记录的页</code>，那我们怎么根据主键值快速定位一个存储目录项记录的页呢？那就为这些存储目录项记录的页再生成一个<code>更高级的目录</code>，就像是一个多级目录一样，<code>大目录里嵌套小目录</code>，小目录里才是实际的数据，所以现在各个页的示意图就是这样子：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616173512780.png" alt="image-20220616173512780"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616173512780.png" alt="image-20220616173512780"></p>
 <p>如图，我们生成了一个存储更高级目录项的 页33 ，这个页中的两条记录分别代表页30和页32，如果用 户记录的主键值在 [1, 320) 之间，则到页30中查找更详细的目录项记录，如果主键值 不小于320 的 话，就到页32中查找更详细的目录项记录。</p>
 <p>我们可以用下边这个图来描述它：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616173717538.png" alt="image-20220616173717538"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616173717538.png" alt="image-20220616173717538"></p>
 <p>这个数据结构，它的名称是 B+树 。</p>
+<blockquote>
+<p>很像跳表</p>
+</blockquote>
 <h5 id="④-B-Tree"><a href="#④-B-Tree" class="headerlink" title="④ B+Tree"></a>④ B+Tree</h5><p>一个B+树的节点其实可以分成好多层，规定最下边的那层，也就是存放我们用户记录的那层为第 0 层， 之后依次往上加。之前我们做了一个非常极端的假设：存放用户记录的页 最多存放3条记录 ，存放目录项 记录的页 最多存放4条记录 。其实真实环境中一个页存放的记录数量是非常大的，假设所有存放用户记录 的叶子节点代表的数据页可以存放 100条用户记录 ，所有存放目录项记录的内节点代表的数据页可以存 放 1000条目录项记录 ，那么：</p>
 <ul>
 <li>如果B+树只有1层，也就是只有1个用于存放用户记录的节点，最多能存放 100 条记录。</li>
@@ -366,7 +356,7 @@
 </ul>
 <h4 id="2-二级索引（辅助索引、非聚簇索引）"><a href="#2-二级索引（辅助索引、非聚簇索引）" class="headerlink" title="2. 二级索引（辅助索引、非聚簇索引）"></a>2. 二级索引（辅助索引、非聚簇索引）</h4><p>如果我们想以别的列作为搜索条件该怎么办？肯定不能是从头到尾沿着链表依次遍历记录一遍。</p>
 <p>答案：我们可以<code>多建几颗B+树</code>，不同的B+树中的数据采用不同的排列规则。比方说我们用<code>c2</code>列的大小作为数据页、页中记录的排序规则，再建一课B+树，效果如下图所示：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616203852043.png" alt="image-20220616203852043"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616203852043.png" alt="image-20220616203852043"></p>
 <p>这个B+树与上边介绍的聚簇索引有几处不同：</p>
 <ul>
 <li><p>使用记录c2列的大小进行记录和页的排序，这包括三个方面的含义:</p>
@@ -395,7 +385,7 @@
 <p>如果把完整的用户记录放到叶子结点是可以不用回表。但是<code>太占地方</code>了，相当于每建立一课B+树都需要把所有的用户记录再都拷贝一遍，这就有点太浪费存储空间了。</p>
 <p>因为这种按照<code>非主键列</code>建立的B+树需要一次回表操作才可以定位到完整的用户记录，所以这种B+树也被称为<code>二级索引</code>，或者辅助索引。由于使用的是c2列的大小作为B+树的排序规则，所以我们也称这个B+树为c2列建立的索引。</p>
 <p>非聚簇索引的存在不影响数据在聚簇索引中的组织，所以一张表可以有多个非聚簇索引。</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616213109383.png" alt="image-20220616213109383"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616213109383.png" alt="image-20220616213109383"></p>
 <p>小结：聚簇索引与非聚簇索引的原理不同，在使用上也有一些区别：</p>
 <ol>
 <li>聚簇索引的<code>叶子节点</code>存储的就是我们的<code>数据记录</code>, 非聚簇索引的叶子节点存储的是<code>数据位置</code>。非聚簇索引不会影响数据表的物理存储顺序。</li>
@@ -408,7 +398,7 @@
 <li>在记录的c2列相同的情况下，采用c3列进行排序</li>
 </ul>
 <p>为c2和c3建立的索引的示意图如下：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616215251172.png" alt="image-20220616215251172"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220616215251172.png" alt="image-20220616215251172"></p>
 <p>如图所示，我们需要注意以下几点：</p>
 <ul>
 <li>每条目录项都有c2、c3、页号这三个部分组成，各条记录先按照c2列的值进行排序，如果记录的c2列相同，则按照c3列的值进行排序</li>
@@ -436,9 +426,9 @@
 <p>Mysql的B+索引有点类似Redis的跳表结构，聚簇索引的用主键构建跳表，二级索引使用对应的索引列构建跳表。</p>
 </blockquote>
 <h4 id="2-内节点中目录项记录的唯一性"><a href="#2-内节点中目录项记录的唯一性" class="headerlink" title="2. 内节点中目录项记录的唯一性"></a>2. 内节点中目录项记录的唯一性</h4><p>我们知道B+树索引的内节点中目录项记录的内容是 <code>索引列 + 页号</code> 的搭配，但是这个搭配对于二级索引来说有点不严谨。还拿 index_demo 表为例，假设这个表中的数据是这样的：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617151918786.png" alt="image-20220617151918786"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617151918786.png" alt="image-20220617151918786"></p>
 <p>如果二级索引中目录项记录的内容只是 <code>索引列 + 页号</code> 的搭配的话，那么为 <code>c2</code> 列建立索引后的B+树应该长这样：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617152906690.png" alt="image-20220617152906690"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617152906690.png" alt="image-20220617152906690"></p>
 <p>如果我们想新插入一行记录，其中 <code>c1</code> 、<code>c2</code> 、<code>c3</code> 的值分别是: <code>9</code>、<code>1</code>、<code>c</code>, 那么在修改这个为 c2 列建立的二级索引对应的 B+ 树时便碰到了个大问题：由于 <code>页3</code> 中存储的目录项记录是由 <code>c2列 + 页号</code> 的值构成的，<code>页3</code> 中的两条目录项记录对应的 c2 列的值都是1，而我们 <code>新插入的这条记录</code> 的 c2 列的值也是 <code>1</code>，那我们这条新插入的记录到底应该放在 <code>页4</code> 中，还是应该放在 <code>页5</code> 中？答案：对不起，懵了</p>
 <p>为了让新插入记录找到自己在那个页面，我们需要<strong>保证在B+树的同一层页节点的目录项记录除页号这个字段以外是唯一的</strong>。所以对于二级索引的内节点的目录项记录的内容实际上是由三个部分构成的：</p>
 <ul>
@@ -447,7 +437,7 @@
 <li>页号</li>
 </ul>
 <p>也就是我们把<code>主键值</code>也添加到二级索引内节点中的目录项记录，这样就能保住 B+ 树每一层节点中各条目录项记录除页号这个字段外是唯一的，所以我们为c2建立二级索引后的示意图实际上应该是这样子的：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617154135258.png" alt="image-20220617154135258"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617154135258.png" alt="image-20220617154135258"></p>
 <p>这样我们再插入记录<code>(9, 1, &#39;c&#39;)</code> 时，由于 <code>页3</code> 中存储的目录项记录是由 <code>c2列 + 主键 + 页号</code> 的值构成的，可以先把新记录的 <code>c2</code> 列的值和 <code>页3</code> 中各目录项记录的 <code>c2</code> 列的值作比较，如果 <code>c2</code> 列的值相同的话，可以接着比较主键值，因为B+树同一层中不同目录项记录的 <code>c2列 + 主键</code>的值肯定是不一样的，所以最后肯定能定位唯一的一条目录项记录，在本例中最后确定新纪录应该被插入到 <code>页5</code> 中。</p>
 <h4 id="3-一个页面最少存储-2-条记录"><a href="#3-一个页面最少存储-2-条记录" class="headerlink" title="3. 一个页面最少存储 2 条记录"></a>3. 一个页面最少存储 2 条记录</h4><p>一个B+树只需要很少的层级就可以轻松存储数亿条记录，查询速度相当不错！这是因为B+树本质上就是一个大的多层级目录，每经过一个目录时都会过滤掉许多无效的子目录，直到最后访问到存储真实数据的目录。那如果一个大的目录中只存放一个子目录是个啥效果呢？那就是目录层级非常非常多，而且最后的那个存放真实数据的目录中只存放一条数据。所以 <strong>InnoDB 的一个数据页至少可以存放两条记录</strong>。</p>
 <h2 id="4-MyISAM中的索引方案"><a href="#4-MyISAM中的索引方案" class="headerlink" title="4. MyISAM中的索引方案"></a>4. MyISAM中的索引方案</h2><p>B树索引使用存储引擎如表所示：</p>
@@ -474,9 +464,9 @@
 <li>将表中的记录 <strong>按照记录的插入顺序</strong> 单独存储在一个文件中，称之为 <strong>数据文件</strong>。这个文件并不划分为若干个数据页，有多少记录就往这个文件中塞多少记录就成了。由于在插入数据的时候并 <strong>没有刻意按照主键大小排序</strong>，所以我们并不能在这些数据上使用二分法进行查找。</li>
 <li>使用 <strong>MyISAM</strong> 存储引擎的表会把索引信息另外存储到一个称为 <strong>索引文件</strong> 的另一个文件中。 <strong>MyISAM</strong> 会单独为表的主键创建一个索引，只不过在索引的叶子节点中存储的不是完整的用户记录，而是 <strong>主键值 +数据记录地址</strong>的组合。</li>
 </ul>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617160413479.png" alt="image-20220617160413479"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617160413479.png" alt="image-20220617160413479"></p>
 <p>这里设表一共有三列，假设我们以Col1为主键，上图是一个MyISAM表的主索引(Primary key)示意。可以看出<strong>MyISAM的索引文件仅仅保存数据记录的地址</strong>。在MyISAM中，主键索引和二级索引(Secondary key)在结构上没有任何区别，只是主键索引要求key是唯一的，而二级索引的key可以重复。如果我们在Col2上建立一个二级索则此索引的结构如下图所示:</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617160625006.png" alt="image-20220617160625006"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617160625006.png" alt="image-20220617160625006"></p>
 <p>同样也是一棵B+Tree，data域保存数据记录的地址。因此，MISAM中索引检索的算法为:首先按照B+Tree搜索算法搜索索引，如果指定的Key存在，则取出其data域的值，然后以data域的值为地址，读取相应数据记录。</p>
 <h3 id="4-2-MyISAM-与-InnoDB对比"><a href="#4-2-MyISAM-与-InnoDB对比" class="headerlink" title="4.2 MyISAM 与 InnoDB对比"></a>4.2 MyISAM 与 InnoDB对比</h3><p><strong>MyISAM的索引方式都是“非聚簇”的，与InnoDB包含1个聚簇索引是不同的。小结两种引擎中索引的区别：</strong></p>
 <p>① 在InnoDB存储引擎中，我们只需要根据主键值对 聚簇索引 进行一次查找就能找到对应的记录，而在 MyISAM 中却需要进行一次 回表 操作，意味着MyISAM中建立的索引相当于全部都是 二级索引 。</p>
@@ -487,7 +477,7 @@
 <p><strong>小结：</strong></p>
 <img src="/2024/05/30/%E6%95%B0%E6%8D%AE%E5%BA%93/Mysql/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87/image-20220617161126022.png" alt="image-20220617161126022" style="float:left;">
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617161151125.png" alt="image-20220617161151125"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617161151125.png" alt="image-20220617161151125"></p>
 <h2 id="5-索引的代价"><a href="#5-索引的代价" class="headerlink" title="5. 索引的代价"></a>5. 索引的代价</h2><p>索引是个好东西，可不能乱建，它在空间和时间上都会有消耗：</p>
 <ul>
 <li><p>空间上的代价</p>
@@ -507,11 +497,11 @@
 <p><strong>加快查找速度的数据结构，常见的有两类：</strong></p>
 <p>(1) 树，例如平衡二叉搜索树，查询&#x2F;插入&#x2F;修改&#x2F;删除的平均时间复杂度都是 <code>O(log2N)</code>;</p>
 <p>(2)哈希，例如HashMap，查询&#x2F;插入&#x2F;修改&#x2F;删除的平均时间复杂度都是 <code>O(1)</code>; (key, value)</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617162153587.png" alt="image-20220617162153587"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617162153587.png" alt="image-20220617162153587"></p>
 <p>采用 Hash 进行检索效率非常高，基本上一次检索就可以找到数据，而 B+ 树需要自顶向下依次查找，多次访问节点才能找到数据，中间需要多次 I&#x2F;0 操作，从效率来说 Hash 比 B+ 树更快。<br>在哈希的方式下，一个元素k处于h(k)中，即利用哈希函数h，根据关键字k计算出槽的位置。函数h将关键字域映射到哈希表T[0..m-1]的槽位上。</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617162604272.png" alt="image-20220617162604272"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617162604272.png" alt="image-20220617162604272"></p>
 <p>上图中哈希函数h有可能将两个不同的关键字映射到相同的位置，这叫做 碰撞 ，在数据库中一般采用 链 接法 来解决。在链接法中，将散列到同一槽位的元素放在一个链表中，如下图所示：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617162703006.png" alt="image-20220617162703006"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617162703006.png" alt="image-20220617162703006"></p>
 <p>实验：体会数组和hash表的查找方面的效率区别</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// 算法复杂度为 O(n)</span><br><span class="line">@Test</span><br><span class="line">public void test1()&#123;</span><br><span class="line">    int[] arr = new int[100000];</span><br><span class="line">    for(int i = 0;i &lt; arr.length;i++)&#123;</span><br><span class="line">        arr[i] = i + 1;</span><br><span class="line">    &#125;</span><br><span class="line">    long start = System.currentTimeMillis();</span><br><span class="line">    for(int j = 1; j&lt;=100000;j++)&#123;</span><br><span class="line">        int temp = j;</span><br><span class="line">        for(int i = 0;i &lt; arr.length;i++)&#123;</span><br><span class="line">            if(temp == arr[i])&#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    long end = System.currentTimeMillis();</span><br><span class="line">    System.out.println(&quot;time： &quot; + (end - start)); //time： 823</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -541,7 +531,7 @@
 </tbody></table>
 <p><strong>Hash索引的适用性：</strong></p>
 <p>Hash 索引存在着很多限制，相比之下在数据库中 B+ 树索引的使用面会更广，不过也有一些场景采用 Hash 索引效率更高，比如在键值型(Key-Value)数据库中，<strong>Redis 存储的核心就是 Hash 表</strong>。<br>MySQL 中的 Memory 存储引擎支持 Hash 存储，如果我们需要用到査询的临时表时，就可以选择 Memory存储引擎，把某个字段设置为 Hash 索引，比如字符串类型的字段，进行 Hash 计算之后长度可以缩短到几个字节。当字段的重复度低，而且经常需要进行 等值查询的时候，采用 Hash 索引是个不错的选择。<br>另外，InnoDB本身不支持 Hash索引，但是提供自适应 Hash 索引(Adaptive Hash Index)。什么情况下才会使用自适应 Hash 索引呢?如果某个数据经常被访问，当满足一定条件的时候，就会将这个数据页的地址存放到Hash 表中。这样下次查询的时候，就可以直接找到这个页面的所在位置。这样让 B+ 树也具备了 Hash 索引的优点。</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617163657697.png" alt="image-20220617163657697"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617163657697.png" alt="image-20220617163657697"></p>
 <p>采用自适应 Hash 索引目的是方便根据 SQL 的查询条件加速定位到叶子节点，特别是当 B+ 树比较深的时 候，通过自适应 Hash 索引可以明显提高数据的检索效率。</p>
 <p>我们可以通过 innodb_adaptive_hash_index 变量来查看是否开启了自适应 Hash，比如：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &#x27;%adaptive_hash_index&#x27;;</span><br></pre></td></tr></table></figure>
@@ -563,19 +553,19 @@
 </li>
 </ol>
 <p>举个例子，我们对数列(34，22，89，5，23，77，91)创造出来的二分查找树如下图所示</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617164022728.png" alt="image-20220617164022728"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617164022728.png" alt="image-20220617164022728"></p>
 <p>但是特殊情况，就是有时候二叉树的深度非常大，比如：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617164053134.png" alt="image-20220617164053134"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617164053134.png" alt="image-20220617164053134"></p>
 <p>为了提高查询效率，就需要 减少磁盘IO数 。为了减少磁盘IO的次数，就需要尽量 降低树的高度 ，需要把 原来“瘦高”的树结构变的“矮胖”，树的每层的分叉越多越好。</p>
 <h3 id="6-4-AVL树"><a href="#6-4-AVL树" class="headerlink" title="6.4 AVL树"></a>6.4 AVL树</h3><p>为了解决上面二叉查找树退化成链表的问题，人们提出了**平衡二叉搜索树(Balanced Binary Tree)**又称为AVL树(有别于AVL算法)，它在二叉搜索树的基础上增加了约束，具有以下性质:<br><strong>它是一棵空树或它的左右两个子树的高度差的绝对值不超过1，并且左右两个子树都是一棵平衡二叉树。</strong><br>这里说一下，常见的平衡二叉树有很多种，包括了 <strong>平衡二叉捜索树、 红黑树、数堆、伸展树</strong>。平衡二叉搜索树是最早提出来的自平衡二叉搜索树，当我们提到平衡二叉树时一般指的就是平衡二叉搜索树。事实上，第一棵树就属于平衡二叉搜索树，搜索时间复杂度就是 **O(log2n)**。<br>数据查询的时间主要依赖于磁盘 I&#x2F;O 的次数，如果我们采用二叉树的形式，即使通过平衡二叉搜索树进行了改进，树的深度也是 O(log2n)，当n比较大时，深度也是比较高的，比如下图的情况:</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617165105005.png" alt="image-20220617165105005"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617165105005.png" alt="image-20220617165105005"></p>
 <p>&#96;每访问一次节点就需要进行一次磁盘 I&#x2F;O 操作，对于上面的树来说，我们需要进行 5次 I&#x2F;O 操作。虽然平衡二叉树的效率高，但是树的深度也同样高，这就意味着磁盘 I&#x2F;O 操作次数多，会影响整体数据查询的效率。</p>
 <p>针对同样的数据，如果我们把二叉树改成 M 叉树 （M&gt;2）呢？当 M&#x3D;3 时，同样的 31 个节点可以由下面 的三叉树来进行存储：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617165124685.png" alt="image-20220617165124685"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617165124685.png" alt="image-20220617165124685"></p>
 <p>你能看到此时树的高度降低了，当数据量 N 大的时候，以及树的分叉树 M 大的时候，M叉树的高度会远小于二叉树的高度 (M &gt; 2)。所以，我们需要把 &#96;树从“瘦高” 变 “矮胖”。</p>
 <h3 id="6-5-B-Tree"><a href="#6-5-B-Tree" class="headerlink" title="6.5 B-Tree"></a>6.5 B-Tree</h3><p>B 树的英文是 Balance Tree，也就是 <code>多路平衡查找树</code>。简写为 B-Tree。它的高度远小于平衡二叉树的高度。</p>
 <p>B 树的结构如下图所示：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617165937875.png" alt="image-20220617165937875"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617165937875.png" alt="image-20220617165937875"></p>
 <p>B 树作为多路平衡査找树，它的每一个节点最多可以包括 M 个子节点，<code>M 称为 B 树的阶</code>。每个磁盘块中包括了<strong>关键字</strong>和 <strong>子节点的指针</strong>。如果一个磁盘块中包括了x个关键字，那么指针数就是 x+1。对于一个 100 阶的B树来说，如果有3层的话最多可以存储约 100万的索引数据。对于大量的索引数据来说，采用 B树的结构是非常适合的，因为树的高度要远小于二叉树的高度。</p>
 <p>一个 M 阶的 B 树（M&gt;2）有以下的特性：</p>
 <ol>
@@ -600,9 +590,9 @@
 <li>其搜索性能等价于在关键字全集内做一次二分查找。</li>
 </ol>
 <p><strong>再举例1：</strong></p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617170526488.png" alt="image-20220617170526488"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617170526488.png" alt="image-20220617170526488"></p>
 <h3 id="6-6-B-Tree"><a href="#6-6-B-Tree" class="headerlink" title="6.6 B+Tree"></a>6.6 B+Tree</h3><p>MySQL官网说明：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617170710329.png" alt="image-20220617170710329"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617170710329.png" alt="image-20220617170710329"></p>
 <p><strong>B+ 树和 B 树的差异在于以下几点：</strong></p>
 <ol>
 <li>有 k 个孩子的节点就有 k 个关键字。也就是孩子数量 &#x3D; 关键字数，而 B 树中，孩子数量 &#x3D; 关键字数 +1。</li>
@@ -611,7 +601,7 @@
 <li>所有关键字都在叶子节点出现，叶子节点构成一个有序链表，而且叶子节点本身按照关键字的大 小从小到大顺序链接。</li>
 </ol>
 <p>下图就是一棵 B+ 树，阶数为 3，根节点中的关键字 1、18、35分别是子节点(1，8，14)，(18，24，31)和(35，41，53)中的最小值。每一层父节点的关键字都会出现在下一层的子节点的关键字中，因此在叶子节点中包括了所有的关键字信息，并且每一个叶子节点都有一个指向下一个节点的指针，这样就形成了一个链表。</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20240601211116026.png" alt="image-20240601211116026"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20240601211116026.png" alt="image-20240601211116026"></p>
 <p>比如，我们想要查找关键字 16，B+树会自顶向下逐层进行查找:</p>
 <ol>
 <li>与根节点的关键字 (1，18，35)进行比较，16 在1和 18 之间，得到指针 P1(指向磁盘块 2)</li>
@@ -668,7 +658,7 @@
 <h3 id="6-8-小结"><a href="#6-8-小结" class="headerlink" title="6.8 小结"></a>6.8 小结</h3><img src="/2024/05/30/%E6%95%B0%E6%8D%AE%E5%BA%93/Mysql/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87/image-20220617175440527.png" alt="image-20220617175440527" style="float:left;">
 
 <h3 id="附录：算法的时间复杂度"><a href="#附录：算法的时间复杂度" class="headerlink" title="附录：算法的时间复杂度"></a>附录：算法的时间复杂度</h3><p>同一问题可用不同算法解决，而一个算法的质量优劣将影响到算法乃至程序的效率。算法分析的目的在 于选择合适算法和改进算法。</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617175516191.png" alt="image-20220617175516191"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220617175516191.png" alt="image-20220617175516191"></p>
 <h1 id="第07章-InnoDB数据存储结构"><a href="#第07章-InnoDB数据存储结构" class="headerlink" title="第07章_InnoDB数据存储结构"></a>第07章_InnoDB数据存储结构</h1><p>1.数据库的存储结构:页</p>
 <p>​	1.1磁盘与内存交互基本单位:页</p>
 <p>​	1.2页结构概述</p>
@@ -683,7 +673,7 @@
 <blockquote>
 <p>记录是按照行来存储的，但是数据库的读取并不以行为单位，否则一次读取（也就是一次I&#x2F;O操作)只能处理一行数据，效率会非常低。</p>
 </blockquote>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220324200116204.png" alt="image-20220324200116204"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220324200116204.png" alt="image-20220324200116204"></p>
 <h3 id="1-2页结构概述"><a href="#1-2页结构概述" class="headerlink" title="1.2页结构概述"></a>1.2页结构概述</h3><p>页a、页b、页c …页n这些页可以不<code>在物理结构上相连</code>，只要通过<code>双向链表</code>相关联即可。每个数据页中的记录会按照主键值从小到大的顺序组成一个<code>单向链表</code>，每个数据页都会为存储在它里边的记录生成一个<code>页目录</code>，在通过主键查找某条记录的时候可以在页目录<code>中使用二分法</code>快速定位到对应的槽，然后再遍历该槽对应分组中的记录即可快速找到指定的记录。</p>
 <h3 id="1-3页的大小"><a href="#1-3页的大小" class="headerlink" title="1.3页的大小"></a>1.3页的大小</h3><p>不同的数据库管理系统（简称DBMS）的页大小不同。比如在MySQL的InnoDB存储引擎中，默认页的大小是<strong>16KB</strong>，可以通过下面的命令来进行查看:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">show variables like <span class="string">&#x27;%innodb_page_size%&#x27;</span>;</span><br><span class="line">/*</span><br><span class="line">+------------------+-------+</span><br><span class="line">| Variable_name    | Value |</span><br><span class="line">+------------------+-------+</span><br><span class="line">| innodb_page_size | 16384 |</span><br><span class="line">+------------------+-------+</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
@@ -692,13 +682,13 @@
 
 <p>SQL Server中页的大小为 <code>8KB</code>，而在oracle中用术语’’<code>块</code>’’(Block)来代表”页”，Oralce支持的块大小为2KB，4KB，8KB，16K8，32KB和64KB。</p>
 <h3 id="1-4页的上层结构"><a href="#1-4页的上层结构" class="headerlink" title="1.4页的上层结构"></a>1.4页的上层结构</h3><p>另外在数据库中，还存在区（Extent)、段(Segment)和表空间（Tablespace)的概念。行、页、区、段、表空间的关系如下图所示:</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220324200502569.png" alt="image-20220324200502569"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220324200502569.png" alt="image-20220324200502569"></p>
 <p>区(Extent)是比页大一级的存储结构，在InnoDB存储引擎中，一个区会分配<code>64个连续的页</code>。因为InnoDB中的页大小默认是16KB，所以一个区的大小是64*16KB&#x3D; 1MB。</p>
 <p>段(Segment)由一个或多个区组成，区在文件系统是一个连续分配的空间（在InnoDB中是连续的64个页)，不过在段中不要求区与区之间是相邻的。<code>段是数据库中的分配单位，不同类型的数据库对象以不同的段形式存在。</code> 当创建数据表、索引的时候，就会相应创建对应的段，比如创建一张表时会创建一个表段，创建一个索引时会创建一个索引段。</p>
 <p>表空间（Tablespace)是一个逻辑容器，表空间存储的对象是段，在一个表空间中可以有一个或多个段，但是一个段只能属于一个表空间。数据库由一个或多个表空间组成，表空间从管理上可以划分为系统表空间，<code>用户表空间</code>、<code>撤销表空间</code>、<code>临时表空间</code>等。</p>
 <h2 id="2-页的内部结构"><a href="#2-页的内部结构" class="headerlink" title="2.页的内部结构"></a>2.页的内部结构</h2><p>页如果按类型划分的话，常见的有<code>数据页（保存B+树节点）</code>、<code>系统页</code>、<code>Undo页</code>和<code>事务数据页</code>等。数据页是我们最常使用的页。<br>数据页的<code>16KB</code>大小的存储空间被划分为七个部分，分别是文件头(File Header)、页头(Page Header)、最大最小记录(Infimum+supremum)、用户记录(User Records)、空闲空间(Free Space)、页目录(Page Directory)和文件尾(File Tailer) 。</p>
 <p>页结构的示意图如下所示:</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220324200934245.png" alt="image-20220324200934245"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220324200934245.png" alt="image-20220324200934245"></p>
 <p>这7个部分作用分别如下，简单梳理如下表所示:</p>
 <table>
 <thead>
@@ -747,9 +737,9 @@
 <p>我们可以把这7个结构分成3个部分</p>
 <h3 id="第1部分-File-Header-文件头部）和File-Trailer-文件尾部"><a href="#第1部分-File-Header-文件头部）和File-Trailer-文件尾部" class="headerlink" title="第1部分: File Header(文件头部）和File Trailer (文件尾部)"></a>第1部分: File Header(文件头部）和File Trailer (文件尾部)</h3><p>首先是<code>文件通用部分</code>，也就是<code>文件头</code>和<code>文件尾</code>。</p>
 <p><strong>① 文件头部信息</strong></p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220324201808920.png" alt="image-20220324201808920"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220324201808920.png" alt="image-20220324201808920"></p>
 <h3 id="2-3-从数据页角度看B-树如何查询"><a href="#2-3-从数据页角度看B-树如何查询" class="headerlink" title="2.3 从数据页角度看B + 树如何查询"></a>2.3 从数据页角度看B + 树如何查询</h3><p>一棵B+树按照节点类型可以分成两部分:<br>1．叶子节点，B+树最底层的节点，节点的高度为o，存储行记录。<br>2．非叶子节点，节点的高度大于0，存储索引键和页面指针，并不存储行记录本身。</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220324224809508.png" alt="image-20220324224809508"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220324224809508.png" alt="image-20220324224809508"></p>
 <p>当我们从页结构来理解B+树的结构的时候，可以帮我们理解一些通过索引进行检索的原理:</p>
 <p><strong>1.B+树是如何进行记录检索的?</strong></p>
 <p>如果通过B+树的索引查询行记录，首先是从B+树的根开始，逐层检索，直到找到叶子节点，也就是找到对应的数据页为止，将数据页加载到内存中，页目录中的槽(slot)采用<code>二分查找</code>的方式先找到一个粗略的记录分组然后再在分组中通过<code>链表遍历</code>的方式查找记录。</p>
@@ -831,7 +821,7 @@
 <h4 id="为什么使用B-Tree-B-Tree"><a href="#为什么使用B-Tree-B-Tree" class="headerlink" title="为什么使用B-Tree&#x2F;B+Tree"></a>为什么使用B-Tree&#x2F;B+Tree</h4><p>二叉查找树进化品种的红黑树等数据结构也可以用来实现索引，但是文件系统及数据库系统普遍采用B-Tree&#x2F;B+Tree作为索引结构。</p>
 <p>一般来说，索引本身也很大，不可能全部存储在内存中，因此索引往往以索引文件的形式存储的磁盘上。这样的话，索引查找过程中就要产生磁盘I&#x2F;O消耗，相对于内存存取，I&#x2F;O存取的消耗要高几个数量级，所以评价一个数据结构作为索引的优劣最重要的指标就是在查找过程中磁盘I&#x2F;O操作次数的渐进复杂度。换句话说，索引的结构组织要尽量减少查找过程中磁盘I&#x2F;O的存取次数。</p>
 <p>分析B-Tree&#x2F;B+Tree检索一次最多需要访问节点：</p>
-<p>h&#x3D;<img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/format,png.png" alt="img"></p>
+<p>h&#x3D;<img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/format,png.png" alt="img"></p>
 <p>数据库系统巧妙利用了磁盘预读原理，将<code>一个节点的大小设为等于一个页</code>，这样每个节点只需要一次I&#x2F;O就可以完全载入。为了达到这个目的，在实际实现B-Tree还需要使用如下技巧：</p>
 <pre><code>  每次新建节点时，直接申请一个页的空间，这样就保证一个节点物理上也存储在一个页里，加之计算机存储分配都是按页对齐的，就实现了一个node只需一次I/O。
 </code></pre>
@@ -918,9 +908,9 @@
 <p>对于MySQL存放的数据，逻辑概念上我们称之为表，在磁盘等物理层面而言是<code>按数据页</code>形式进行存放的，当其加载到MysQL中我们称之为<code>缓存页</code>。</p>
 <p>如果缓冲池中没有该页数据，那么缓冲池有以下三种读取数据的方式,每种方式的读取效率都是不同的:</p>
 <h3 id="1-内存读取"><a href="#1-内存读取" class="headerlink" title="1.内存读取"></a>1.内存读取</h3><p>如果该数据存在于内存中，基本上执行时间在1ms左右，效率还是很高的。</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220325104247259.png" alt="image-20220325104247259"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220325104247259.png" alt="image-20220325104247259"></p>
 <h3 id="2-随机读取"><a href="#2-随机读取" class="headerlink" title="2.随机读取"></a>2.随机读取</h3><p>如果数据没有在内存中，就需要在磁盘上对该页进行查找，整体时间预估在<code>10ms</code>左右，这10ms 中有6ms是磁盘的实际繁忙时间(包括了<code>寻道和半圈旋转时间</code>），有3ms是对可能发生的排队时间的估计值，另外还有1ms的传输时间，将页从磁盘服务器缓冲区传输到数据库缓冲区中。这10ms 看起来很快，但实际上对于数据库来说消耗的时间已经非常长了，因为这还只是一个页的读取时间。</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220325104508228.png" alt="image-20220325104508228"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220325104508228.png" alt="image-20220325104508228"></p>
 <h3 id="3-顺序读取"><a href="#3-顺序读取" class="headerlink" title="3.顺序读取"></a>3.顺序读取</h3><p>顺序读取其实是一种批量读取的方式，因为我们请求的<code>数据在磁盘上往往都是相邻存储的</code>，顺序读取可以帮我们批量读取页面，这样的话，一次性加载到缓冲池中就不需要再对其他页面单独进行磁盘I&#x2F;O操作了。如果一个磁盘的吞吐量是40MB&#x2F;S，那么对于一个16KB大小的页来说，一次可以顺序读取2560 (40MB&#x2F;16KB)个页，相当于一个页的读取时间为0.4ms。采用批量读取的方式，即使是从磁盘上进行读取，效率也比从内存中只单独读取一个页的效率要高。</p>
 <h1 id="第-08-章-索引的创建与设计原则"><a href="#第-08-章-索引的创建与设计原则" class="headerlink" title="第 08 章_索引的创建与设计原则"></a>第 08 章_索引的创建与设计原则</h1><h2 id="1-索引的声明与使用"><a href="#1-索引的声明与使用" class="headerlink" title="1. 索引的声明与使用"></a>1. 索引的声明与使用</h2><h3 id="1-1-索引的分类"><a href="#1-1-索引的分类" class="headerlink" title="1. 1 索引的分类"></a>1. 1 索引的分类</h3><p>MySQL的索引包括普通索引、唯一性索引、全文索引、单列索引、多列索引和空间索引等。</p>
 <ul>
@@ -1287,7 +1277,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM student_gender WHERE student_gender = 1</span><br></pre></td></tr></table></figure>
 
 <p>运行结果（ 10 条数据，运行时间 0.696s）：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220325170858020.png" alt="image-20220325170858020"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220325170858020.png" alt="image-20220325170858020"></p>
 <p>你能看到在未创建索引的情况下，运行的效率并不高。如果针对 student_gender字段创建索引呢?</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM student gender WHERE student_gender = 1</span><br></pre></td></tr></table></figure>
 
@@ -1314,7 +1304,7 @@
 <p>选择索引的最终目的是为了使查询的速度变快，上面给出的原则是最基本的准则，但不能拘泥于上面的准则，在以后的学习和工作中进行不断的实践，根据应用的实际情况进行分析和判断，选择最合适的索引方式。</p>
 <h1 id="第09章-性能分析工具的使用"><a href="#第09章-性能分析工具的使用" class="headerlink" title="第09章_性能分析工具的使用"></a>第09章_性能分析工具的使用</h1><h2 id="1-数据库服务器的优化步骤"><a href="#1-数据库服务器的优化步骤" class="headerlink" title="1. 数据库服务器的优化步骤"></a>1. 数据库服务器的优化步骤</h2><p>当我们遇到数据库调优问题的时候，该如何思考呢？这里把思考的流程整理成下面这张图。</p>
 <p>整个流程划分成了<code>观察（Show status）</code>和<code>行动（Action）</code>两个部分。字母 S 的部分代表观察（会使用相应的分析工具），字母 A 代表的部分是行动（对应分析可以采取的行动）。</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220325175937136.png" alt="image-20220325175937136"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220325175937136.png" alt="image-20220325175937136"></p>
 <p>我们可以通过观察了解数据库整体的运行状态，通过性能分析工具可以让我们了解执行慢的SQL都有哪些，查看具体的SQL执行计划，甚至是SQL执行中的每一步的成本代价，这样才能定位问题所在，找到了问题，再采取相应的行动。</p>
 <p><strong>详细解释一下这张图:</strong></p>
 <p>首先在S1部分，我们需要观察服务器的状态是否存在周期性的波动。如果<code>存在周期性波动</code>，有可能是周期性节点的原因，比如双十一、促销活动等。这样的话，我们可以通过A1这一步骤解决，也就是加缓存，或者更改缓存失效策略。</p>
@@ -1324,7 +1314,7 @@
 <p>如果A2和A3都不能解决问题，我们需要考虑数据库自身的SQL查询性能是否已经达到了瓶颈，如果确认没有达到性能瓶颈，就需要重新检查，重复以上的步骤。如果已经达到了<code>性能瓶颈</code>，进入A4阶段，需要考虑<code>增加服务器</code>，采用读写分离的架构，或者考虑对数据库进行<code>分库分表</code>，比如垂直分库、垂直分表和水平分表等。</p>
 <p>以上就是数据库调优的流程思路。如果我们发现执行SQL时存在不规则延迟或卡顿的时候，就可以采用分析工具帮我们定位有问题的SQL，这三种分析工具你可以理解是SQL调优的三个步骤:<code>慢查询、</code> <code>EXPLAIN</code>和 <code>SHOWPROFILING</code>。</p>
 <p><strong>小结：</strong></p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220325180029352.png" alt="image-20220325180029352"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220325180029352.png" alt="image-20220325180029352"></p>
 <h2 id="2-查看系统性能参数"><a href="#2-查看系统性能参数" class="headerlink" title="2. 查看系统性能参数"></a>2. 查看系统性能参数</h2><p>在MySQL中，可以使用<code>SHOW STATUS</code>语句查询一些MySQL数据库服务器的<code>性能参数</code>、<code>执行频率</code>。 </p>
 <p>SHOW STATUS语句语法如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">SHOW [GLOBAL|SESSION] STATUS LIKE&#x27;参数&#x27;;</span><br></pre></td></tr></table></figure>
@@ -1410,19 +1400,19 @@
 
 
 <p>然后我们再来查看下慢查询日志是否开启，以及慢查询日志文件的位置：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220325181405473.png" alt="image-20220325181405473"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220325181405473.png" alt="image-20220325181405473"></p>
 <p>你能看到这时慢查询分析已经开启，同时文件保存在 <code>/var/lib/mysql/atguigu02-slow.log</code> 文件<br>中。</p>
 <p><strong>2. 修改long_query_time阈值</strong></p>
 <p>接下来我们来看下慢查询的时间阈值设置，使用如下命令：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql &gt; show variables like &#x27;%long_query_time%&#x27;;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220325181420603.png" alt="image-20220325181420603"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220325181420603.png" alt="image-20220325181420603"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 测试发现：设置global的方式对当前session的long_query_time失效。对新连接的客户端有效。所以可以一并执行下述语句</span><br><span class="line">mysql&gt; set global long_query_time = 1 ;</span><br><span class="line">mysql&gt; show global variables like &#x27; %long-query_time% &#x27;;</span><br><span class="line"></span><br><span class="line"># 即更改global 也更改了session变量</span><br><span class="line">mysql&gt; set long_query_time=1;</span><br><span class="line">mysql&gt; show variables like &#x27;%long_query_time%&#x27;;  </span><br></pre></td></tr></table></figure>
 
 
 
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220325181712981.png" alt="image-20220325181712981"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220325181712981.png" alt="image-20220325181712981"></p>
 <p><strong>补充:配置文件中一并设置参数</strong></p>
 <p>如下的方式相较于前面的命令行方式，可以看作是永久设置的方式。</p>
 <p>修改<code>my.cnf</code> 文件，<code>[mysqld]下</code>增加或修改参数<code>long_query_time</code>、<code>slow_query_log</code>和<code>slow_query_log_file</code>后，然后重启MySQL服务器。|</p>
@@ -1600,13 +1590,13 @@
 </ul>
 <p>官网介绍</p>
 <p><a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html">https://dev.mysql.com/doc/refman/5.7/en/explain-output.html</a><br><a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/8.0/en/explain-output.html">https://dev.mysql.com/doc/refman/8.0/en/explain-output.html</a>  </p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220325194823764.png" alt="image-20220325194823764"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220325194823764.png" alt="image-20220325194823764"></p>
 <p><strong>版本情况</strong></p>
 <ul>
 <li>MySQL 5.6.3以前只能 EXPLAIN SELECT ；MYSQL 5.6.3以后就可以 <code>EXPLAIN</code> <code>SELECT</code>，<code>UPDATE</code>，<code>DELETE</code></li>
 <li>在5.7以前的版本中，想要显示 <code>partitions</code> 需要使用 <code>explain partitions</code> 命令；想要显示<code>filtered</code> 需要使用 <code>explain extended</code> 命令。在5.7版本后，默认explain直接显示partitions和filtered中的信息。</li>
 </ul>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220325195048342.png" alt="image-20220325195048342"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220325195048342.png" alt="image-20220325195048342"></p>
 <h3 id="6-2-基本语法"><a href="#6-2-基本语法" class="headerlink" title="6.2 基本语法"></a>6.2 基本语法</h3><p>EXPLAIN 或 DESCRIBE语句的语法形式如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT select_options</span><br><span class="line"># 或者 两个是一样的</span><br><span class="line">DESCRIBE SELECT select_options</span><br></pre></td></tr></table></figure>
 
@@ -1615,7 +1605,7 @@
 <p>如果我们想看看某个查询的执行计划的话，可以在具体的查询语句前边加一个 <code>EXPLAIN</code> ，就像这样：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; EXPLAIN SELECT 1;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326113218648.png" alt="image-20220326113218648"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326113218648.png" alt="image-20220326113218648"></p>
 <p><code>EXPLAIN</code> 语句输出的各个列的作用如下  </p>
 <table>
 <thead>
@@ -1712,38 +1702,38 @@
 <p>不论我们的查询语句有多复杂，里边儿 <code>包含了多少个表</code> ，到最后也是需要对每个表进行 <code>单表访问</code> 的，所<br>以MySQL规定<strong>EXPLAIN语句输出的每条记录都对应着某个单表的访问方法</strong>，该条记录的table列代表着该<br>表的表名（有时不是真实的表名字，可能是简称）  </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#1. table：表名</span><br><span class="line">#查询的每一行记录都对应着一个单表</span><br><span class="line">explain select count(*) from s1;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326120805996.png" alt="image-20220326120805996"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326120805996.png" alt="image-20220326120805996"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#s1:驱动表  s2:被驱动表</span><br><span class="line">EXPLAIN SELECT * FROM s1 INNER JOIN s2;</span><br><span class="line"># 驱动表和被驱动表是 优化器决定的，他认为哪个比较好久用哪个</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326121611806.png" alt="image-20220326121611806"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326121611806.png" alt="image-20220326121611806"></p>
 <blockquote>
 <p>用到多少个表，就会有多少条记录</p>
 </blockquote>
 <h4 id="2-id"><a href="#2-id" class="headerlink" title="2. id"></a>2. id</h4><p>正常来说一个select 一个id ，也有例外的可能，查询优化器做了优化</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; EXPLAIN SELECT * FROM s1 WHERE key1 = &#x27;a&#x27;;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326122616487.png" alt="image-20220326122616487"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326122616487.png" alt="image-20220326122616487"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; EXPLAIN SELECT * FROM s1 INNER JOIN s2;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326122717663.png" alt="image-20220326122717663"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326122717663.png" alt="image-20220326122717663"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; EXPLAIN SELECT * FROM s1 WHERE key1 IN (SELECT key1 FROM s2) OR key3 = &#x27;a&#x27;;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326122751920.png" alt="image-20220326122751920"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326122751920.png" alt="image-20220326122751920"></p>
 <p><strong>查询优化器优化</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">######查询优化器可能对涉及子查询的查询语句进行重写,转变为多表查询的操作########</span><br><span class="line">EXPLAIN SELECT * FROM s1 WHERE key1 IN (SELECT key2 FROM s2 WHERE common_field = &#x27;a&#x27;);</span><br></pre></td></tr></table></figure>
 
 <p>运行结果： id 只有一个，原因是查询优化器做了优化</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326122857145.png" alt="image-20220326122857145"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326122857145.png" alt="image-20220326122857145"></p>
 <p> <strong>Union去重</strong></p>
 <p>原本想的1个select 一个 id , 预计两个。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> #Union去重</span><br><span class="line"># union 去重，union all 不去重</span><br><span class="line">EXPLAIN SELECT * FROM s1 UNION SELECT * FROM s2;</span><br></pre></td></tr></table></figure>
 
 
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326123056983.png" alt="image-20220326123056983"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326123056983.png" alt="image-20220326123056983"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># union all 不去重  所以不需要放在临时表里面</span><br><span class="line">mysql&gt; EXPLAIN SELECT * FROM s1 UNION ALL SELECT * FROM s2;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326123147690.png" alt="image-20220326123147690"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326123147690.png" alt="image-20220326123147690"></p>
 <p><strong>小结:</strong>  </p>
 <ul>
 <li>id如果相同，可以认为是一组，从上往下顺序执行</li>
@@ -1823,39 +1813,39 @@
 <p>测试sql:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM s1 UNION SELECT * FROM s2;	</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326125611904.png" alt="image-20220326125611904"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326125611904.png" alt="image-20220326125611904"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM s1 UNION ALL SELECT * FROM s2;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326125627303.png" alt="image-20220326125627303"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326125627303.png" alt="image-20220326125627303"></p>
 </li>
 <li><p><code>SUBQUERY</code></p>
 <p>如果包含子查询的查询语句不能够转为对应的<code>semi-join</code>的形式，并且该子查询是不相关子查询，并且查询优化器决定采用将该子查询物化的方案来执行该子查询时，该子查询的第个<code>SELECT</code> 关键字代表的那个查询<br>的<code>select_type</code>就是 <code>SUBQUERY</code>，比如下边这个查询:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#子查询：</span><br><span class="line">#如果包含子查询的查询语句不能够转为对应的`semi-join`的形式，并且该子查询是不相关子查询。</span><br><span class="line">#该子查询的第一个`SELECT`关键字代表的那个查询的`select_type`就是`SUBQUERY`</span><br><span class="line">EXPLAIN SELECT * FROM s1 WHERE key1 IN (SELECT key1 FROM s2) OR key3 = &#x27;a&#x27;;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326122751920.png" alt="image-20220326122751920"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326122751920.png" alt="image-20220326122751920"></p>
 </li>
 <li><p><code>DEPENDENT SUBQUERY</code></p>
 <p>dependent subquery</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#如果包含子查询的查询语句不能够转为对应的`semi-join`的形式，并且该子查询是相关子查询，</span><br><span class="line">#则该子查询的第一个`SELECT`关键字代表的那个查询的`select_type`就是`DEPENDENT SUBQUERY`</span><br><span class="line">EXPLAIN SELECT * FROM s1 </span><br><span class="line">WHERE key1 IN (SELECT key1 FROM s2 WHERE s1.key2 = s2.key2) OR key3 = &#x27;a&#x27;;</span><br><span class="line">#注意的是，select_type为`DEPENDENT SUBQUERY`的查询可能会被执行多次。</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326130111650.png" alt="image-20220326130111650"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326130111650.png" alt="image-20220326130111650"></p>
 </li>
 <li><p><code>DEPENDENT UNION</code></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#在包含`UNION`或者`UNION ALL`的大查询中，如果各个小查询都依赖于外层查询的话，那除了</span><br><span class="line">#最左边的那个小查询之外，其余的小查询的`select_type`的值就是`DEPENDENT UNION`。</span><br><span class="line">EXPLAIN SELECT * FROM s1 </span><br><span class="line">WHERE key1 IN (SELECT key1 FROM s2 WHERE key1 = &#x27;a&#x27; UNION SELECT key1 FROM s1 WHERE key1 = &#x27;b&#x27;);</span><br><span class="line"></span><br><span class="line"># 这里优化器会重构成exist</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326130433291.png" alt="image-20220326130433291"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326130433291.png" alt="image-20220326130433291"></p>
 </li>
 <li><p><code>DERIVED</code></p>
 <p>derived : 衍生，派生</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#对于包含`派生表`的查询，该派生表对应的子查询的`select_type`就是`DERIVED`</span><br><span class="line">EXPLAIN SELECT * </span><br><span class="line">FROM (SELECT key1, COUNT(*) AS c FROM s1 GROUP BY key1) AS derived_s1 WHERE c &gt; 1;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326141653065.png" alt="image-20220326141653065"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326141653065.png" alt="image-20220326141653065"></p>
 </li>
 <li><p><code>MATERIALIZED</code></p>
 <p>materialized: 英 [məˈtɪəri:əˌlaɪzd] 具体化</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#当查询优化器在执行包含子查询的语句时，选择将子查询物化之后与外层查询进行连接查询时，</span><br><span class="line">#该子查询对应的`select_type`属性就是`MATERIALIZED`</span><br><span class="line">EXPLAIN SELECT * FROM s1 WHERE key1 IN (SELECT key1 FROM s2); #子查询被转为了物化表 </span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326142034981.png" alt="image-20220326142034981"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326142034981.png" alt="image-20220326142034981"></p>
 <blockquote>
 <p>不理解： 为啥上面的子查询，没有雾化</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM s1 WHERE key1 IN (SELECT key1 FROM s2) OR key3 = &#x27;a&#x27;;</span><br><span class="line"># 这个怎么不物化</span><br></pre></td></tr></table></figure>
@@ -1881,7 +1871,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DESC SELECT * FROM user_partitions WHERE id&gt;200;</span><br></pre></td></tr></table></figure>
 
 <p>查询id大于200（200&gt;100，p1分区）的记录，查看执行计划，partitions是p1，符合我们的分区规则</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220325201510359.png" alt="image-20220325201510359"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220325201510359.png" alt="image-20220325201510359"></p>
 <h4 id="5-type-☆"><a href="#5-type-☆" class="headerlink" title="5. type ☆"></a>5. type ☆</h4><p>执行计划的一条记录就代表着MySQL对某个表的<code>执行查询时的访问方法</code>，又称”访问类型”，其中的<code>type</code>列就表明了这个访问方法是啥，是较为重要的一个指标。比如，看到<code>type</code>列的值是<code>ref</code>，表明MySQL即将使用<code>ref</code>访问方法来执行对<code>s1</code>表的查询。</p>
 <p>完整的访问方法如下： <code>system</code> ， <code>const</code> ， <code>eq_ref</code> ， <code>ref</code> ， <code>fulltext</code> ， <code>ref_or_null</code> ，<code>index_merge</code> ， <code>unique_subquery</code> ， <code>index_subquery</code> ， <code>range</code> ， <code>index</code> ， <code>ALL</code> 。</p>
 <p>我们详细解释一下：</p>
@@ -2059,11 +2049,11 @@
 <p> 如果使用的是索引执行的单表扫描，那么计算时需要估计出满足除使用到对应索引的搜索条件外的其他搜索条件的记录有多少条。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM s1 WHERE key1 &gt; &#x27;z&#x27; AND common_field = &#x27;a&#x27;;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326170537304.png" alt="image-20220326170537304"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326170537304.png" alt="image-20220326170537304"></p>
 <p><strong>对于单表查询来说，这个filtered列的值没什么意义</strong>，我们<code>更关注在连接查询中驱动表对应的执行计划记录的filtered值</code>，它决定了被驱动表要执行的次数(即：rows * filtered)</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM s1 INNER JOIN s2 ON s1.key1 = s2.key1 WHERE s1.common_field = &#x27;a&#x27;;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326171219278.png" alt="image-20220326171219278"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326171219278.png" alt="image-20220326171219278"></p>
 <h4 id="11-Extra-☆"><a href="#11-Extra-☆" class="headerlink" title="11. Extra ☆"></a>11. Extra ☆</h4><p>顾名思义，<code>Extra</code>列是用来说明一些额外信息的，包含不适合在其他列中显示但十分重要的额外信息。我们可以通过这些额外信息来<code>更准确的理解MySQL到底将如何执行给定的查询语句</code>。MySQL提供的额外信息有好几十个，一下捡重点介绍</p>
 <ul>
 <li><p><code>No tables used</code> </p>
@@ -2072,14 +2062,14 @@
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; EXPLAIN SELECT 1;				</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326172022150.png" alt="image-20220326172022150"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326172022150.png" alt="image-20220326172022150"></p>
 <ul>
 <li><code>Impossible WHERE</code></li>
 </ul>
 <p> 查询语句的<code>WHERE</code>子句永远为<code>FALSE</code>时将会提示该额外信息</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; EXPLAIN SELECT * FROM s1 WHERE 1 != 1;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326172126970.png" alt="image-20220326172126970"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326172126970.png" alt="image-20220326172126970"></p>
 <ul>
 <li><p>Using where</p>
 <p>当我们使用全表扫描来执行对某个表的查询，并且该语句的<code>WHERE</code>子句中有针对该表的搜索条件时，在<code>Extra</code>列中会提示上述额外信息。</p>
@@ -2087,23 +2077,23 @@
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM s1 WHERE common_field = &#x27;a&#x27;;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326172256011.png" alt="image-20220326172256011"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326172256011.png" alt="image-20220326172256011"></p>
 <p>当条件除了索引，还有其他条件，也会是这个提示</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#当使用索引访问来执行对某个表的查询，并且该语句的`WHERE`子句中</span><br><span class="line">#有除了该索引包含的列之外的其他搜索条件时，在`Extra`列中也会提示上述额外信息。</span><br><span class="line">explain SELECT * FROM s1 WHERE key1 = &#x27;fUhcQU&#x27; and  common_field = &#x27;uDHCOnalcF&#x27;;</span><br></pre></td></tr></table></figure>
 
 
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326172802426.png" alt="image-20220326172802426"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326172802426.png" alt="image-20220326172802426"></p>
 <ul>
 <li><code>No matching min/max row</code></li>
 </ul>
 <p> 当查询列表处有<code>MIN</code>或者<code>MAX</code>聚合函数，但是并没有符合<code>WHERE</code>子句中的搜索条件的记录时，将会提示该额外信息</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 数据库不存在 QLjKYOx</span><br><span class="line">EXPLAIN SELECT MIN(key1) FROM s1 WHERE key1 = &#x27;QLjKYOx&#x27;;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326173156258.png" alt="image-20220326173156258"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326173156258.png" alt="image-20220326173156258"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 数据库存在 QLjKYO</span><br><span class="line">EXPLAIN SELECT MIN(key1) FROM s1 WHERE key1 = &#x27;QLjKYO&#x27;;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326173338273.png" alt="image-20220326173338273"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326173338273.png" alt="image-20220326173338273"></p>
 <ul>
 <li><code>Using index</code></li>
 </ul>
@@ -2111,13 +2101,13 @@
 <p>比方说下边这个查询中只需要用到<code>idx_key1</code>而不需要回表操作：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT key1 FROM s1 WHERE key1 = &#x27;a&#x27;;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326173520015.png" alt="image-20220326173520015"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326173520015.png" alt="image-20220326173520015"></p>
 <ul>
 <li><p><code>Using index condition</code></p>
 <p>有些搜索条件中虽然出现了索引列，但却不能使用到索引看课件理解索引条件下推</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM s1 WHERE key1 &gt; &#x27;z&#x27; AND key1 LIKE &#x27;%a&#x27;;</span><br><span class="line">mysql&gt; EXPLAIN SELECT * FROM s1 WHERE key1 &gt; &#x27;z&#x27; AND key1 LIKE &#x27;%a&#x27;;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326173622086.png" alt="image-20220326173622086"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326173622086.png" alt="image-20220326173622086"></p>
 <blockquote>
 <p>步骤1. 这里key1 &gt; ‘z’ 走了索引，查出了378条数据。。。</p>
 <p>步骤2.  key1 LIKE ‘%b’; 这个条件依然是 key1 索引，，，所以接下来只要在遍历这378个索引。哪些符合 ‘%a’</p>
@@ -2146,7 +2136,7 @@
 <p> 在连接查询执行过程中，当被驱动表不能有效的利用索引加快访问速度，MySQL一般会为其分配一块名叫<code>join buffer</code>的内存块来加快查询速度，也就是我们所讲的<code>基于块的嵌套循环算法</code></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; EXPLAIN SELECT * FROM s1 INNER JOIN s2 ON s1.common_field = s2.common_field;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326173721122.png" alt="image-20220326173721122"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326173721122.png" alt="image-20220326173721122"></p>
 </li>
 <li><p><code>Not exists</code></p>
 <p> 当我们使用左（外）连接时，如果<code>WHERE</code>子句中包含要求被驱动表的某个列等于<code>NULL</code>值的搜索条件，而且那个列又是不允许存储<code>NULL</code>值的，那么在该表的执行计划的Extra列就会提示<code>Not exists</code>额外信息</p>
@@ -2154,7 +2144,7 @@
 
 
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326182016458.png" alt="image-20220326182016458"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326182016458.png" alt="image-20220326182016458"></p>
 </li>
 <li><p><code>Using intersect(...) 、 Using union(...) 和 Using sort_union(...)</code>  </p>
 <ul>
@@ -2167,7 +2157,7 @@
 <li><p>出现了<code>Using sort_union(...)</code>提示，说明准备使用<code>Sort-Union</code>索引合并的方式执行查询。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM s1 WHERE key1 = &#x27;a&#x27; OR key3 = &#x27;a&#x27;;</span><br></pre></td></tr></table></figure></li>
 </ul>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326182155207.png" alt="image-20220326182155207"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326182155207.png" alt="image-20220326182155207"></p>
 </li>
 <li><p><code>Zero limit</code></p>
 </li>
@@ -2184,10 +2174,10 @@
 <p> 在许多查询的执行过程中，MySQL可能会借助临时表来完成一些功能，比如去重、排序之类的，比如我们在执行许多包含<code>DISTINCT</code>、<code>GROUP BY</code>、<code>UNION</code>等子句的查询过程中，如果不能有效利用索引来完成查询，MySQL很有可能寻求通过建立内部的临时表来执行查询。如果查询中使用到了内部的临时表，在执行计划的<code>Extra</code>列将会显示<code>Using temporary</code>提示</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT DISTINCT common_field FROM s1;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326183048710.png" alt="image-20220326183048710"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326183048710.png" alt="image-20220326183048710"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#执行计划中出现`Using temporary`并不是一个好的征兆，因为建立与维护临时表要付出很大成本的，所以</span><br><span class="line">#我们`最好能使用索引来替代掉使用临时表`。比如：扫描指定的索引idx_key1即可</span><br><span class="line">EXPLAIN SELECT key1, COUNT(*) AS amount FROM s1 GROUP BY key1;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326183135116.png" alt="image-20220326183135116"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326183135116.png" alt="image-20220326183135116"></p>
 </li>
 </ul>
 <h4 id="12-小结"><a href="#12-小结" class="headerlink" title="12. 小结"></a>12. 小结</h4><ul>
@@ -2209,7 +2199,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN FORMAT=JSON SELECT ....  </span><br></pre></td></tr></table></figure>
 </li>
 <li><p>EXPLAIN的Column与JSON的对应关系:(来源于MySQL 5.7文档)</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326184629857.png" alt="image-20220326184629857"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326184629857.png" alt="image-20220326184629857"></p>
 </li>
 </ul>
 <p>这样我们就可以得到一个json格式的执行计划，里面包含该计划花费的成本，比如这样:</p>
@@ -2217,7 +2207,7 @@
 
 
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326185603021.png" alt="image-20220326185603021"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326185603021.png" alt="image-20220326185603021"></p>
 <p>我们使用 <code>#</code> 后边跟随注释的形式为大家解释了 <code>EXPLAIN FORMAT=JSON</code> 语句的输出内容，但是大家可能<br>有疑问 “<code>cost_info</code>“ 里边的成本看着怪怪的，它们是怎么计算出来的？先看 <code>s1</code> 表的 “<code>cost_info</code>“ 部<br>分：  </p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;cost_info&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;read_cost&quot;</span><span class="punctuation">:</span> <span class="string">&quot;914.80&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;eval_cost&quot;</span><span class="punctuation">:</span> <span class="string">&quot;98.95&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;prefix_cost&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1013.75&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;data_read_per_join&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1M&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span>  </span><br></pre></td></tr></table></figure>
 
@@ -2250,8 +2240,8 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; EXPLAIN FORMAT=tree SELECT * FROM s1 INNER JOIN s2 ON s1.key1 = s2.key2 WHERE s1.common_field = &#x27;a&#x27;\G</span><br><span class="line">*************************** 1. row ***************************</span><br><span class="line">EXPLAIN: -&gt; Nested loop inner join  (cost=1360.08 rows=990)</span><br><span class="line">    -&gt; Filter: ((s1.common_field = &#x27;a&#x27;) and (s1.key1 is not null))  (cost=1013.75 rows=990)</span><br><span class="line">        -&gt; Table scan on s1  (cost=1013.75 rows=9895)</span><br><span class="line">    -&gt; Single-row index lookup on s2 using idx_key2 (key2=s1.key1), with index condition: (cast(s1.key1 as double) = cast(s2.key2 as double))  (cost=0.25 rows=1)</span><br><span class="line"></span><br><span class="line">1 row in set, 1 warning (0.00 sec)</span><br></pre></td></tr></table></figure>
 
 <h4 id="4-可视化输出"><a href="#4-可视化输出" class="headerlink" title="4. 可视化输出"></a>4. 可视化输出</h4><p>可视化输出，可以通过MySQL Workbench可视化查看MySQL的执行计划。通过点击Workbench的放大镜图<br>标，即可生成可视化的查询计划。</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326190931718.png" alt="image-20220326190931718"></p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326191114795.png" alt="image-20220326191114795"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326190931718.png" alt="image-20220326190931718"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326191114795.png" alt="image-20220326191114795"></p>
 <p>上图按从左到右的连接顺序显示表。红色框表示 <code>全表扫描</code> ，而绿色框表示使用 <code>索引查找</code> 。对于每个表，<br>显示使用的索引。还要注意的是，每个表格的框上方是每个表访问所发现的行数的估计值以及访问该表<br>的成本。  </p>
 <h3 id="7-2-SHOW-WARNINGS的使用"><a href="#7-2-SHOW-WARNINGS的使用" class="headerlink" title="7.2 SHOW WARNINGS的使用"></a>7.2 SHOW WARNINGS的使用</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; EXPLAIN SELECT s1.key1, s2.key1 FROM s1 LEFT JOIN s2 ON s1.key1 = s2.key1 WHERE</span><br><span class="line">s2.common_field IS NOT NULL;</span><br></pre></td></tr></table></figure>
 
@@ -2415,16 +2405,16 @@
 
 
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326224834648.png" alt="image-20220326224834648"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326224834648.png" alt="image-20220326224834648"></p>
 <p><strong>结论:<strong>MySQL可以为多个字段创建索引，一个索引可以包括16个字段。对于多列索引，</strong>过滤条件要使用索引必须按照索引建立时的顺序，依次满足，一旦跳过某个字段，索引后面的字段都无法被使用。</strong>如果查询条件中没有使用这些字段中第1个字段时，多列(或联合）索引不会被使用。</p>
 <blockquote>
 <p><strong>拓展：Alibaba《Java开发手册》</strong></p>
 <p>索引文件具有 B-Tree 的最左前缀匹配特性，如果左边的值未确定，那么无法使用此索引。  </p>
 </blockquote>
 <h3 id="2-3-主键插入顺序"><a href="#2-3-主键插入顺序" class="headerlink" title="2.3 主键插入顺序"></a>2.3 主键插入顺序</h3><p>对于一个使用<code>InnoDB</code>存储引擎的表来说，表中的数据实际上都是存储在<code>聚簇索引</code>的叶子节点的。而记录又是存储在数据页中的，数据页和记录又是按照记录<code>主键值从小到大</code>的顺序进行排序，所以如果我们<code>插入</code>的记录的<code>主键值是依次增大</code>的话，那我们每插满一个数据页就换到下一个数据页继续插，而如果我们插入的主键值忽大忽小的话，就比较麻烦了，假设某个数据页存储的记录已经满了，它存储的主键值在<code>1~100</code>之间:</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326225238412.png" alt="image-20220326225238412"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326225238412.png" alt="image-20220326225238412"></p>
 <p>如果此时再插入一条主键值为 <code>9</code> 的记录，那它插入的位置就如下图：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326225248650.png" alt="image-20220326225248650"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326225248650.png" alt="image-20220326225248650"></p>
 <p>可这个数据页已经满了，再插进来咋办呢？我们需要把当前 <code>页面分裂</code> 成两个页面，把本页中的一些记录<br>移动到新创建的这个页中。页面分裂和记录移位意味着什么？意味着： <code>性能损耗 ！</code>所以如果我们想尽量<br>避免这样无谓的性能损耗，最好让插入的记录的 <code>主键值依次递增</code> ，这样就不会发生这样的性能损耗了。<br>所以我们建议：让主键具有 <code>AUTO_INCREMENT</code> ，让存储引擎自己为表生成主键，而不是我们手动插入 ，<br>比如： <code>person_info</code> 表：  </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE person_info(</span><br><span class="line">    id INT UNSIGNED NOT NULL AUTO_INCREMENT,</span><br><span class="line">    name VARCHAR(100) NOT NULL,</span><br><span class="line">    birthday DATE NOT NULL,</span><br><span class="line">    phone_number CHAR(11) NOT NULL,</span><br><span class="line">    country varchar(100) NOT NULL,</span><br><span class="line">    PRIMARY KEY (id),</span><br><span class="line">    KEY idx_name_birthday_phone_number (name(10), birthday, phone_number)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 
@@ -2454,13 +2444,13 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CREATE INDEX idx_sno ON student(stuno);</span><br><span class="line"></span><br><span class="line">EXPLAIN SELECT SQL_NO_CACHE id, stuno, NAME FROM student WHERE stuno+1 = 900001;</span><br><span class="line"># 计算导致索引失效</span><br></pre></td></tr></table></figure>
 
 <p>运行结果：  </p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326225939241.png" alt="image-20220326225939241"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326225939241.png" alt="image-20220326225939241"></p>
 <p>类型是ALL原因是计算导致了索引失效。</p>
 </li>
 <li><p>索引优化生效(没有计算)：  </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT SQL_NO_CACHE id, stuno, NAME FROM student WHERE stuno = 900000;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326230203661.png" alt="image-20220326230203661"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326230203661.png" alt="image-20220326230203661"></p>
 </li>
 </ul>
 <p><strong>再举例：</strong></p>
@@ -2482,7 +2472,7 @@
 
 <h3 id="2-6-范围条件右边的列索引失效"><a href="#2-6-范围条件右边的列索引失效" class="headerlink" title="2.6 范围条件右边的列索引失效"></a>2.6 范围条件右边的列索引失效</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE student DROP INDEX idx_name;</span><br><span class="line">ALTER TABLE student DROP INDEX idx_age;</span><br><span class="line">ALTER TABLE student DROP INDEX idx_age_classid;</span><br><span class="line"></span><br><span class="line">show index from student;</span><br><span class="line"></span><br><span class="line">EXPLAIN SELECT SQL_NO_CACHE * FROM student WHERE student.age=30 AND student.classId&gt;20 AND student.name = &#x27;abc&#x27; ;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326234953835.png" alt="image-20220326234953835"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220326234953835.png" alt="image-20220326234953835"></p>
 <p>因为用上了范围查找，，在范围查找的索引后面的索引就失效了。</p>
 <blockquote>
 <p>tips ： 因为范围条件导致的索引失效，可以考虑把确定的索引放在前面。</p>
@@ -2508,7 +2498,7 @@
 <li><p>查看索引是否失效</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT SQL_NO_CACHE * FROM student WHERE student.name =&#x27;abc&#x27;;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327000012828.png" alt="image-20220327000012828"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327000012828.png" alt="image-20220327000012828"></p>
 </li>
 </ul>
 <blockquote>
@@ -2516,10 +2506,10 @@
 </blockquote>
 <h3 id="2-8-is-null可以使用索引，is-not-null无法使用索引"><a href="#2-8-is-null可以使用索引，is-not-null无法使用索引" class="headerlink" title="2.8 is null可以使用索引，is not null无法使用索引"></a>2.8 is null可以使用索引，is not null无法使用索引</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT SQL_NO_CACHE * FROM student WHERE age IS NULL;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327000138701.png" alt="image-20220327000138701"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327000138701.png" alt="image-20220327000138701"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># is not null 索引失效</span><br><span class="line">EXPLAIN SELECT SQL_NO_CACHE * FROM student WHERE age IS NOT NULL;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327000222914.png" alt="image-20220327000222914"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327000222914.png" alt="image-20220327000222914"></p>
 <blockquote>
 <p>结论:最好在设计数据表的时候就将<code>字段设置为 NOT NULL 约束</code>，比如你可以将INT类型的字段，默认值设置为0。将字符类型的默认值设置为空字符串。</p>
 <p>拓展: 同理，在查询中使用<code>not like</code> 也无法使用索引，导致全表扫描。</p>
@@ -2531,7 +2521,7 @@
 <h3 id="2-10-OR-前后存在非索引的列，索引失效"><a href="#2-10-OR-前后存在非索引的列，索引失效" class="headerlink" title="2.10 OR 前后存在非索引的列，索引失效"></a>2.10 OR 前后存在非索引的列，索引失效</h3><p>在WHERE子句中，如果在OR前的条件列进行了索引，而在OR后的条件列没有进行索引，那么索引会失效。也就是说，<strong>OR前后的两个条件中的列都是索引时，查询中才使用索引</strong>。</p>
 <p>因为OR的含义就是两个只要满足一个即可，<code>因此只有一个条伴列进行了索引是没有意义的</code>，只要有条件列没有进行索引，就会进行全表扫描，因此索引的条件列也会失效。</p>
 <h3 id="2-11-数据库和表的字符集统一使用utf8mb4"><a href="#2-11-数据库和表的字符集统一使用utf8mb4" class="headerlink" title="2.11 数据库和表的字符集统一使用utf8mb4"></a>2.11 数据库和表的字符集统一使用utf8mb4</h3><p>统一使用utf8mb4( 5.5.3版本以上支持)兼容性更好，统一字符集可以避免由于字符集转换产生的乱码。不<br>同的 字符集 进行比较前需要进行 <code>转换</code> 会造成索引失效。  </p>
-<h3 id="2-12练习及一般性建议"><a href="#2-12练习及一般性建议" class="headerlink" title="2.12练习及一般性建议"></a>2.12练习及一般性建议</h3><p><strong>练习</strong>:假设:index(a,b,c)<br><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327001211718.png" alt="image-20220327001211718"></p>
+<h3 id="2-12练习及一般性建议"><a href="#2-12练习及一般性建议" class="headerlink" title="2.12练习及一般性建议"></a>2.12练习及一般性建议</h3><p><strong>练习</strong>:假设:index(a,b,c)<br><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327001211718.png" alt="image-20220327001211718"></p>
 <p><strong>一般性建议:</strong></p>
 <ul>
 <li>对于单列索引,l尽量选择针对当前query过滤性更好的索引</li>
@@ -2551,27 +2541,27 @@
 <h3 id="3-2-采用左外连接"><a href="#3-2-采用左外连接" class="headerlink" title="3.2 采用左外连接"></a>3.2 采用左外连接</h3><p>下面开始 EXPLAIN 分析  </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT SQL_NO_CACHE * FROM `type` LEFT JOIN book ON type.card = book.card;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327105415185.png" alt="image-20220327105415185"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327105415185.png" alt="image-20220327105415185"></p>
 <p>结论：type 有All<br>添加索引优化  </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 添加索引</span><br><span class="line">ALTER TABLE book ADD INDEX Y(card); #【被驱动表】，可以避免全表扫描</span><br><span class="line"></span><br><span class="line">EXPLAIN SELECT SQL_NO_CACHE * FROM `type` LEFT JOIN book ON type.card = book.card;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327105619638.png" alt="image-20220327105619638"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327105619638.png" alt="image-20220327105619638"></p>
 <p>可以看到第二行的 type 变为了 ref，rows 也变成了优化比较明显。这是由左连接特性决定的。LEFT JOIN条件用于确定如何从右表搜索行，左边一定都有，所以 右边是我们的关键点,一定需要建立索引 。  </p>
 <blockquote>
 <p>如果只能添加一边的索引，，那就给<code>被驱动表</code>添加上索引。</p>
 </blockquote>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE `type` ADD INDEX X (card); #【驱动表】，无法避免全表扫描</span><br><span class="line"></span><br><span class="line">EXPLAIN SELECT SQL_NO_CACHE * FROM `type` LEFT JOIN book ON type.card = book.card;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327110003998.png" alt="image-20220327110003998"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327110003998.png" alt="image-20220327110003998"></p>
 <p>接着：  </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DROP INDEX Y ON book;</span><br><span class="line">EXPLAIN SELECT SQL_NO_CACHE * FROM `type` LEFT JOIN book ON type.card = book.card;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327110048502.png" alt="image-20220327110048502"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327110048502.png" alt="image-20220327110048502"></p>
 <blockquote>
 <p>去掉被驱动索引，又变成了 join buffer</p>
 </blockquote>
 <h3 id="3-3-采用内连接"><a href="#3-3-采用内连接" class="headerlink" title="3.3 采用内连接"></a>3.3 采用内连接</h3><p><strong>前置知识</strong></p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327112700993.png" alt="image-20220327112700993"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327112700993.png" alt="image-20220327112700993"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">drop index X on type;</span><br><span class="line">drop index Y on book;#（如果已经删除了可以不用再执行该操作）</span><br></pre></td></tr></table></figure>
 
 <p>换成 inner join（MySQL自动选择驱动表）  </p>
@@ -2579,14 +2569,14 @@
 
 
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327110542488.png" alt="image-20220327110542488"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327110542488.png" alt="image-20220327110542488"></p>
 <p>添加索引优化  </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE book ADD INDEX Y (card);</span><br><span class="line"></span><br><span class="line">EXPLAIN SELECT SQL_NO_CACHE * FROM type INNER JOIN book ON type.card=book.card;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327110718552.png" alt="image-20220327110718552"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327110718552.png" alt="image-20220327110718552"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># type 加索引</span><br><span class="line">ALTER TABLE type ADD INDEX X (card);</span><br><span class="line"># 观察执行情况</span><br><span class="line">EXPLAIN SELECT SQL_NO_CACHE * FROM type INNER JOIN book ON type.card=book.card;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327111114145.png" alt="image-20220327111114145"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327111114145.png" alt="image-20220327111114145"></p>
 <blockquote>
 <p>这里刚给type加了索引后，驱动表和被驱动表还是原来的样子。</p>
 <p>给type 继续加了一些数据后</p>
@@ -2622,27 +2612,27 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE a(f1 INT,f2 INT,INDEX(f1))ENGINE=INNODB;</span><br><span class="line"></span><br><span class="line">CREATE TABLE b(f1 INT,f2 INT)ENGINE=INNODB;</span><br><span class="line"></span><br><span class="line">INSERT INTO a VALUES(1,1),(2,2),(3,3),(4,4),(5,5),(6,6);</span><br><span class="line"></span><br><span class="line">INSERT INTO b VALUES (3,3),(4,4),(5,5),(6,6),(7,7),(8,8);</span><br><span class="line"></span><br><span class="line">#测试1</span><br><span class="line">EXPLAIN SELECT* FROM a LEFT JOIN b ON (a.f1=b.f1)WHERE (a.f2=b.f2);</span><br><span class="line"></span><br><span class="line">#测试2</span><br><span class="line">EXPLAIN SELECT * FROM a LEFT JOIN b oN (a.f1=b.f1) AND (a.f2=b.f2);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p><strong>测试1结果：</strong></p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327113715776.png" alt="image-20220327113715776"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327113715776.png" alt="image-20220327113715776"></p>
 <p>得出这种结论太不可思议了，跟上一个show warnings 看看：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327114615193.png" alt="image-20220327114615193"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327114615193.png" alt="image-20220327114615193"></p>
 <p><strong>测试2结果：</strong></p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327113840201.png" alt="image-20220327113840201"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327113840201.png" alt="image-20220327113840201"></p>
 <p>继续show warnings \G</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327114721018.png" alt="image-20220327114721018"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327114721018.png" alt="image-20220327114721018"></p>
 </li>
 </ul>
 </li>
 </ul>
 <h4 id="2-Simple-Nested-Loop-Join-简单嵌套循环连接"><a href="#2-Simple-Nested-Loop-Join-简单嵌套循环连接" class="headerlink" title="2.Simple Nested-Loop Join(简单嵌套循环连接)"></a>2.Simple Nested-Loop Join(简单嵌套循环连接)</h4><p>算法相当简单，从表A中取出一条数据1，遍历表B，将匹配到的数据放到result..以此类推，驱动表A中的每一条记录与被驱动表B的记录进行判断:</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327115112379.png" alt="image-20220327115112379"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327115112379.png" alt="image-20220327115112379"></p>
 <p>这个例子是在没有索引的情况，做了全表扫描</p>
 <p>可以看到这种方式效率是非常低的，以上述表A数据100条，表B数据1000条计算，则A*B&#x3D;10万次。开销统计如下:</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327115215270.png" alt="image-20220327115215270"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327115215270.png" alt="image-20220327115215270"></p>
 <p>当然mysql肯定不会这么粗暴的去进行表的连接，所以就出现了后面的两种对Nested-Loop Join优化算法。</p>
 <h4 id="3-Index-Nested-Loop-Join-索引嵌套循环连接"><a href="#3-Index-Nested-Loop-Join-索引嵌套循环连接" class="headerlink" title="3.Index Nested-Loop Join(索引嵌套循环连接)"></a>3.Index Nested-Loop Join(索引嵌套循环连接)</h4><p>Index Nested-Loop Join其优化的思路主要是为了<code>减少内层表数据的匹配次数</code>，所以要求被驱动表上必须<code>有索引</code>才行。通过外层表匹配条件直接与内层表索引进行匹配，避免和内层表的每条记录去进行比较，这样极大的减少了对内层表的匹配次数。</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327115921235.png" alt="image-20220327115921235"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327115921235.png" alt="image-20220327115921235"></p>
 <p>驱动表中的每条记录通过被驱动表的索引进行访问，因为索引查询的成本是比较固定的，故mysql优化器都倾向于使用记录数少的表作为驱动表(外表)。</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327120030338.png" alt="image-20220327120030338"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327120030338.png" alt="image-20220327120030338"></p>
 <p>如果被驱动表加索引，效率是非常高的，但如果索引不是主键索引，所以还得进行一次回表查询。相比，被驱动表的索引是主键索引，效率会更高。</p>
 <h4 id="4-Block-Nested-Loop-Join-块嵌套循环连接"><a href="#4-Block-Nested-Loop-Join-块嵌套循环连接" class="headerlink" title="4.Block Nested-Loop Join(块嵌套循环连接)"></a>4.Block Nested-Loop Join(块嵌套循环连接)</h4><p>如果存在索引，那么会使用index的方式进行join，如果join的列没有索引，被驱动表要扫描的次数太多了。每次访问被驱动表，其表中的记录都会被加载到内存中，然后再从驱动表中取一条与其匹配，匹配结束后清除内存，然后再从驱动表中加载一条记录，然后把被驱动表的记录在加载到内存匹配这样周而复始，大大增加了I0的次<br>数。为了减少被驱动表的Io次数，就出现了Block Nested-Loop Join的方式。</p>
 <p>不再是逐条获取驱动表的数据，而是一块一块的获取，引入了<code>join buffer缓冲区</code>，将<code>驱动表join</code>相关的部分数据列(大小受join buffer的限制)缓存到join buffer中，然后全表扫描被驱动表被驱动表的每—条记录—次性和<strong>join</strong><br><strong>buffer</strong>中的所有驱动表记录进行匹配（<code>内存中操作</code>)，将简单嵌套循环中的多次比较合并成一次，降低了被驱动<br>表的访问频率。</p>
@@ -2651,8 +2641,8 @@
 <p>这里缓存的不只是关联表的列, select后面的列也会缓存起来。<strong>（存的是驱动表）</strong></p>
 <p>在一个有N个join关联的sql中会分配N-1个join buffer。所以查询的时候尽量减少不必要的字段，可以让joinbuffer中可以存放更多的列。</p>
 </blockquote>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327143958188.png" alt="image-20220327143958188"></p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327144009591.png" alt="image-20220327144009591"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327143958188.png" alt="image-20220327143958188"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327144009591.png" alt="image-20220327144009591"></p>
 <p>参数设置：</p>
 <ul>
 <li><p>block_nested_loop</p>
@@ -2685,7 +2675,7 @@
 <li>衍生表建不了索引</li>
 </ul>
 <h3 id="3-5-Hash-Join"><a href="#3-5-Hash-Join" class="headerlink" title="3.5.Hash Join"></a><strong>3.5.Hash Join</strong></h3><p><strong>从MySQL的8.0.20版本开始将废弃BNLJ，因为从MySQL8.0.18版本开始就加入了hash join默认都会使用hash join</strong></p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327151158056.png" alt="image-20220327151158056"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327151158056.png" alt="image-20220327151158056"></p>
 <ul>
 <li><p>Nested Loop:<br>对于被连接的数据子集较小的情况，Nested Loop是个较好的选择。</p>
 </li>
@@ -2698,7 +2688,7 @@
 <li><p>它能够很好的工作于没有索引的大表和并行查询的环境中，并提供最好的性能。大多数人都说它是Join的重型升降机。Hash Join只能应用于等值连接(如WHERE A.COL1&#x3D;B.COL2)，这是由Hash的特点决定的。</p>
 </li>
 </ul>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327151646951.png" alt="image-20220327151646951"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327151646951.png" alt="image-20220327151646951"></p>
 </li>
 </ul>
 <h2 id="4-子查询优化"><a href="#4-子查询优化" class="headerlink" title="4.子查询优化"></a>4.子查询优化</h2><p>MySQL从4.1版本开始支持子查询，使用子查询可以进行SELECT语句的嵌套查询，即一个SELECT查询的结果作为另一个SELECT语句的条件。<code>子查询可以一次性完成很多逻辑上需要多个步骤才能完成的SQL操作</code>。</p>
@@ -2746,23 +2736,23 @@
 <p><strong>过程一:</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT SQL_NO_CACHE * FROM student ORDER BY age,classid;</span><br><span class="line"></span><br><span class="line">EXPLAIN SELECT SQL_NO_CACHE * FROM student ORDER BY age,classid limit 10;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327154029455.png" alt="image-20220327154029455"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327154029455.png" alt="image-20220327154029455"></p>
 <p><strong>过程二: order by时不limit，索引失效</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#创建索引</span><br><span class="line">CREATE INDEX idx_age_classid_name ON student (age,classid, NAME);</span><br><span class="line">#不限制,索引失效</span><br><span class="line">EXPLAIN SELECT SQL_NO_CACHE * FROM student ORDER BY age ,classid ;</span><br></pre></td></tr></table></figure>
 
 
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327154234022.png" alt="image-20220327154234022"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327154234022.png" alt="image-20220327154234022"></p>
 <blockquote>
 <p>这里优化器觉得，，还需要回表。会费时间更大，不走索引。</p>
 </blockquote>
 <p>使用覆盖索引试试看</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327154426669.png" alt="image-20220327154426669"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327154426669.png" alt="image-20220327154426669"></p>
 <blockquote>
 <p>不用回表，优化器觉得走索引快。就使用了索引。</p>
 </blockquote>
 <p>增加limit 条件</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327154631330.png" alt="image-20220327154631330"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327154631330.png" alt="image-20220327154631330"></p>
 <blockquote>
 <p>增加limit 减少回表的数量，优化器觉得走索引快，会使用索引</p>
 </blockquote>
@@ -2777,12 +2767,12 @@
 <p><strong>过程五:无过滤,不索引</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM student WHERE age=45 ORDER BY classid;</span><br><span class="line"></span><br><span class="line">EXPLAIN SELECT * FROM student WHERE age=45 ORDER BY classid , name;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327163331675.png" alt="image-20220327163331675"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327163331675.png" alt="image-20220327163331675"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">EXPLAIN SELECT *FROM student WHERE classid=45 order by age;</span><br><span class="line"></span><br><span class="line">EXPLAIN SELECT * FROM student WHERE classid=45 order by age limit 10;</span><br></pre></td></tr></table></figure>
 
 
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327163436260.png" alt="image-20220327163436260"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327163436260.png" alt="image-20220327163436260"></p>
 <p>这里第一条排序走Using filesort 很好理解</p>
 <p>第二条为啥不是 <code>Using filesort </code> 呢？</p>
 <p>这里type &#x3D; index，key&#x3D;idx_age_classid_name 。 这说明了 优化器预估对idx_age_classid_name  索引进行完整的遍历。由于索引本身就是根据age升序存储的。。所以只要在遍历的过程中，遇到前十个classid&#x3D;45。就可以停止遍历。回表返回数据。（根据上完课自己想的，无法验证，不知道有没有偏差）</p>
@@ -2802,7 +2792,7 @@
 <p><strong>场景:查询年龄为30岁的，且学生编号小于101000的学生，按用户名称排序</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT SQL_NO_CACHE * FROM student WHERE age = 30 AND stuno &lt;101000 ORDER BY NAME;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327170746020.png" alt="image-20220327170746020"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327170746020.png" alt="image-20220327170746020"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;  SELECT SQL_NO_CACHE * FROM student WHERE age = 30 AND stuno &lt;101000 ORDER BY NAME;</span><br><span class="line">+-----+--------+--------+------+---------+</span><br><span class="line">| id  | stuno  | name   | age  | classId |</span><br><span class="line">+-----+--------+--------+------+---------+</span><br><span class="line">| 417 | 100417 | bBAYtX |   30 |     159 |</span><br><span class="line"></span><br><span class="line">....</span><br><span class="line"></span><br><span class="line">| 372 | 100372 | xwODCc |   30 |     764 |</span><br><span class="line">+-----+--------+--------+------+---------+</span><br><span class="line">18 rows in set, 1 warning (0.17 sec)</span><br></pre></td></tr></table></figure>
 
 
@@ -2814,11 +2804,11 @@
 <p><strong>方案一:为了去掉filesort我们可以把索引建成</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#创建新索引</span><br><span class="line">CREATE INDEX idx_age_name ON student(age , NAME);</span><br><span class="line"></span><br><span class="line">EXPLAIN SELECT SQL_NO_CACHE * FROM student WHERE age = 30 AND stuno &lt;101000 ORDER BY NAME;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327171114961.png" alt="image-20220327171114961"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327171114961.png" alt="image-20220327171114961"></p>
 <p><strong>方案二:尽量让where的过滤条件和排序使用上索引</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">create index idx_age_stuno_name on student(age,stuno,name);</span><br><span class="line">EXPLAIN SELECT SQL_NO_CACHE * FROM student WHERE age = 30 AND stuno &lt;101000 ORDER BY NAME;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327171516492.png" alt="image-20220327171516492"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327171516492.png" alt="image-20220327171516492"></p>
 <p>下面这个方案虽然使用了<code> Using filesort</code> 但是速度反而更快了。</p>
 <p>原因:</p>
 <p>所有的排序都是在条件过滤之后才执行的。所以，如果条件过滤掉大部分数据的话，剩下几百几千条数据进行排序其实并不是很消耗性能，即使索引优化了排序，但实际提升性能很有限。相对的stuno&lt;101000这个条件，如果没有用到索引的话，要对几万条的数据进行扫描，这是非常消耗性能的，所以索引放在这个字段上性价比最高，是最优选择。</p>
@@ -2885,11 +2875,11 @@
 <p><strong>优化思路一</strong><br>在索引上完成排序分页操作，最后根据主键关联回原表查询所需要的其他列内容。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM student t, ( SELECT id FROM student ORDER BY id LIMIT 2000000,10) a WHERE t.id = a.id;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327181204713.png" alt="image-20220327181204713"><br><strong>优化思路二</strong>(几乎没法用)</p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327181204713.png" alt="image-20220327181204713"><br><strong>优化思路二</strong>(几乎没法用)</p>
 <p>该方案适用于主键自增的表，可以把Limit查询转换成某个位置的查询。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * FROM student WHERE id &gt; 2080880 LIMIT 10;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327181228362.png" alt="image-20220327181228362"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327181228362.png" alt="image-20220327181228362"></p>
 <blockquote>
 <p>不靠谱，生产中id可能会删除，查询的条件也不可能这么简单。</p>
 </blockquote>
@@ -2899,25 +2889,25 @@
 <p>**举例一:**覆盖索引长什么样子。 <code>索引列+主键</code></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#斯降之前的索引</span><br><span class="line">DROP INDEX idx_age_stuno ON student ;</span><br><span class="line">CREATE INDEX idx_age_name ON student (age , NAME);</span><br><span class="line"></span><br><span class="line">EXPLAIN SELECT * FROM student WHERE age &lt;&gt;20;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327194911745.png" alt="image-20220327194911745"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327194911745.png" alt="image-20220327194911745"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT id, age , NAME FROM student WHERE age &lt;&gt; 28;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327195102695.png" alt="image-20220327195102695"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327195102695.png" alt="image-20220327195102695"></p>
 <p>上述都使用到了声明的索引，下面的情况则不然，在查询列中多了一列classid，显示未使用到索引:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT id, age , NAME,classid FROM student WHERE age &lt;&gt; 28;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327195221475.png" alt="image-20220327195221475"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327195221475.png" alt="image-20220327195221475"></p>
 <p>举例二：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT *FROM student WHERE NAME LIKE &#x27;%abc&#x27;;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327195413811.png" alt="image-20220327195413811"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327195413811.png" alt="image-20220327195413811"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREATE INDEX idx_age_name ON student (age , NAME);</span><br><span class="line">EXPLAIN SELECT id, age ,NAME FROM student WHERE NAME LIKE &#x27;%abc &#x27;;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327195610323.png" alt="image-20220327195610323"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327195610323.png" alt="image-20220327195610323"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 索引覆盖失效</span><br><span class="line">EXPLAIN SELECT id, age ,NAME,classid FROM student WHERE NAME LIKE &#x27;%abc &#x27;;</span><br></pre></td></tr></table></figure>
 
 <p>查询多了classid，结果是未使用到索引</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327195812263.png" alt="image-20220327195812263"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327195812263.png" alt="image-20220327195812263"></p>
 <blockquote>
 <p>之前有说过，不等于与左模糊会导致索引失效。但是这里为什么又用上了呢？原因是优化器发现，数据已经都在索引了。直接遍历索引就可以返回数据。。而遍历索引，肯定是比遍历全表数据量少的。这样IO就可以更少。</p>
 <p>一切都是成本的考量。</p>
@@ -2945,20 +2935,20 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; alter table teacher add index index1(email);</span><br><span class="line">#或</span><br><span class="line">mysql&gt; alter table teacher add index index2(email(6))</span><br></pre></td></tr></table></figure>
 
 <p>这两种不同的定义在数据结构和存储上有什么区别呢？下图就是这两个索引的示意图  </p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327181808091.png" alt="image-20220327181808091"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327181808091.png" alt="image-20220327181808091"></p>
 <p>以及  </p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327181820437.png" alt="image-20220327181820437"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327181820437.png" alt="image-20220327181820437"></p>
 <p><strong>如果使用的是index1</strong>（即email整个字符串的索引结构），执行顺序是这样的：</p>
 <ol>
-<li>从index1索引树找到满足索引值是’ <a href="mailto:&#122;&#x68;&#97;&#110;&#x67;&#x73;&#115;&#120;&#121;&#122;&#x40;&#120;&#120;&#120;&#46;&#99;&#x6f;&#x6d;">&#122;&#x68;&#97;&#110;&#x67;&#x73;&#115;&#120;&#121;&#122;&#x40;&#120;&#120;&#120;&#46;&#99;&#x6f;&#x6d;</a> ’的这条记录，取得ID2的值；</li>
+<li>从index1索引树找到满足索引值是’ <a href="mailto:&#x7a;&#104;&#x61;&#110;&#103;&#x73;&#x73;&#120;&#121;&#x7a;&#x40;&#x78;&#x78;&#x78;&#x2e;&#99;&#111;&#109;">&#x7a;&#104;&#x61;&#110;&#103;&#x73;&#x73;&#120;&#121;&#x7a;&#x40;&#x78;&#x78;&#x78;&#x2e;&#99;&#111;&#109;</a> ’的这条记录，取得ID2的值；</li>
 <li>到主键上查到主键值是ID2的行，判断email的值是正确的，将这行记录加入结果集；</li>
-<li>取index1索引树上刚刚查到的位置的下一条记录，发现已经不满足email&#x3D;’ <a href="mailto:&#x7a;&#x68;&#97;&#110;&#103;&#x73;&#115;&#120;&#121;&#122;&#64;&#120;&#x78;&#x78;&#x2e;&#x63;&#x6f;&#109;">&#x7a;&#x68;&#97;&#110;&#103;&#x73;&#115;&#120;&#121;&#122;&#64;&#120;&#x78;&#x78;&#x2e;&#x63;&#x6f;&#109;</a> ’的<br>条件了，循环结束。</li>
+<li>取index1索引树上刚刚查到的位置的下一条记录，发现已经不满足email&#x3D;’ <a href="mailto:&#122;&#x68;&#x61;&#110;&#103;&#115;&#x73;&#x78;&#x79;&#x7a;&#x40;&#x78;&#120;&#120;&#46;&#99;&#x6f;&#x6d;">&#122;&#x68;&#x61;&#110;&#103;&#115;&#x73;&#x78;&#x79;&#x7a;&#x40;&#x78;&#120;&#120;&#46;&#99;&#x6f;&#x6d;</a> ’的<br>条件了，循环结束。</li>
 </ol>
 <p>这个过程中，只需要回主键索引取一次数据，所以系统认为只扫描了一行。</p>
 <p><strong>如果使用的是index2</strong>（即email(6)索引结构），执行顺序是这样的：</p>
 <ol>
 <li>从index2索引树找到满足索引值是’zhangs’的记录，找到的第一个是ID1；</li>
-<li>到主键上查到主键值是ID1的行，判断出email的值不是’ <a href="mailto:&#122;&#104;&#x61;&#x6e;&#103;&#115;&#115;&#x78;&#x79;&#122;&#x40;&#120;&#x78;&#x78;&#x2e;&#99;&#111;&#109;">&#122;&#104;&#x61;&#x6e;&#103;&#115;&#115;&#x78;&#x79;&#122;&#x40;&#120;&#x78;&#x78;&#x2e;&#99;&#111;&#109;</a> ’，这行记录丢弃；</li>
+<li>到主键上查到主键值是ID1的行，判断出email的值不是’ <a href="mailto:&#122;&#104;&#x61;&#x6e;&#103;&#x73;&#115;&#120;&#121;&#122;&#64;&#120;&#x78;&#120;&#x2e;&#99;&#x6f;&#x6d;">&#122;&#104;&#x61;&#x6e;&#103;&#x73;&#115;&#120;&#121;&#122;&#64;&#120;&#x78;&#120;&#x2e;&#99;&#x6f;&#x6d;</a> ’，这行记录丢弃；</li>
 <li>取index2上刚刚查到的位置的下一条记录，发现仍然是’zhangs’，取出ID2，再到ID索引上取整行然<br>后判断，这次值对了，将这行记录加入结果集；</li>
 <li>重复上一步，直到在idxe2上取到的值不是’zhangs’时，循环结束。</li>
 </ol>
@@ -2978,7 +2968,7 @@
 </ul>
 <p>例子：</p>
 <p>key1 有索引</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327201222126.png" alt="image-20220327201222126"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327201222126.png" alt="image-20220327201222126"></p>
 <blockquote>
 <p>这里条件like ‘%a’ 其实可以在索引里面，算出来哪些符合条件。。。。过滤出符合条件的，再回表。这样回表的数据可以减少很多。还有一个好处，没有索引下推，就需要把数据都回表查出来，，这些数据可能在不同的页当中，又会产生IO</p>
 <p>条件下推，下推到下一个条件符不符合。</p>
@@ -3007,7 +2997,7 @@
 <p>为该表定义联合索引zip_last_first (zipcode，lastname，firstname)。如果我们知道了一个人的邮编，但是不确定这个人的姓氏，我们可以进行如下检索:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT *FROM people</span><br><span class="line">WHERE zipcode= &#x27;000001&#x27;</span><br><span class="line">AND lastname LIKE &#x27;%张%&#x27;</span><br><span class="line">AND address LIKE &#x27;%北京市%&#x27;;</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327212419933.png" alt="image-20220327212419933"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327212419933.png" alt="image-20220327212419933"></p>
 <p>执行查看SQL的查询计划，Extra中显示了<code>Using index condition</code>，这表示使用了索引下推。另外，<code>Usingwhere</code>表示条件中包含需要过滤的非索引列的数据，即address LIKE ‘%北京市%’这个条件并不是索引列，需要在服务端过滤掉。</p>
 <h3 id="10-4开启和关闭ICP的性能对比"><a href="#10-4开启和关闭ICP的性能对比" class="headerlink" title="10.4开启和关闭ICP的性能对比"></a>10.4开启和关闭ICP的性能对比</h3><p>创建存储过程，主要目的就是插入很多000001的数据，这样查询的时候为了在存储引擎层做过滤，减少IO，也为了减少缓冲池（缓存数据页，没有IO）的作用。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">DELIMITER //</span><br><span class="line">CREATE PROCEDURE insert_people( max_num INT )</span><br><span class="line">BEGIN</span><br><span class="line">DECLARE i INT DEFAULT 0;</span><br><span class="line">	SET autocommit = 0;</span><br><span class="line">	REPEAT</span><br><span class="line">	SET i = i + 1;</span><br><span class="line">	INSERT INTo people ( zipcode, firstname , lastname , address ) VALUES ( &#x27;000001&#x27;,&#x27;六&#x27;, &#x27;赵&#x27;,&#x27;天津市&#x27;);</span><br><span class="line"></span><br><span class="line">	UNTIL i = max_num</span><br><span class="line">	END REPEAT;</span><br><span class="line">	COMMIT;</span><br><span class="line">END //</span><br><span class="line">DELIMITER ;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -3034,17 +3024,17 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show profiles\G ;</span><br></pre></td></tr></table></figure>
 
 <p>结果如下。</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327214304560.png" alt="image-20220327214304560"></p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327214423178.png" alt="image-20220327214423178"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327214304560.png" alt="image-20220327214304560"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327214423178.png" alt="image-20220327214423178"></p>
 <p>多次测试效率对比来看，使用ICP优化的查询效率会好一些。这里建议多存储一些数据效果更明显。</p>
 <h3 id="10-1-使用前后的扫描过程"><a href="#10-1-使用前后的扫描过程" class="headerlink" title="10.1 使用前后的扫描过程"></a>10.1 使用前后的扫描过程</h3><p><strong>在不使用ICP索引扫描的过程：</strong></p>
 <p>storage层：只将满足index key条件的索引记录对应的整行记录取出，返回给server层</p>
 <p>server 层：对返回的数据，使用后面的where条件过滤，直至返回最后一行。  </p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327181853000.png" alt="image-20220327181853000"></p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327181901279.png" alt="image-20220327181901279"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327181853000.png" alt="image-20220327181853000"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327181901279.png" alt="image-20220327181901279"></p>
 <p>使用ICP扫描的过程：<br>storage层：<br>首先将index key条件满足的索引记录区间确定，然后在索引上使用index filter进行过滤。将满足的index<br>filter条件的索引记录才去回表取出整行记录返回server层。不满足index filter条件的索引记录丢弃，不回<br>表、也不会返回server层。<br>server 层：<br>对返回的数据，使用table filter条件做最后的过滤。  </p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327181910781.png" alt="image-20220327181910781"></p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327181918603.png" alt="image-20220327181918603"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327181910781.png" alt="image-20220327181910781"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327181918603.png" alt="image-20220327181918603"></p>
 <p>使用前后的成本差别<br>使用前，存储层多返回了需要被index filter过滤掉的整行记录<br>使用ICP后，直接就去掉了不满足index filter条件的记录，省去了他们回表和传递到server层的成本。<br>ICP的 加速效果 取决于在存储引擎内通过 ICP筛选 掉的数据的比例。</p>
 <h3 id="10-5-ICP的使用条件"><a href="#10-5-ICP的使用条件" class="headerlink" title="10.5 ICP的使用条件"></a>10.5 ICP的使用条件</h3><ol>
 <li><p>如果表访问的类型为range、ref、eq_ref和ref_or_null可以使用ICP</p>
@@ -3149,7 +3139,7 @@
 </ol>
 <h3 id="13-2-业务字段做主键"><a href="#13-2-业务字段做主键" class="headerlink" title="13.2 业务字段做主键"></a>13.2 业务字段做主键</h3><p>为了能够唯一地标识一个会员的信息，需要为 <code>会员信息表</code> 设置一个主键。那么，怎么为这个表设置主键，才能达到我们理想的目标呢？ 这里我们考虑业务字段做主键。</p>
 <p>表数据如下：  </p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327194004090.png" alt="image-20220327194004090"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327194004090.png" alt="image-20220327194004090"></p>
 <p>在这个表里，哪个字段比较合适呢？</p>
 <ul>
 <li><p><strong>选择卡号（cardno）</strong></p>
@@ -3165,7 +3155,7 @@
 <p>从系统设计的角度看，这个变化只是修改了会员信息表中的卡号是“10000001”这个会员 信息，并不会影响到数据一致性。也就是说，修改会员卡号是“10000001”的会员信息， 系统的各个模块，都会获取到修改后的会员信息，不会出现“有的模块获取到修改之前的会员信息，有的模块获取到修改后的会员信息，而导致系统内部数据不一致”的情况。因此，从 <code>信息系统层面</code> 上看是没问题的。</p>
 <p>但是从使用 <code>系统的业务层面</code> 来看，就有很大的问题 了，会对商家造成影响。</p>
 <p>比如，我们有一个销售流水表（trans），记录了所有的销售流水明细。2020 年 12 月 01 日，张三在门店购买了一本书，消费了 89 元。那么，系统中就有了张三买书的流水记录，如下所示：  </p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327194010973.png" alt="image-20220327194010973"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327194010973.png" alt="image-20220327194010973"></p>
 <p>接着，我们查询一下 2020 年 12 月 01 日的会员销售记录：  </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT b.membername,c.goodsname,a.quantity,a.salesvalue,a.transdate</span><br><span class="line">-&gt; FROM demo.trans AS a</span><br><span class="line">-&gt; JOIN demo.membermaster AS b</span><br><span class="line">-&gt; JOIN demo.goodsmaster AS c</span><br><span class="line">-&gt; ON (a.cardno = b.cardno AND a.itemnumber=c.itemnumber);</span><br><span class="line">+------------+-----------+----------+------------+---------------------+</span><br><span class="line">| membername | goodsname | quantity | salesvalue | transdate |</span><br><span class="line">+------------+-----------+----------+------------+---------------------+</span><br><span class="line">| 张三 | 书 | 1.000 | 89.00 | 2020-12-01 00:00:00 |</span><br><span class="line">+------------+-----------+----------+------------+---------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
 
@@ -3185,7 +3175,7 @@
 </blockquote>
 <h3 id="13-3-淘宝的主键设计"><a href="#13-3-淘宝的主键设计" class="headerlink" title="13.3 淘宝的主键设计"></a>13.3 淘宝的主键设计</h3><p>在淘宝的电商业务中，订单服务是一个核心业务。请问， <code>订单表的主键</code> 淘宝是如何设计的呢？是自增ID吗？</p>
 <p>打开淘宝，看一下订单信息：  </p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327194022473.png" alt="image-20220327194022473"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327194022473.png" alt="image-20220327194022473"></p>
 <p>从上图可以发现，订单号不是自增ID！我们详细看下上述4个订单号：  </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1550672064762308113</span><br><span class="line">1481195847180308113</span><br><span class="line">1431156171142308113</span><br><span class="line">1431146631521308113</span><br></pre></td></tr></table></figure>
 
@@ -3212,7 +3202,7 @@
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UUID = 时间+UUID版本（16字节）- 时钟序列（4字节） - MAC地址（12字节）</span><br></pre></td></tr></table></figure>
 
 <p>我们以UUID值e0ea12d4-6473-11eb-943c-00155dbaa39d举例 :</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327194036197.png" alt="image-20220327194036197"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327194036197.png" alt="image-20220327194036197"></p>
 <p>为什么UUID是全局唯一的？</p>
 <p>在UUID中时间部分占用60位，存储的类似TIMESTAMP的时间戳，但表示的是从1582-10-15 00：00：00.00到现在的100ns的计数。可以看到UUID存储的时间精度比TIMESTAMPE更高，时间维度发生重复的概率降低到1&#x2F;100ns。</p>
 <p>时钟序列是为了避免时钟被回拨导致产生时间重复的可能性。MAC地址用于全局唯一。</p>
@@ -3226,12 +3216,12 @@
 <p>可以通过MySQL8.0提供的uuid_to_bin函数实现上述功能，同样的，MySQL也提供了bin_to_uuid函数进行转化：  </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SET @uuid = UUID();</span><br><span class="line">SELECT @uuid,uuid_to_bin(@uuid),uuid_to_bin(@uuid,TRUE);</span><br><span class="line"># uuid_to_bin(@uuid) 转成16进制存储</span><br><span class="line"># uuid_to_bin(@uuid,TRUE); 修改成先高位 中位 地位，就可以保证uuid地政了</span><br></pre></td></tr></table></figure>
 
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327194047194.png" alt="image-20220327194047194"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327194047194.png" alt="image-20220327194047194"></p>
 <p><strong>通过函数uuid_to_bin(@uuid,true)将UUID转化为有序UUID了。</strong>全局唯一 + 单调递增，这不就是我们想要的主键！</p>
 <p><strong>4、有序UUID性能测试</strong></p>
 <p>16字节的有序UUID，相比之前8字节的自增ID，性能和存储空间对比究竟如何呢？</p>
 <p>我们来做一个测试，插入1亿条数据，每条数据占用500字节，含有3个二级索引，最终的结果如下所示：  </p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327194059890.png" alt="image-20220327194059890"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327194059890.png" alt="image-20220327194059890"></p>
 <p>从上图可以看到插入1亿条数据有序UUID是最快的，而且在实际业务使用中有序UUID在 业务端就可以生<br>成 。还可以进一步减少SQL的交互次数。</p>
 <p>另外，虽然有序UUID相比自增ID多了8个字节，但实际只增大了3G的存储空间，还可以接受。</p>
 <blockquote>
@@ -3257,9 +3247,9 @@
 <p>我们在设计某个字段的时候，对于字段×来说，不能把字段×拆分成字段X-1和字段X-2。事实上，任何的DBMS都会满足第一范式的要求，不会将字段进行拆分。</p>
 <p><strong>举例1:</strong></p>
 <p>假设一家公司要存储员工的姓名和联系方式。它创建一个如下表:</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220328095515382.png" alt="image-20220328095515382"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220328095515382.png" alt="image-20220328095515382"></p>
 <p>该表不符合1NF，因为规则说“表的每个属性必须具有原子(单个）值”lisi和zhaoliu员工的emp_mobile值违反了该规则(有两个电话)。为了使表符合1NF，我们应该有如下表数据:</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220328095522609.png" alt="image-20220328095522609"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220328095522609.png" alt="image-20220328095522609"></p>
 <p><strong>举例2：</strong></p>
 <table>
 <thead>
@@ -3434,11 +3424,11 @@
 </blockquote>
 <p><strong>举例3：</strong></p>
 <p>定义了一个名为 Orders 的关系，表示订单和订单行的信息：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220328101954268.png" alt="image-20220328101954268"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220328101954268.png" alt="image-20220328101954268"></p>
 <p>违反了第二范式，因为有非主键属性仅依赖于候选键（或主键）的一部分。例如，可以仅通过orderid找到订单的 orderdate，以及 customerid 和 companyname，而没有必要再去使用productid。</p>
 <p>修改：</p>
 <p>Orders表和OrderDetails表如下，此时符合第二范式  </p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220328102007725.png" alt="image-20220328102007725"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220328102007725.png" alt="image-20220328102007725"></p>
 <blockquote>
 <p>小结: 第二范式(2NF）要求实体的属性完全依赖主关键字。如果存在不完全依赖，那么这个属性和主关键字的这一部分应该分离出来形成一个新的实体，新实体与元实体之间是一对多的关系。</p>
 </blockquote>
@@ -3552,7 +3542,7 @@
 <p>商品表goods通过商品类别id字段（category_id）与商品类别表goods_category进行关联。</p>
 <p><strong>举例3：</strong></p>
 <p><code>球员player表</code> ：球员编号、姓名、球队名称和球队主教练。现在，我们把属性之间的依赖关系画出<br>来，如下图所示：  </p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220328102411308.png" alt="image-20220328102411308"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220328102411308.png" alt="image-20220328102411308"></p>
 <p>你能看到球员编号决定了球队名称，同时球队名称决定了球队主教练，非主属性球队主教练就会传递依<br>赖于球员编号，因此不符合 3NF 的要求。</p>
 <p>如果要达到 3NF 的要求，需要把数据表拆成下面这样：  </p>
 <table>
@@ -3574,7 +3564,7 @@
 <p><strong>举例4：</strong></p>
 <p>修改第二范式中的举例3。</p>
 <p>此时的Orders关系包含 orderid、orderdate、customerid 和 companyname 属性，主键定义为 orderid。customerid 和companyname均依赖于主键——orderid。例如，你需要通过orderid主键来查找代表订单中客户的customerid，同样，你需要通过 orderid 主键查找订单中客户的公司名称（companyname）。然而， customerid和companyname也是互相依靠的。为满足第三范式，可以改写如下：  </p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220328102401313.png" alt="image-20220328102401313"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220328102401313.png" alt="image-20220328102401313"></p>
 <blockquote>
 <p>符合3NF后的数据模型通俗地讲，2NF和3NF通常以这句话概括：“每个非键属性依赖于键，依赖于整个键，并且除了键别无他物”。  </p>
 </blockquote>
@@ -3635,15 +3625,15 @@
 </tr>
 </tbody></table>
 <p>举例3： 我们有 2 个表，分别是 商品流水表（atguigu.trans ）和 商品信息表<br>（atguigu.goodsinfo） 。商品流水表里有 400 万条流水记录，商品信息表里有 2000 条商品记录。<br>商品流水表：  </p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220328102856949.png" alt="image-20220328102856949"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220328102856949.png" alt="image-20220328102856949"></p>
 <p>商品信息表：  </p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220328102906913.png" alt="image-20220328102906913"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220328102906913.png" alt="image-20220328102906913"></p>
 <p>新的商品流水表如下所示：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220328102921528.png" alt="image-20220328102921528"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220328102921528.png" alt="image-20220328102921528"></p>
 <p>举例4：<br>课程评论表 class_comment ，对应的字段名称及含义如下：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220328102934457.png" alt="image-20220328102934457"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220328102934457.png" alt="image-20220328102934457"></p>
 <p>学生表 student ，对应的字段名称及含义如下：</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220328102948234.png" alt="image-20220328102948234"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220328102948234.png" alt="image-20220328102948234"></p>
 <p>在实际应用中，我们在显示课程评论的时候，通常会显示这个学生的昵称，而不是学生 ID，因此当我们想要查询某个课程的前 1000 条评论时，需要关联 class_comment 和 student这两张表来进行查询。</p>
 <p><strong>实验数据：模拟两张百万量级的数据表</strong></p>
 <p>为了更好地进行 SQL 优化实验，我们需要给学生表和课程评论表随机模拟出百万量级的数据。我们可以<br>通过存储过程来实现模拟数据。</p>
@@ -3651,14 +3641,14 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SELECT p.comment_text, p.comment_time, stu.stu_name</span><br><span class="line">FROM class_comment AS p LEFT JOIN student AS stu</span><br><span class="line">ON p.stu_id = stu.stu_id</span><br><span class="line">WHERE p.class_id = 10001</span><br><span class="line">ORDER BY p.comment_id DESC</span><br><span class="line">LIMIT 1000;</span><br></pre></td></tr></table></figure>
 
 <p>运行结果（1000 条数据行）  </p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220328102757397.png" alt="image-20220328102757397"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220328102757397.png" alt="image-20220328102757397"></p>
 <p>运行时长为 <code>0.395</code> 秒，对于网站的响应来说，这已经很慢了，用户体验会非常差。</p>
 <p>如果我们想要提升查询的效率，可以允许适当的数据冗余，也就是在商品评论表中增加用户昵称字段，<br>在 class_comment 数据表的基础上增加 stu_name 字段，就得到了 class_comment2 数据表。</p>
 <p>这样一来，只需单表查询就可以得到数据集结果：  </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT comment_text, comment_time, stu_name</span><br><span class="line">FROM class_comment2</span><br><span class="line">WHERE class_id = 10001</span><br><span class="line">ORDER BY class_id DESC LIMIT 1000;</span><br></pre></td></tr></table></figure>
 
 <p>运行结果（1000 条数据）：  </p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220328102757397.png" alt="image-20220328102757397"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220328102757397.png" alt="image-20220328102757397"></p>
 <p>优化之后只需要扫描一次聚集索引即可，运行时间为 <code>0.039</code> 秒，查询时间是之前的 1&#x2F;10。 你能看到，<br>在数据量大的情况下，查询效率会有显著的提升。</p>
 <h3 id="3-3-反范式的新问题"><a href="#3-3-反范式的新问题" class="headerlink" title="3.3 反范式的新问题"></a>3.3 反范式的新问题</h3><p>存储 空间变大 了</p>
 <p>一个表中字段做了修改，另一个表中冗余的字段也需要做同步修改，否则 数据不一致</p>
@@ -3728,11 +3718,11 @@
 <p><strong>通常我们对于查询响应要求高的场景（响应时间短，吞吐量大)，可以考虑内存数据库，毕竟术业有专攻</strong>。传统的RDBMS都是将数据存储在硬盘上，而内存数据库则存放在内存中，查询起来要快得多。不过使用不同的工具，也增加了开发人员的使用成本。</p>
 <h4 id="第6步-库级优化"><a href="#第6步-库级优化" class="headerlink" title="第6步:库级优化"></a>第6步:库级优化</h4><p>库级优化是站在数据库的维度上进行的优化策略，比如控制一个库中的数据表数量。另外，单一的数据库总会遇到各种限制，不如取长补短，利用”外援”的方式。通过<code>主从架构</code>优化我们的读写策略，通过对数据库进行垂直或者水平切分，突破单一数据库或数据表的访问限制，提升查询的性能。</p>
 <h5 id="1、读写分离"><a href="#1、读写分离" class="headerlink" title="1、读写分离"></a>1、读写分离</h5><p>如果读和写的业务量都很大，并且它们都在同一个数据库服务器中进行操作，那么数据库的性能就会出现瓶颈，这时为了提升系统的性能，优化用户体验，我们可以采用<code>读写分离</code>的方式降低主数据库的负载，比如用主数据库(master)完成写操作，用从数据库(slave)完成读操作。</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327232334207.png" alt="image-20220327232334207"></p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327232344144.png" alt="image-20220327232344144"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327232334207.png" alt="image-20220327232334207"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327232344144.png" alt="image-20220327232344144"></p>
 <h5 id="2、数据分片"><a href="#2、数据分片" class="headerlink" title="2、数据分片"></a>2、数据分片</h5><p>对数据库分库分表。当数据量级达到干万级以上时，有时候我们需要把一个数据库切成多份，放到不同的数据库服务器上，减少对单一数据库服务器的访问压力。如果你使用的是MySQL，就可以使用MySQL自带的分区表功能，当然你也可以考虑自己做<code>垂直拆分（分库)</code>、<code>水平拆分</code>（分表）、<code>垂直+水平拆分(分库分表</code>)。</p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327232559837.png" alt="image-20220327232559837"></p>
-<p><img src="http://cdn.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327232655999.png" alt="image-20220327232655999"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327232559837.png" alt="image-20220327232559837"></p>
+<p><img src="http://fastly.jsdelivr.net/gh/lowols/Pictures@main/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87_02_%E7%B4%A2%E5%BC%95%E5%8F%8A%E8%B0%83%E4%BC%98%E7%AF%87_Img/image-20220327232655999.png" alt="image-20220327232655999"></p>
 <blockquote>
 <p>但需要注意的是，分拆在提升数据库性能的同时，也会增加维护和使用成本</p>
 </blockquote>
